@@ -1,7 +1,7 @@
 # Личный проект «Что посмотреть» [![Build status][travis-image]][travis-url]
 
 * Студент: [Щукин Дмитрий](https://up.htmlacademy.ru/react/1/user/929569).
-* Наставник: `Неизвестно`.
+* Наставник: [Юрий Татаринцев](https://htmlacademy.ru/profile/id235196).
 
 ---
 
