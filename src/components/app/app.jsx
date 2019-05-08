@@ -5,15 +5,15 @@ import MainPage from '../main/main-page.jsx';
 
 
 const App = (props) => {
-  const {data} = props;
+  const {movies} = props;
 
   return (
-    <MainPage movies={data.movies.names} />
+    <MainPage movies={movies} />
   );
 };
 
 App.propTypes = {
-  data: PropTypes.object.isRequired
+  movies: PropTypes.arrayOf(PropTypes.string).isRequired
 };
 
 export default App;
