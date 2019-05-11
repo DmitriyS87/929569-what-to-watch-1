@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 const MainPage = (props) => {
-  const {movies} = props;
+  const {movies, onClick} = props;
 
   return (<div>
     <section className="movie-card">
@@ -101,7 +101,7 @@ const MainPage = (props) => {
           {movies.map((movie, index) => {
             return (
               <article key={`movie` + index} className="small-movie-card catalog__movies-card">
-                <button className="small-movie-card__play-btn" type="button">Play</button>
+                <button className="small-movie-card__play-btn" type="button" onClick={onClick}>Play</button>
                 <div className="small-movie-card__image">
                   <img src="img/orlando.jpg" alt={movie} width="280" height="175" />
                 </div>
@@ -137,7 +137,8 @@ const MainPage = (props) => {
 };
 
 MainPage.propTypes = {
-  movies: PropTypes.arrayOf(PropTypes.string).isRequired
+  movies: PropTypes.arrayOf(PropTypes.string).isRequired,
+  onClick: PropTypes.func
 };
 
 export default MainPage;
