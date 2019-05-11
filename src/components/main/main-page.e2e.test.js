@@ -17,6 +17,6 @@ it(`movie card title click`, () => {
 
   const titleButton = mainPage.find(`.small-movie-card__play-btn`);
   titleButton.simulate(`click`);
-  expect(clickHandler).toHaveBeenCalled();
+  expect(clickHandler).toHaveBeenCalledTimes(1);
 
 });
