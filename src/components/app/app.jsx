@@ -6,9 +6,11 @@ import MainPage from '../main/main-page.jsx';
 
 const App = (props) => {
   const {movies} = props;
-
+  const clickHandler = (evt) => {
+    return evt.preventDefault();
+  };
   return (
-    <MainPage movies={movies} />
+    <MainPage movies={movies} onClick={clickHandler} />
   );
 };
 
