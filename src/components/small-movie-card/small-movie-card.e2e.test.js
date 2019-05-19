@@ -2,20 +2,15 @@ import React from 'react';
 import Adapter from 'enzyme-adapter-react-16';
 import Enzyme, {shallow} from 'enzyme';
 import SmallMovieCard from '../small-movie-card/small-movie-card.jsx';
+import TEST_MOCKS from '../../mocks/test-mocks.js';
 
 Enzyme.configure({adapter: new Adapter()});
-
-const mockMovie = {
-  title: `Aviator`,
-  coverSrc: `img/aviator.jpg`,
-  id: 0
-};
 
 it(`SmallMovieCard correctly calles callbacks onMouseEnter, onClick, onMouseLeave`, () => {
   const mockFunctionFocus = jest.fn();
   const mockHandler = jest.fn();
   const mainPage = shallow(<SmallMovieCard
-    movie={mockMovie}
+    movie={TEST_MOCKS.film}
     onPlayClick={mockHandler}
     onFocus={mockFunctionFocus}
     onBlur={mockHandler}
@@ -23,7 +18,7 @@ it(`SmallMovieCard correctly calles callbacks onMouseEnter, onClick, onMouseLeav
 
   const movieCard = mainPage.find(`.small-movie-card`);
   movieCard.simulate(`mouseenter`);
-  expect(mockFunctionFocus).toHaveBeenCalledWith(mockMovie.id);
+  expect(mockFunctionFocus).toHaveBeenCalledWith(TEST_MOCKS.film.id);
 
   const playButton = movieCard.find(`.small-movie-card__play-btn`);
   playButton.simulate(`click`);
