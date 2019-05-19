@@ -259,6 +259,10 @@ exports[`App correctly renders after relunch 1`] = `
       >
         <article
           className="small-movie-card catalog__movies-card"
+          onBlur={[Function]}
+          onFocus={[Function]}
+          onMouseEnter={[Function]}
+          onMouseLeave={[Function]}
         >
           <button
             className="small-movie-card__play-btn"
@@ -271,9 +275,9 @@ exports[`App correctly renders after relunch 1`] = `
             className="small-movie-card__image"
           >
             <img
-              alt="some movie name"
+              alt="Aviator"
               height="175"
-              src="img/orlando.jpg"
+              src="img/aviator.jpg"
               width="280"
             />
           </div>
@@ -284,69 +288,7 @@ exports[`App correctly renders after relunch 1`] = `
               className="small-movie-card__link"
               href="movie-page.html"
             >
-              some movie name
-            </a>
-          </h3>
-        </article>
-        <article
-          className="small-movie-card catalog__movies-card"
-        >
-          <button
-            className="small-movie-card__play-btn"
-            onClick={[Function]}
-            type="button"
-          >
-            Play
-          </button>
-          <div
-            className="small-movie-card__image"
-          >
-            <img
-              alt="some movie name"
-              height="175"
-              src="img/orlando.jpg"
-              width="280"
-            />
-          </div>
-          <h3
-            className="small-movie-card__title"
-          >
-            <a
-              className="small-movie-card__link"
-              href="movie-page.html"
-            >
-              some movie name
-            </a>
-          </h3>
-        </article>
-        <article
-          className="small-movie-card catalog__movies-card"
-        >
-          <button
-            className="small-movie-card__play-btn"
-            onClick={[Function]}
-            type="button"
-          >
-            Play
-          </button>
-          <div
-            className="small-movie-card__image"
-          >
-            <img
-              alt="some movie name"
-              height="175"
-              src="img/orlando.jpg"
-              width="280"
-            />
-          </div>
-          <h3
-            className="small-movie-card__title"
-          >
-            <a
-              className="small-movie-card__link"
-              href="movie-page.html"
-            >
-              some movie name
+              Aviator
             </a>
           </h3>
         </article>

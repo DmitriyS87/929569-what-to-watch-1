@@ -21,7 +21,7 @@ exports[`SmallMovieCard correctly renders after relunch 1`] = `
     <img
       alt="Aviator"
       height="175"
-      src="img/orlando.jpg"
+      src="img/aviator.jpg"
       width="280"
     />
   </div>
