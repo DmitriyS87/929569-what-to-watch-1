@@ -1,15 +1,14 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
 import MainPage from '../main/main-page.jsx';
+import TEST_MOCKS from '../../mocks/test-mocks.js';
 
 it(`App correctly renders after relunch`, () => {
+  const mockHandle = jest.fn();
   const tree = renderer
   .create(<MainPage
-    movies={[
-      `some movie name`,
-      `some movie name`,
-      `some movie name`
-    ]}
+    movies={TEST_MOCKS.films}
+    onClick={mockHandle}
   />)
   .toJSON();
 
