@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import MoviesList from '../movies-list/movies-list.jsx';
 
 const MainPage = (props) => {
   const {movies, onClick} = props;
@@ -97,21 +98,7 @@ const MainPage = (props) => {
           </li>
         </ul>
 
-        <div className="catalog__movies-list">
-          {movies.map((movie, index) => {
-            return (
-              <article key={`movie` + index} className="small-movie-card catalog__movies-card">
-                <button className="small-movie-card__play-btn" type="button" onClick={onClick}>Play</button>
-                <div className="small-movie-card__image">
-                  <img src="img/orlando.jpg" alt={movie} width="280" height="175" />
-                </div>
-                <h3 className="small-movie-card__title">
-                  <a className="small-movie-card__link" href="movie-page.html">{movie}</a>
-                </h3>
-              </article>
-            );
-          })}
-        </div>
+        <MoviesList movies={movies} onClick={onClick} />
 
         <div className="catalog__more">
           <button className="catalog__button" type="button">Show more</button>
@@ -137,7 +124,11 @@ const MainPage = (props) => {
 };
 
 MainPage.propTypes = {
-  movies: PropTypes.arrayOf(PropTypes.string).isRequired,
+  movies: PropTypes.arrayOf(PropTypes.shape({
+    title: PropTypes.string.isRequired,
+    coverSrc: PropTypes.string,
+    id: PropTypes.number.isRequired
+  })).isRequired,
   onClick: PropTypes.func
 };
 
