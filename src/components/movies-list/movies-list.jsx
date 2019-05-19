@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import SmallMovieCard from '../components/small-movie-card/small-movie-card.jsx';
+import SmallMovieCard from '../small-movie-card/small-movie-card.jsx';
 
 class MoviesList extends React.PureComponent {
   constructor(props) {
@@ -40,7 +40,11 @@ class MoviesList extends React.PureComponent {
 }
 
 MoviesList.propTypes = {
-  movies: PropTypes.arrayOf(PropTypes.string).isRequired,
+  movies: PropTypes.arrayOf(PropTypes.shape({
+    title: PropTypes.string.isRequired,
+    coverSrc: PropTypes.string,
+    id: PropTypes.number.isRequired
+  })).isRequired,
   onClick: PropTypes.func
 };
 
