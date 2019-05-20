@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`App correctly renders after relunch 1`] = `
+exports[`MainPage correctly renders after relunch 1`] = `
 <div>
   <section
     className="movie-card"
