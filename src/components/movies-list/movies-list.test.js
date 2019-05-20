@@ -1,12 +1,12 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
-import MainPage from '../main/main-page.jsx';
+import MoviesList from '../movies-list/movies-list.jsx';
 import TEST_MOCKS from '../../mocks/test-mocks.js';
 
-it(`MainPage correctly renders after relunch`, () => {
+it(`MoviesList correctly renders after relunch`, () => {
   const mockHandle = jest.fn();
   const tree = renderer
-  .create(<MainPage
+  .create(<MoviesList
     movies={TEST_MOCKS.films}
     onClick={mockHandle}
   />)
