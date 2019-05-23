@@ -259,18 +259,9 @@ exports[`App correctly renders after relunch 1`] = `
       >
         <article
           className="small-movie-card catalog__movies-card"
-          onBlur={[Function]}
-          onFocus={[Function]}
           onMouseEnter={[Function]}
           onMouseLeave={[Function]}
         >
-          <button
-            className="small-movie-card__play-btn"
-            onClick={[Function]}
-            type="button"
-          >
-            Play
-          </button>
           <div
             className="small-movie-card__image"
           >

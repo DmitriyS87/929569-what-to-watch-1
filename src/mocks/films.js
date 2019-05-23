@@ -5,12 +5,12 @@ export default [
     id: 0,
     links: [
       {
-        herf: `https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm`,
+        herf: `https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm`,
         format: `webm`,
       },
       {
-        herf: `https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv`,
-        format: `ogv`,
+        herf: `https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4`,
+        format: `mp4`,
       },
     ],
   },
@@ -20,11 +20,11 @@ export default [
     id: 1,
     links: [
       {
-        herf: `https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv`,
-        format: `ogv`,
+        herf: `https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4`,
+        format: `mp4`,
       },
       {
-        herf: `https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm`,
+        herf: `https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm`,
         format: `webm`,
       },
     ],
@@ -35,8 +35,8 @@ export default [
     id: 2,
     links: [
       {
-        herf: `https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv`,
-        format: `ogv`,
+        herf: `https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm`,
+        format: `webm`,
       },
     ],
   },
@@ -46,8 +46,8 @@ export default [
     id: 3,
     links: [
       {
-        herf: `https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv`,
-        format: `ogv`,
+        herf: `https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm`,
+        format: `webm`,
       },
     ],
   },
