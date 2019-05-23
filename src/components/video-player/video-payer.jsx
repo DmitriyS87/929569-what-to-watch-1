@@ -1,40 +1,26 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-// import VIDEO_PLAYER_CONSTANT from '../../constants/video-player-constant.js';
 
 class VideoPlayer extends React.PureComponent {
 
   constructor(props) {
     super(props);
 
-    // this._onPlay = this._onPlay.bind(this);
-    // this._onFocus = this._onFocus.bind(this);
-    // this._onBlur = this._onBlur.bind(this);
-    // this._cutFormat = this._cutFormat.bind(this);
+    this._onError = this._onError.bind(this);
   }
 
-  // _cutFormat(src) {
-  //   return src.match(VIDEO_PLAYER_CONSTANT.formatPatten);
-  // }
-
-  // _onPlay() {
-  //   this.props.onPlayClick(this);
-  // }
-
-  // _onFocus() {
-  //   this.props.onFocus(this.props.movie.id);
-  // }
-
-  // _onBlur() {
-  //   this.props.onBlur();
-  // }
+  _onError() {
+    const {onMouseLeave} = this.props;
+    onMouseLeave();
+    throw new Error(`Видео было перемещено или недоступно.`);
+  }
 
   // loadstart, progress, suspend, abort, error, emptied, stalled), так и с буферизацией (loadedmetadata, loadeddata, waiting, playing, canplay, canplaythrough)
   render() {
-    const {poster, movies, title} = this.props;
+    const {poster, movies, title, onMouseLeave} = this.props;
 
     return (
-      <video autoPlay controls poster={poster} muted>
+      <video autoPlay controls poster={poster} muted className="player__video" onMouseLeave={onMouseLeave} onError={onMouseLeave}>
         {movies.map((movie, idx)=> {
           return <source key={`${title}${idx}`} src={movie.herf} type={`video/${movie.format}`} />;
         })}
@@ -48,9 +34,7 @@ VideoPlayer.propTypes = {
   poster: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
   movies: PropTypes.arrayOf(PropTypes.object.isRequired),
-  // onPlayClick: PropTypes.func,
-  // onFocus: PropTypes.func.isRequired,
-  // onBlur: PropTypes.func.isRequired,
+  onMouseLeave: PropTypes.func,
 };
 
 export default VideoPlayer;
