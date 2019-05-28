@@ -6,8 +6,7 @@ import MainPage from '../main/main-page.jsx';
 
 const App = (props) => {
   const {movies} = props;
-  const clickHandler = (evt) => {
-    return evt.preventDefault();
+  const clickHandler = () => {
   };
   return (
     <MainPage movies={movies} onClick={clickHandler} />
