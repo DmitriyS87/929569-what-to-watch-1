@@ -2,10 +2,7 @@
 
 exports[`VideoPlayer correctly renders after relunch 1`] = `
 <video
-  autoPlay={true}
   className="player__video"
-  controls={true}
-  muted={true}
   poster="img/aviator.jpg"
 >
   <source
