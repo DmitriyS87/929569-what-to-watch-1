@@ -1,0 +1,18 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`VideoPlayer correctly renders after relunch 1`] = `
+<video
+  className="player__video"
+  poster="img/aviator.jpg"
+>
+  <source
+    src="https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm"
+    type="video/webm"
+  />
+  <source
+    src="https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv"
+    type="video/ogv"
+  />
+  К сожалению, ваш браузер не поддерживает HTML5 Video.
+</video>
+`;
