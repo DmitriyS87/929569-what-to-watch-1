@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import VideoPlayer from '../video-player/video-payer.jsx';
+import VideoPlayer from '../video-player/video-player.jsx';
 
 class SmallMovieCard extends React.PureComponent {
 
@@ -12,30 +12,28 @@ class SmallMovieCard extends React.PureComponent {
       shouldPlay: false,
     };
 
-    // this._onPlay = this._onPlay.bind(this);
     this._onFocus = this._onFocus.bind(this);
     this._onBlur = this._onBlur.bind(this);
   }
 
-  // _onPlay() {
-  //   this.props.onPlayClick(this);
-  // }
-  _startTimer() {
+  _startTimer(evt) {
     const self = this;
-    const startPlay = (movieCard) => {
+    const onPlay = this.props.onPlay;
+    const startPlay = (movieCard, callback) => {
+      callback(evt, movieCard);
       movieCard.setState({shouldPlay: true});
     };
-    setTimeout(startPlay, 1000, self);
+    setTimeout(startPlay, 1000, self, onPlay);
   }
 
-  _onFocus() {
-    // this.props.onFocus(this.props.movie.id);
+  _onFocus(evt) {
+    this.props.onFocus(this.props.movie.id);
     this.setState({isFocused: true});
-    this._startTimer();
+    this._startTimer(evt);
   }
 
   _onBlur() {
-    // this.props.onBlur();
+    this.props.onBlur();
     this.setState({isFocused: false, shouldPlay: false});
   }
 
@@ -61,7 +59,6 @@ class SmallMovieCard extends React.PureComponent {
 
     return (
       <article key={`movie` + movie.id} className="small-movie-card catalog__movies-card" onMouseEnter={this._onFocus} onMouseLeave={this._onBlur} >
-        {/* <button className="small-movie-card__play-btn" type="button" onClick={this._onPlay}>Play</button> */}
         {screen()}
       </article>
     );
@@ -74,7 +71,7 @@ SmallMovieCard.propTypes = {
     coverSrc: PropTypes.string,
     id: PropTypes.number.isRequired
   }),
-  onPlayClick: PropTypes.func,
+  onPlay: PropTypes.func,
   onFocus: PropTypes.func.isRequired,
   onBlur: PropTypes.func.isRequired,
 };
