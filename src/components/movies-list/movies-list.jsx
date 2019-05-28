@@ -32,7 +32,7 @@ class MoviesList extends React.PureComponent {
     return (
       <div className="catalog__movies-list">
         {movies.map((movie, idx) => {
-          return (<SmallMovieCard key={`movie` + idx} movie={movie} onPlayClick={onClick} onFocus={this._onFocus} onBlur={this._onBlur} />);
+          return (<SmallMovieCard key={`movie` + idx} movie={movie} onPlay={onClick} onFocus={this._onFocus} onBlur={this._onBlur} />);
         })}
       </div>
     );
