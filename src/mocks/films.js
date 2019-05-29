@@ -13,6 +13,7 @@ export default [
         format: `mp4`,
       },
     ],
+    genre: `Adventure`,
   },
   {
     title: `Pulp Fiction`,
@@ -28,6 +29,7 @@ export default [
         format: `webm`,
       },
     ],
+    genre: `Western`
   },
   {
     title: `Mindhunter`,
@@ -39,6 +41,7 @@ export default [
         format: `webm`,
       },
     ],
+    genre: `Action`
   },
   {
     title: `Shutter Island`,
@@ -50,6 +53,7 @@ export default [
         format: `webm`,
       },
     ],
+    genre: `Comedy`
   },
   {
     title: `What We Do in the Shadows`,
@@ -61,5 +65,6 @@ export default [
         format: `mp4`,
       },
     ],
+    genre: `Drama`
   }
 ];
