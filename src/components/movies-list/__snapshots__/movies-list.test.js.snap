@@ -30,5 +30,31 @@ exports[`MoviesList correctly renders after relunch 1`] = `
       </a>
     </h3>
   </article>
+  <article
+    className="small-movie-card catalog__movies-card"
+    onMouseEnter={[Function]}
+    onMouseLeave={[Function]}
+  >
+    <div
+      className="small-movie-card__image"
+    >
+      <img
+        alt="Pulp Fiction"
+        height="175"
+        src="img/pulp-fiction.jpg"
+        width="280"
+      />
+    </div>
+    <h3
+      className="small-movie-card__title"
+    >
+      <a
+        className="small-movie-card__link"
+        href="movie-page.html"
+      >
+        Pulp Fiction
+      </a>
+    </h3>
+  </article>
 </div>
 `;

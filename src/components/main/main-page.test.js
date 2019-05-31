@@ -9,6 +9,9 @@ it(`MainPage correctly renders after relunch`, () => {
   .create(<MainPage
     movies={TEST_MOCKS.films}
     onClick={mockHandle}
+    setGenre={mockHandle}
+    active={TEST_MOCKS.activeGenre}
+    genres={TEST_MOCKS.genres}
   />)
   .toJSON();
 
