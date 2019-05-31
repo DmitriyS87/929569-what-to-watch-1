@@ -11,7 +11,7 @@ class SmallMovieCard extends React.PureComponent {
       isFocused: false,
       shouldPlay: false,
     };
-
+    this.timeOutId = 0;
     this._onFocus = this._onFocus.bind(this);
     this._onBlur = this._onBlur.bind(this);
   }
@@ -23,7 +23,7 @@ class SmallMovieCard extends React.PureComponent {
       callback(evt, movieCard);
       movieCard.setState({shouldPlay: true});
     };
-    setTimeout(startPlay, 1000, self, onPlay);
+    this.timeOutId = setTimeout(startPlay, 1000, self, onPlay);
   }
 
   _onFocus(evt) {
@@ -62,6 +62,10 @@ class SmallMovieCard extends React.PureComponent {
         {screen()}
       </article>
     );
+  }
+
+  componentWillUnmount() {
+    clearTimeout(this.timeOutId);
   }
 }
 
