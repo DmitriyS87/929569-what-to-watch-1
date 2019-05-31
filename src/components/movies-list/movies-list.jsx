@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import SmallMovieCard from '../small-movie-card/small-movie-card.jsx';
 
-class MoviesList extends React.PureComponent {
+class MoviesList extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -26,9 +26,7 @@ class MoviesList extends React.PureComponent {
   }
 
   render() {
-
     const {movies, onClick} = this.props;
-
     return (
       <div className="catalog__movies-list">
         {movies.map((movie, idx) => {
