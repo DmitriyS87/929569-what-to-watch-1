@@ -34,6 +34,7 @@ class VideoPlayer extends React.PureComponent {
 
   componentWillUnmount() {
     const video = this._video.current;
+    video.onMouseLeave();
     video.autoplay = false;
     video.onError = null;
     video.onMouseLeave = null;
