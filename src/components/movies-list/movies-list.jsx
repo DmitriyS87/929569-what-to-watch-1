@@ -13,9 +13,9 @@ class MoviesList extends React.Component {
     this._onBlur = this._onBlur.bind(this);
   }
 
-  _onFocus(element) {
+  _onFocus(movieId) {
     this.setState({
-      activeMovie: element
+      activeMovie: movieId
     });
   }
 
@@ -30,7 +30,7 @@ class MoviesList extends React.Component {
     return (
       <div className="catalog__movies-list">
         {movies.map((movie, idx) => {
-          return (<SmallMovieCard key={`movie` + idx} movie={movie} onPlay={onClick} onFocus={this._onFocus} onBlur={this._onBlur} />);
+          return (<SmallMovieCard key={`movie` + idx} active={movie.id === this.state.activeMovie ? true : false} movie={movie} onPlay={onClick} onFocus={this._onFocus} onBlur={this._onBlur} />);
         })}
       </div>
     );

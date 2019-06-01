@@ -7,44 +7,42 @@ class SmallMovieCard extends React.PureComponent {
   constructor(props) {
     super(props);
 
-    this.state = {
-      isFocused: false,
-      shouldPlay: false,
-    };
-    this.timeOutId = 0;
     this._onFocus = this._onFocus.bind(this);
     this._onBlur = this._onBlur.bind(this);
+    this._clearTimeOut = this._clearTimeOut.bind(this);
   }
 
-  _startTimer(evt) {
+  _startTimer() {
     const self = this;
-    const onPlay = this.props.onPlay;
+    const onPlay = this.props.onFocus;
     const startPlay = (movieCard, callback) => {
-      callback(evt, movieCard);
-      movieCard.setState({shouldPlay: true});
+      callback(movieCard.props.movie.id);
     };
     this.timeOutId = setTimeout(startPlay, 1000, self, onPlay);
   }
 
-  _onFocus(evt) {
-    this.props.onFocus(this.props.movie.id);
-    this.setState({isFocused: true});
-    this._startTimer(evt);
+  _onFocus() {
+    this._startTimer();
   }
 
   _onBlur() {
     this.props.onBlur();
-    this.setState({isFocused: false, shouldPlay: false});
+    this._clearTimeOut();
+  }
+
+  _clearTimeOut() {
+    if (this.timeOutId) {
+      clearTimeout(this.timeOutId);
+    }
   }
 
   render() {
-    const {movie} = this.props;
-    const {isFocused, shouldPlay} = this.state;
+    const {movie, active} = this.props;
 
     const screen = () => {
 
-      if (isFocused && shouldPlay) {
-        return <VideoPlayer poster={movie.coverSrc} movies={movie.links} title={movie.title} onMouseLeave={this._onBlur} />;
+      if (active) {
+        return <VideoPlayer poster={movie.coverSrc} movies={movie.links} title={movie.title} />;
       }
 
       return (<React.Fragment>
@@ -65,7 +63,7 @@ class SmallMovieCard extends React.PureComponent {
   }
 
   componentWillUnmount() {
-    clearTimeout(this.timeOutId);
+    this._clearTimeOut();
   }
 }
 
@@ -75,7 +73,7 @@ SmallMovieCard.propTypes = {
     coverSrc: PropTypes.string,
     id: PropTypes.number.isRequired
   }),
-  onPlay: PropTypes.func,
+  active: PropTypes.bool.isRequired,
   onFocus: PropTypes.func.isRequired,
   onBlur: PropTypes.func.isRequired,
 };
