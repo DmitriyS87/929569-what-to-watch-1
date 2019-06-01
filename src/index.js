@@ -1,16 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './components/app/app.jsx';
-import {createStore, applyMiddleware} from 'redux';
-import {createLogger} from 'redux-logger';
-import thunk from 'redux-thunk';
+import {createStore} from 'redux';
 import {Provider} from 'react-redux';
 import {reducer} from './reducers/reducer';
 
-const logger = createLogger();
-
 const entryPoint = document.getElementById(`root`);
-const store = createStore(reducer, applyMiddleware(thunk, logger));
+const store = createStore(reducer, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());
 
 const init = () => {
   ReactDOM.render(
