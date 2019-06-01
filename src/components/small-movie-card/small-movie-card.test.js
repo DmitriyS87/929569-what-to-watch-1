@@ -5,10 +5,11 @@ import TEST_MOCKS from '../../mocks/test-mocks.js';
 
 it(`SmallMovieCard correctly renders after relunch`, () => {
   const mockHandler = jest.fn();
+  const MOCK_ACTIVE = false;
   const tree = renderer
   .create(<SmallMovieCard
     movie={TEST_MOCKS.film}
-    onPlayClick={mockHandler}
+    active={MOCK_ACTIVE}
     onFocus={mockHandler}
     onBlur={mockHandler}
   />)
