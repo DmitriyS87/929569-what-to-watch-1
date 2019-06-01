@@ -4,7 +4,7 @@ import {connect} from 'react-redux';
 import MainPage from '../main/main-page.jsx';
 import {changeGenre} from '../../reducers/reducer';
 
-class App extends React.Component {
+class App extends React.PureComponent {
   constructor(props) {
     super(props);
   }
