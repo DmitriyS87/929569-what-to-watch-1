@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import SmallMovieCard from '../small-movie-card/small-movie-card.jsx';
 
-class MoviesList extends React.PureComponent {
+class MoviesList extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -13,9 +13,9 @@ class MoviesList extends React.PureComponent {
     this._onBlur = this._onBlur.bind(this);
   }
 
-  _onFocus(element) {
+  _onFocus(movieId) {
     this.setState({
-      activeMovie: element
+      activeMovie: movieId
     });
   }
 
@@ -26,13 +26,11 @@ class MoviesList extends React.PureComponent {
   }
 
   render() {
-
     const {movies, onClick} = this.props;
-
     return (
       <div className="catalog__movies-list">
         {movies.map((movie, idx) => {
-          return (<SmallMovieCard key={`movie` + idx} movie={movie} onPlay={onClick} onFocus={this._onFocus} onBlur={this._onBlur} />);
+          return (<SmallMovieCard key={`movie` + idx} active={movie.id === this.state.activeMovie ? true : false} movie={movie} onPlay={onClick} onFocus={this._onFocus} onBlur={this._onBlur} />);
         })}
       </div>
     );

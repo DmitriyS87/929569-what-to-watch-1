@@ -13,7 +13,7 @@ class VideoPlayer extends React.PureComponent {
     const {poster, movies, title} = this.props;
 
     return (
-      <video ref={this._video} poster={poster} className="player__video" >
+      <video ref={this._video} poster={poster} className="player__video">
         {movies.map((movie, idx)=> {
           return <source key={`${title}${idx}`} src={movie.herf} type={`video/${movie.format}`} />;
         })}

@@ -1,17 +1,15 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
-import MainPage from '../main/main-page.jsx';
+import GenresList from '../genres-list/genres-list';
 import TEST_MOCKS from '../../mocks/test-mocks.js';
 
-it(`MainPage correctly renders after relunch`, () => {
+it(`GenresList correctly renders after relunch`, () => {
   const mockHandle = jest.fn();
   const tree = renderer
-  .create(<MainPage
-    movies={TEST_MOCKS.films}
-    onClick={mockHandle}
-    setGenre={mockHandle}
-    active={TEST_MOCKS.activeGenre}
+  .create(<GenresList
     genres={TEST_MOCKS.genres}
+    active={TEST_MOCKS.activeGenre}
+    setGenre={mockHandle}
   />)
   .toJSON();
 
