@@ -2,9 +2,13 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import MoviesList from '../movies-list/movies-list.jsx';
 import GenresList from '../genres-list/genres-list.jsx';
+import withActiveItem from '../../hocs/with-active-item.jsx';
 
 const MainPage = (props) => {
-  const {movies, onClick, setGenre, active, genres} = props;
+  const {movies, onClick, setGenre, genres, active} = props;
+
+  const GenersListWrapped = withActiveItem(GenresList, `All genres`);
+  const MoviesListWrapped = withActiveItem(MoviesList);
   return (<div>
     <section className="movie-card">
       <div className="movie-card__bg">
@@ -65,8 +69,8 @@ const MainPage = (props) => {
       <section className="catalog">
         <h2 className="catalog__title visually-hidden">Catalog</h2>
 
-        <GenresList genres={genres} setGenre={setGenre} active={active}/>
-        <MoviesList movies={movies} onClick={onClick} />
+        <GenersListWrapped genres={genres} setGenre={setGenre} active={active} />
+        <MoviesListWrapped movies={movies} onClick={onClick} />
 
         <div className="catalog__more">
           <button className="catalog__button" type="button">Show more</button>
