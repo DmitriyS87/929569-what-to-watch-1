@@ -19,7 +19,7 @@ it(`GenresList run onCLick once for each child li: `, () => {
 
   const genresList = shallow(<GenresList
     genres={TEST_MOCKS.genres}
-    active={TEST_MOCKS.activeGenre}
+    activeItem={TEST_MOCKS.activeGenre}
     setGenre={mockHandlerSetGenre}
     setActive={mockHandlerSetActive}
   />);
@@ -37,13 +37,16 @@ it(`GenresList return own genre for each child li when it clicked: `, () => {
     preventDefault() {
     }
   };
+
   const genresList = shallow(<GenresList
     genres={TEST_MOCKS.genres}
     activeItem={TEST_MOCKS.activeGenre}
     setGenre={mockHandlerSetGenre}
     setActive={mockHandlerSetActive}
   />);
+
   const genresItems = genresList.find(`.catalog__genres-item`);
+
   genresItems.forEach((genresItem, idx) => {
     genresItem.simulate(`click`, evt);
     expect(mockHandlerSetGenre).toHaveBeenCalledWith(TEST_MOCKS.genres[idx]);
