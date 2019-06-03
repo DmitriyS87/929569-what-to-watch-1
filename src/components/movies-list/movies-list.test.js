@@ -6,11 +6,12 @@ import TEST_MOCKS from '../../mocks/test-mocks.js';
 it(`MoviesList correctly renders after relunch`, () => {
   const mockHandle = jest.fn();
   const tree = renderer
-  .create(<MoviesList
-    movies={TEST_MOCKS.films}
-    onClick={mockHandle}
-  />)
-  .toJSON();
+    .create(<MoviesList
+      movies={TEST_MOCKS.films}
+      onClick={mockHandle}
+      setActive={mockHandle}
+    />)
+    .toJSON();
 
   expect(tree).toMatchSnapshot();
 });

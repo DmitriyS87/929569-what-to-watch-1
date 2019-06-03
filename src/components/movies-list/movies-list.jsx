@@ -14,23 +14,21 @@ class MoviesList extends React.PureComponent {
   }
 
   _onFocus(movieId) {
-    this.setState({
-      activeMovie: movieId
-    });
+    const {setActive} = this.props;
+    setActive(movieId);
   }
 
   _onBlur() {
-    this.setState({
-      activeMovie: null
-    });
+    const {setActive} = this.props;
+    setActive(null);
   }
 
   render() {
-    const {movies, onClick} = this.props;
+    const {movies, onClick, activeItem} = this.props;
     return (
       <div className="catalog__movies-list">
         {movies.map((movie, idx) => {
-          return (<SmallMovieCard key={`movie` + idx} active={movie.id === this.state.activeMovie ? true : false} movie={movie} onPlay={onClick} onFocus={this._onFocus} onBlur={this._onBlur} />);
+          return (<SmallMovieCard key={`movie` + idx} active={movie.id === activeItem ? true : false} movie={movie} onPlay={onClick} onFocus={this._onFocus} onBlur={this._onBlur} />);
         })}
       </div>
     );
@@ -43,7 +41,9 @@ MoviesList.propTypes = {
     coverSrc: PropTypes.string,
     id: PropTypes.number.isRequired
   })).isRequired,
-  onClick: PropTypes.func
+  onClick: PropTypes.func,
+  setActive: PropTypes.func.isRequired,
+  activeItem: PropTypes.number,
 };
 
 export default MoviesList;

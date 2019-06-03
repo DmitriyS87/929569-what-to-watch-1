@@ -6,12 +6,13 @@ import TEST_MOCKS from '../../mocks/test-mocks.js';
 it(`GenresList correctly renders after relunch`, () => {
   const mockHandle = jest.fn();
   const tree = renderer
-  .create(<GenresList
-    genres={TEST_MOCKS.genres}
-    active={TEST_MOCKS.activeGenre}
-    setGenre={mockHandle}
-  />)
-  .toJSON();
+    .create(<GenresList
+      genres={TEST_MOCKS.genres}
+      activeItem={TEST_MOCKS.activeGenre}
+      setGenre={mockHandle}
+      setActive={mockHandle}
+    />)
+    .toJSON();
 
   expect(tree).toMatchSnapshot();
 });
