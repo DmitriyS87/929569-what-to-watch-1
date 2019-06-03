@@ -1,24 +1,24 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const withActiveItem = (Component) => {
+const withActiveItem = (Component, initialState) => {
   class WithActiveItem extends React.PureComponent {
     constructor(props) {
       super(props);
 
       this.state = {
-        activeItem: props.activeItem
+        activeItem: this.props.active || initialState || null
       };
     }
 
     render() {
       const {activeItem} = this.state;
-      return <Component {...this.props} activeItem={activeItem} onClick={(item) => (this.setState({activeItem: activeItem === item ? item : ``}))} />;
+      return <Component {...this.props} activeItem={activeItem} setActive={(item) => (this.setState({activeItem: item}))} />;
     }
   }
 
   WithActiveItem.propTypes = {
-    activeItem: PropTypes.string.isRequired,
+    active: PropTypes.string,
   };
 
   return WithActiveItem;
