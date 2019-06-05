@@ -1,5 +1,5 @@
 import axios from 'axios';
-import {ActionCreator} from './reducers/reducer';
+import {ActionCreator} from './reducers/data/data';
 
 export const createAPI = (dispatch) => {
   const api = axios.create({
@@ -9,9 +9,6 @@ export const createAPI = (dispatch) => {
   });
 
   const onSuccess = (response) => response;
-  // {
-  //   dispatch(ActionCreator.loadMovies(response.data));
-  // };
 
   const onErrorr = (err) => {
     if (err.response.status === 403) {

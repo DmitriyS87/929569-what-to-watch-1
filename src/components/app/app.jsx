@@ -2,22 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import MainPage from '../main/main-page.jsx';
-import {ActionCreator} from '../../reducers/reducer';
-
-const transformToAppData = (data) => {
-  return data.map((movie) => {
-    return {
-      title: movie.name,
-      coverSrc: movie[`preview_image`],
-      id: movie.id,
-      links: [{
-        href: movie[`preview_video_link`],
-        format: `mp4`
-      }],
-      genre: movie.genre,
-    };
-  });
-};
+import {ActionCreator} from '../../reducers/genre/genre';
+import {getAdaptedMovies} from '../../reducers/data/selectors';
+import {getGenre} from '../../reducers/genre/selectors';
 class App extends React.PureComponent {
   constructor(props) {
     super(props);
@@ -40,8 +27,8 @@ App.propTypes = {
 
 const mapStateToProps = (state) => {
   return {
-    active: state.genre,
-    movies: transformToAppData(state.movies),
+    active: getGenre(state),
+    movies: getAdaptedMovies(state),
   };
 };
 const mapDispatchToProps = (dispatch) => {

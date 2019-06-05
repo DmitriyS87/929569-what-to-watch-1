@@ -3,13 +3,13 @@ import ReactDOM from 'react-dom';
 import App from './components/app/app.jsx';
 import {createStore, applyMiddleware} from 'redux';
 import {Provider} from 'react-redux';
-import {reducer, Operation} from './reducers/reducer';
+import reducer from './reducers';
+import {Operation} from './reducers/data/data';
 import {createAPI} from './api';
 import thunk from 'redux-thunk';
 import {compose} from 'recompose';
 
 const entryPoint = document.getElementById(`root`);
-
 
 const init = () => {
   const api = createAPI((...args) => store.dispatch(...args));

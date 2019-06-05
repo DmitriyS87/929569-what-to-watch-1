@@ -1,12 +1,9 @@
 const initialState = {
-  genre: `All genres`,
   movies: [],
 };
 
 const ActionType = {
-  GENRE_CHANGE: `GENRE_CHANGE`,
   LOAD_MOVIES: `LOAD_MOVIES`,
-  SHOW_ERROR_SCREEN: `SHOW_ERROR_SCREEN`
 };
 
 const ActionCreator = {
@@ -16,18 +13,6 @@ const ActionCreator = {
       movies
     };
   },
-  showErrorScreen: (message = `Error`) => {
-    return {
-      type: ActionType.SHOW_ERROR_SCREEN,
-      message
-    };
-  },
-  changeGenre: (genre) => {
-    return {
-      type: ActionType.GENRE_CHANGE,
-      genre,
-    };
-  }
 };
 
 const Operation = {
@@ -41,8 +26,6 @@ const Operation = {
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
-    case ActionType.GENRE_CHANGE:
-      return Object.assign({}, state, {genre: action.genre});
     case ActionType.LOAD_MOVIES:
       return Object.assign({}, state, {movies: action.movies});
     default:
