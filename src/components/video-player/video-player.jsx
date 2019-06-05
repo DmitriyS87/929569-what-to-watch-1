@@ -14,8 +14,8 @@ class VideoPlayer extends React.PureComponent {
 
     return (
       <video ref={this._video} poster={poster} className="player__video">
-        {movies.map((movie, idx)=> {
-          return <source key={`${title}${idx}`} src={movie.herf} type={`video/${movie.format}`} />;
+        {movies.map((movie, idx) => {
+          return <source key={`${title}${idx}`} src={movie.href} type={`video/${movie.format}`} />;
         })}
         К сожалению, ваш браузер не поддерживает HTML5 Video.
       </video>
