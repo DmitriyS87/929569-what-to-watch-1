@@ -175,6 +175,17 @@ exports[`MainPage correctly renders after relunch 1`] = `
             Adventure
           </a>
         </li>
+        <li
+          className="catalog__genres-item "
+          onClick={[Function]}
+        >
+          <a
+            className="catalog__genres-link"
+            href="#"
+          >
+            Western
+          </a>
+        </li>
       </ul>
       <div
         className="catalog__movies-list"

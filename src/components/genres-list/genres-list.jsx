@@ -1,8 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import {getUniqueStrings} from '../../utils/get-unique-strings';
 
 const GenresList = (props) => {
-  const {genres, activeItem, setGenre, setActive} = props;
+  const {movies, activeItem, setGenre, setActive} = props;
+  const genres = [`All genres`, ...getUniqueStrings(movies.map((it) => it.genre))];
   const handleClick = (evt, genre) => {
     evt.stopPropagation();
     evt.preventDefault();
@@ -24,7 +26,7 @@ const GenresList = (props) => {
 };
 
 GenresList.propTypes = {
-  genres: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
+  movies: PropTypes.arrayOf(PropTypes.object.isRequired).isRequired,
   activeItem: PropTypes.string.isRequired,
   setGenre: PropTypes.func.isRequired,
   setActive: PropTypes.func.isRequired,

@@ -5,7 +5,7 @@ import GenresList from '../genres-list/genres-list.jsx';
 import withActiveItem from '../../hocs/with-active-item.jsx';
 
 const MainPage = (props) => {
-  const {movies, onClick, setGenre, genres, active} = props;
+  const {movies, setGenre, active} = props;
 
   const GenersListWrapped = withActiveItem(GenresList, `All genres`);
   const MoviesListWrapped = withActiveItem(MoviesList);
@@ -69,8 +69,8 @@ const MainPage = (props) => {
       <section className="catalog">
         <h2 className="catalog__title visually-hidden">Catalog</h2>
 
-        <GenersListWrapped genres={genres} setGenre={setGenre} active={active} />
-        <MoviesListWrapped movies={movies} onClick={onClick} />
+        <GenersListWrapped movies={movies} setGenre={setGenre} active={active} />
+        <MoviesListWrapped movies={movies} activeGenre={active} />
 
         <div className="catalog__more">
           <button className="catalog__button" type="button">Show more</button>
@@ -102,8 +102,6 @@ MainPage.propTypes = {
     coverSrc: PropTypes.string,
     id: PropTypes.number.isRequired
   })).isRequired,
-  onClick: PropTypes.func,
-  genres: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
   active: PropTypes.string.isRequired,
   setGenre: PropTypes.func.isRequired,
 };

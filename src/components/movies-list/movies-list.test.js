@@ -8,8 +8,9 @@ it(`MoviesList correctly renders after relunch`, () => {
   const tree = renderer
     .create(<MoviesList
       movies={TEST_MOCKS.films}
-      onClick={mockHandle}
       setActive={mockHandle}
+      activeGenre={TEST_MOCKS.activeGenre}
+      activeItem={null}
     />)
     .toJSON();
 

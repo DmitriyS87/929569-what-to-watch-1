@@ -18,7 +18,7 @@ it(`GenresList run onCLick once for each child li: `, () => {
   };
 
   const genresList = shallow(<GenresList
-    genres={TEST_MOCKS.genres}
+    movies={TEST_MOCKS.films}
     activeItem={TEST_MOCKS.activeGenre}
     setGenre={mockHandlerSetGenre}
     setActive={mockHandlerSetActive}
@@ -39,7 +39,7 @@ it(`GenresList return own genre for each child li when it clicked: `, () => {
   };
 
   const genresList = shallow(<GenresList
-    genres={TEST_MOCKS.genres}
+    movies={TEST_MOCKS.films}
     activeItem={TEST_MOCKS.activeGenre}
     setGenre={mockHandlerSetGenre}
     setActive={mockHandlerSetActive}

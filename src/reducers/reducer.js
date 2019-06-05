@@ -1,37 +1,53 @@
-import {GENRE_LIST_ACTION} from '../constants/genre-list-action.constant';
-import films from '../mocks/films';
-import {getUniqueStrings} from '../utils/get-unique-strings';
-
-const defaultGenre = `All genres`;
-
 const initialState = {
   genre: `All genres`,
-  movies: films,
-  genres: [`All genres`, ...getUniqueStrings(films.map((it) => it.genre))]
+  movies: [],
 };
 
-const changeGenre = (genre) => {
-  return {
-    type: GENRE_LIST_ACTION.GENRE_CHANGE,
-    genre,
-  };
+const ActionType = {
+  GENRE_CHANGE: `GENRE_CHANGE`,
+  LOAD_MOVIES: `LOAD_MOVIES`,
+  SHOW_ERROR_SCREEN: `SHOW_ERROR_SCREEN`
+};
+
+const ActionCreator = {
+  loadMovies: (movies) => {
+    return {
+      type: ActionType.LOAD_MOVIES,
+      movies
+    };
+  },
+  showErrorScreen: (message = `Error`) => {
+    return {
+      type: ActionType.SHOW_ERROR_SCREEN,
+      message
+    };
+  },
+  changeGenre: (genre) => {
+    return {
+      type: ActionType.GENRE_CHANGE,
+      genre,
+    };
+  }
+};
+
+const Operation = {
+  loadMovies: () => (dispatch, _getState, api) => {
+    return api.get(`/films`)
+      .then((response) => {
+        dispatch(ActionCreator.loadMovies(response.data));
+      });
+  },
 };
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
-    case GENRE_LIST_ACTION.GENRE_CHANGE:
-      return Object.assign({}, state, {genre: action.genre, movies: getFiltredFilms(action.genre, [...initialState.movies])});
+    case ActionType.GENRE_CHANGE:
+      return Object.assign({}, state, {genre: action.genre});
+    case ActionType.LOAD_MOVIES:
+      return Object.assign({}, state, {movies: action.movies});
     default:
       return state;
   }
 };
 
-
-const getFiltredFilms = (genre, movies) => {
-  if (defaultGenre === genre) {
-    return [...movies];
-  }
-  return [...movies.filter((film) => film.genre === genre)];
-};
-
-export {reducer, changeGenre};
+export {reducer, ActionCreator, Operation, ActionType};
