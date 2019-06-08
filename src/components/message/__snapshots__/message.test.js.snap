@@ -1,0 +1,11 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Message correctly render text: 1`] = `
+<div
+  className=""
+>
+  <p>
+    is correct message
+  </p>
+</div>
+`;
