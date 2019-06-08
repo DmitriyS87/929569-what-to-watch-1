@@ -49,7 +49,7 @@ export default {
   },
   activeGenre: `All genres`,
   genres: [`All genres`, `Adventure`, `Western`],
-  dispatchToProps: {
+  mapStateToProps: {
     active: `All genres`,
     movies: [{
       title: `Aviator`,
@@ -67,6 +67,6 @@ export default {
       ],
       genre: `Adventure`,
     }],
-    genres: [`All genres`, `Adventure`],
+    isAuthorizationRequired: false,
   }
 };

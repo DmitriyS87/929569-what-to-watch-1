@@ -4,11 +4,14 @@ import MoviesList from '../movies-list/movies-list.jsx';
 import GenresList from '../genres-list/genres-list.jsx';
 import withActiveItem from '../../hocs/with-active-item.jsx';
 
+import UserBlock from '../user-block/user-block.jsx';
+
 const MainPage = (props) => {
-  const {movies, setGenre, active} = props;
+  const {movies, setGenre, active, checkUser, user} = props;
 
   const GenersListWrapped = withActiveItem(GenresList, `All genres`);
   const MoviesListWrapped = withActiveItem(MoviesList);
+
   return (<div>
     <section className="movie-card">
       <div className="movie-card__bg">
@@ -26,11 +29,7 @@ const MainPage = (props) => {
           </a>
         </div>
 
-        <div className="user-block">
-          <div className="user-block__avatar">
-            <img src="img/avatar.jpg" alt="User avatar" width="63" height="63" />
-          </div>
-        </div>
+        <UserBlock loginUser={checkUser} user={user} />
       </header>
 
       <div className="movie-card__wrap">
@@ -104,6 +103,8 @@ MainPage.propTypes = {
   })).isRequired,
   active: PropTypes.string.isRequired,
   setGenre: PropTypes.func.isRequired,
+  checkUser: PropTypes.func.isRequired,
+  user: PropTypes.object
 };
 
 export default MainPage;
