@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-export const createAPI = (onError) => {
+export const createAPI = () => {
   const api = axios.create({
     baseURL: `https://es31-server.appspot.com/wtw`,
     timeout: 5000,
@@ -11,7 +11,7 @@ export const createAPI = (onError) => {
 
   const onErrorr = (err) => {
     if (err.status === 403) {
-      onError(`Доступ ограничен статус 403`);
+      history.pushState(null, null, `login`);
     }
     return err;
   };

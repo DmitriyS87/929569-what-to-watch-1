@@ -12,6 +12,7 @@ const SignIn = (props) => {
       email: user[`user-email`].value,
       password: user[`user-password`].value
     });
+    history.go(-1);
   };
 
   return (

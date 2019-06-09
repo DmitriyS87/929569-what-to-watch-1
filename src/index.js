@@ -8,6 +8,7 @@ import {Operation} from './reducers/data/data';
 import {createAPI} from './api';
 import thunk from 'redux-thunk';
 import {compose} from 'recompose';
+import {BrowserRouter} from 'react-router-dom';
 
 const entryPoint = document.getElementById(`root`);
 
@@ -18,7 +19,9 @@ const init = () => {
 
   ReactDOM.render(
       <Provider store={store}>
-        <App />
+        <BrowserRouter>
+          <App />
+        </BrowserRouter>
       </Provider>, entryPoint);
 };
 

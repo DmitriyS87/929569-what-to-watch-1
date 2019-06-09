@@ -53,6 +53,7 @@ exports[`MainPage correctly renders with user login 1`] = `
           <img
             alt="User avatar"
             height="63"
+            onClick={[Function]}
             src="img/avatar.jpg"
             width="63"
           />
@@ -341,8 +342,8 @@ exports[`MainPage correctly renders without user 1`] = `
       >
         <a
           className="user-block__link"
-          href="#"
-          onClick={[MockFunction]}
+          href=""
+          onClick={[Function]}
         >
           Sign in
         </a>
