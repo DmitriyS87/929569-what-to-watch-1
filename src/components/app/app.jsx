@@ -2,6 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import MainPage from '../main/main-page.jsx';
+import MyList from '../my-list/my-list.jsx';
+import withPrivatePath from '../../hocs/with-private-path.jsx';
 import {ActionCreator as GenreActionCreator} from '../../reducers/genre/genre';
 import {ActionCreator as UserActionCreator} from '../../reducers/user/user';
 import {Operation} from '../../reducers/user/user';
@@ -9,10 +11,11 @@ import {getAdaptedMovies} from '../../reducers/data/selectors';
 import {getAuthorizationRequired} from '../../reducers/user/selectors';
 import {getErrorMessage} from '../../reducers/user/selectors';
 import {getUser} from '../../reducers/user/selectors';
-
+import {Switch, Route} from 'react-router-dom';
 import {getGenre} from '../../reducers/genre/selectors';
 import SignIn from '../sign-in/sign-in.jsx';
 
+const PrivateMyList = withPrivatePath(MyList);
 class App extends React.PureComponent {
   constructor(props) {
     super(props);
@@ -20,13 +23,13 @@ class App extends React.PureComponent {
 
   render() {
     const {movies, setGenre, active, isAuthorizationRequired, tryLogin, errorMessage, checkUser, user} = this.props;
-    if (isAuthorizationRequired) {
-      return <SignIn onLogin={tryLogin} message={errorMessage} />;
-    }
 
     return (
-      <MainPage movies={movies} setGenre={setGenre} active={active} isAuthorizationRequired={isAuthorizationRequired} user={user} checkUser={checkUser} />
-    );
+      <Switch>
+        <Route path="/" exact render={() => <MainPage movies={movies} setGenre={setGenre} active={active} isAuthorizationRequired={isAuthorizationRequired} user={user} checkUser={checkUser} />} />
+        <Route path="/login" render={() => <SignIn onLogin={tryLogin} message={errorMessage} user={user} />} />
+        <Route path="/favorites" exact render={() => <PrivateMyList user={user} />} />
+      </Switch>);
   }
 }
 
