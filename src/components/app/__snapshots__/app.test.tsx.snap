@@ -182,6 +182,7 @@ exports[`App correctly renders MainPage with user logon 1`] = `
       >
         <article
           className="small-movie-card catalog__movies-card"
+          onClick={[Function]}
           onMouseEnter={[Function]}
           onMouseLeave={[Function]}
         >
@@ -200,7 +201,7 @@ exports[`App correctly renders MainPage with user logon 1`] = `
           >
             <a
               className="small-movie-card__link"
-              href="movie-page.html"
+              href="/film/:0"
             >
               Aviator
             </a>
@@ -434,6 +435,7 @@ exports[`App correctly renders MainPage without user logon 1`] = `
       >
         <article
           className="small-movie-card catalog__movies-card"
+          onClick={[Function]}
           onMouseEnter={[Function]}
           onMouseLeave={[Function]}
         >
@@ -452,7 +454,7 @@ exports[`App correctly renders MainPage without user logon 1`] = `
           >
             <a
               className="small-movie-card__link"
-              href="movie-page.html"
+              href="/film/:0"
             >
               Aviator
             </a>
