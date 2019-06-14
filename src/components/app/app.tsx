@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import MainPage from '../main/main-page';
 import MyList from '../my-list/my-list';
 import withPrivatePath from '../../hocs/with-private-path';
+import MoviePageDetails from '../movie-page-details/movie-page-details';
 import { ActionCreator as GenreActionCreator } from '../../reducers/genre/genre';
 import { ActionCreator as UserActionCreator } from '../../reducers/user/user';
 import { Operation } from '../../reducers/user/user';
@@ -33,13 +34,14 @@ class App extends React.PureComponent<Props> {
   }
 
   render() {
-    const { movies, setGenre, active, isAuthorizationRequired, tryLogin, errorMessage, checkUser, user } = this.props;
+    const { movies, setGenre, active, tryLogin, errorMessage, checkUser, user } = this.props;
 
     return (
       <Switch>
         <Route path="/" exact render={() => <MainPage movies={movies} setGenre={setGenre} active={active} user={user} checkUser={checkUser} />} />
         <Route path="/login" render={() => <SignIn onLogin={tryLogin} message={errorMessage} />} />
         <Route path="/favorites" exact render={() => <PrivateMyList user={user} />} />
+        <Route path="/film/:id" exact render={() => <MoviePageDetails {...movies} />} />
       </Switch>);
   }
 }
