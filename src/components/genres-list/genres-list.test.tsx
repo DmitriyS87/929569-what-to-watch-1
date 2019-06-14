@@ -1,6 +1,6 @@
-import React from 'react';
-import renderer from 'react-test-renderer';
-import GenresList from '../genres-list/genres-list';
+import * as React from 'react';
+import * as renderer from 'react-test-renderer';
+import GenresList from './genres-list';
 import TEST_MOCKS from '../../mocks/test-mocks.js';
 
 it(`GenresList correctly renders after relunch`, () => {

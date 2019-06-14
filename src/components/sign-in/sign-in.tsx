@@ -4,7 +4,6 @@ import MessageRows from '../message/message';
 interface Props {
   onLogin: ({ email, password: string }) => void,
   message: string,
-  user: any
 };
 
 const SignIn = (props: Props) => {

@@ -27,7 +27,7 @@ interface Props {
 }
 
 const PrivateMyList = withPrivatePath(MyList);
-class App extends React.PureComponent<Props, null> {
+class App extends React.PureComponent<Props> {
   constructor(props) {
     super(props);
   }
@@ -37,8 +37,8 @@ class App extends React.PureComponent<Props, null> {
 
     return (
       <Switch>
-        <Route path="/" exact render={() => <MainPage movies={movies} setGenre={setGenre} active={active} isAuthorizationRequired={isAuthorizationRequired} user={user} checkUser={checkUser} />} />
-        <Route path="/login" render={() => <SignIn onLogin={tryLogin} message={errorMessage} user={user} />} />
+        <Route path="/" exact render={() => <MainPage movies={movies} setGenre={setGenre} active={active} user={user} checkUser={checkUser} />} />
+        <Route path="/login" render={() => <SignIn onLogin={tryLogin} message={errorMessage} />} />
         <Route path="/favorites" exact render={() => <PrivateMyList user={user} />} />
       </Switch>);
   }

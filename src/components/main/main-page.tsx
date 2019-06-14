@@ -11,7 +11,6 @@ interface Props {
   setGenre: () => void,
   checkUser: () => void,
   user: any,
-  isAuthorizationRequired: boolean,
 }
 
 const MainPage = (props: Props) => {

@@ -8,10 +8,10 @@ interface Props {
   activeGenre: string,
   movies: Movies[],
   setActive: (param: number | null) => void,
-  activeItem: number,
+  activeItem: number | null,
 }
 
-class MoviesList extends React.PureComponent<Props, null> {
+class MoviesList extends React.PureComponent<Props> {
   constructor(props) {
     super(props);
 

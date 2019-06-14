@@ -1,6 +1,6 @@
-import React from 'react';
-import renderer from 'react-test-renderer';
-import MoviesList from '../movies-list/movies-list.jsx';
+import * as React from 'react';
+import * as renderer from 'react-test-renderer';
+import MoviesList from './movies-list';
 import TEST_MOCKS from '../../mocks/test-mocks.js';
 
 it(`MoviesList correctly renders after relunch`, () => {
