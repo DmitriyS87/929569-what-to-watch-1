@@ -1,13 +1,21 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import MoviesList from '../movies-list/movies-list.jsx';
-import GenresList from '../genres-list/genres-list.jsx';
-import withActiveItem from '../../hocs/with-active-item.jsx';
+import * as React from 'react';
+import MoviesList from '../movies-list/movies-list';
+import GenresList from '../genres-list/genres-list';
+import withActiveItem from '../../hocs/with-active-item';
+import { Movies } from '../../types';
+import UserBlock from '../user-block/user-block';
 
-import UserBlock from '../user-block/user-block.jsx';
+interface Props {
+  movies: Movies[],
+  active: string,
+  setGenre: () => void,
+  checkUser: () => void,
+  user: any,
+  isAuthorizationRequired: boolean,
+}
 
-const MainPage = (props) => {
-  const {movies, setGenre, active, checkUser, user} = props;
+const MainPage = (props: Props) => {
+  const { movies, setGenre, active, checkUser, user } = props;
 
   const GenersListWrapped = withActiveItem(GenresList, `All genres`);
   const MoviesListWrapped = withActiveItem(MoviesList);
@@ -92,19 +100,6 @@ const MainPage = (props) => {
     </div>
   </div>
   );
-};
-
-
-MainPage.propTypes = {
-  movies: PropTypes.arrayOf(PropTypes.shape({
-    title: PropTypes.string.isRequired,
-    coverSrc: PropTypes.string,
-    id: PropTypes.number.isRequired
-  })).isRequired,
-  active: PropTypes.string.isRequired,
-  setGenre: PropTypes.func.isRequired,
-  checkUser: PropTypes.func.isRequired,
-  user: PropTypes.object
 };
 
 export default MainPage;

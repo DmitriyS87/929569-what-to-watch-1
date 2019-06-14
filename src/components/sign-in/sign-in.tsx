@@ -1,9 +1,14 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import MessageRows from '../message/message.jsx';
+import * as React from 'react';
+import MessageRows from '../message/message';
 
-const SignIn = (props) => {
-  const {onLogin, message} = props;
+interface Props {
+  onLogin: ({ email, password: string }) => void,
+  message: string,
+  user: any
+};
+
+const SignIn = (props: Props) => {
+  const { onLogin, message } = props;
   const handleSubmit = (evt) => {
     evt.preventDefault();
     evt.stopPropagation();
@@ -35,11 +40,11 @@ const SignIn = (props) => {
           <MessageRows text={message} style={`sign-in__message`} />
           <div className="sign-in__fields">
             <div className="sign-in__field">
-              <input className="sign-in__input" type="email" placeholder="Email address" name="user-email" id="user-email" />
+              <input className="sign-in__input" type="email" placeholder="Email address" name="user-email" id="user-email" autoComplete="on" />
               <label className="sign-in__label visually-hidden" htmlFor="user-email">Email address</label>
             </div>
             <div className="sign-in__field">
-              <input className="sign-in__input" type="password" placeholder="Password" name="user-password" id="user-password" />
+              <input className="sign-in__input" type="password" placeholder="Password" name="user-password" id="user-password" autoComplete="off" />
               <label className="sign-in__label visually-hidden" htmlFor="user-password">Password</label>
             </div>
           </div>
@@ -64,11 +69,6 @@ const SignIn = (props) => {
       </footer>
     </div >
   );
-};
-
-SignIn.propTypes = {
-  onLogin: PropTypes.func.isRequired,
-  message: PropTypes.string,
 };
 
 export default SignIn;

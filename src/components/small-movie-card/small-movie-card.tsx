@@ -1,9 +1,16 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import VideoPlayer from '../video-player/video-player.jsx';
+import * as React from 'react';
+import VideoPlayer from '../video-player/video-player';
+import { Movie } from '../../types';
 
-class SmallMovieCard extends React.PureComponent {
+interface Props {
+  onFocus: (param: number) => void,
+  movie: Movie,
+  active: boolean,
+  onBlur: () => void,
+}
 
+class SmallMovieCard extends React.PureComponent<Props> {
+  private timeOutId: any;
   constructor(props) {
     super(props);
 
@@ -15,7 +22,7 @@ class SmallMovieCard extends React.PureComponent {
   _startTimer() {
     const self = this;
     const onPlay = this.props.onFocus;
-    const startPlay = (movieCard, callback) => {
+    const startPlay = (movieCard: this, callback: (number) => void) => {
       callback(movieCard.props.movie.id);
     };
     this.timeOutId = setTimeout(startPlay, 1000, self, onPlay);
@@ -37,12 +44,12 @@ class SmallMovieCard extends React.PureComponent {
   }
 
   render() {
-    const {movie, active} = this.props;
+    const { movie, active } = this.props;
 
     const screen = () => {
 
       if (active) {
-        return <VideoPlayer poster={movie.coverSrc} movies={movie.links} title={movie.title} />;
+        return <VideoPlayer poster={movie.coverSrc} movies={movie.links} title={movie.title} onMouseLeave={this._onBlur} />;
       }
 
       return (<React.Fragment>
@@ -66,16 +73,5 @@ class SmallMovieCard extends React.PureComponent {
     this._clearTimeOut();
   }
 }
-
-SmallMovieCard.propTypes = {
-  movie: PropTypes.shape({
-    title: PropTypes.string.isRequired,
-    coverSrc: PropTypes.string,
-    id: PropTypes.number.isRequired
-  }),
-  active: PropTypes.bool.isRequired,
-  onFocus: PropTypes.func.isRequired,
-  onBlur: PropTypes.func.isRequired,
-};
 
 export default SmallMovieCard;
