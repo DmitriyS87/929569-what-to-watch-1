@@ -1,10 +1,10 @@
-import React from 'react';
-import Adapter from 'enzyme-adapter-react-16';
-import Enzyme, {shallow} from 'enzyme';
-import GenresList from '../genres-list/genres-list';
+import * as React from 'react';
+import * as Adapter from 'enzyme-adapter-react-16';
+import { configure, shallow } from 'enzyme';
+import GenresList from './genres-list';
 import TEST_MOCKS from '../../mocks/test-mocks.js';
 
-Enzyme.configure({adapter: new Adapter()});
+configure({ adapter: new Adapter() });
 
 const mockHandlerSetGenre = jest.fn();
 const mockHandlerSetActive = jest.fn();

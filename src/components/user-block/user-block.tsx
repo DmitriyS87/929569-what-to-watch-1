@@ -1,9 +1,13 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import {withRouter} from 'react-router-dom';
+import * as React from 'react';
+import { withRouter } from 'react-router-dom';
 
-const UserBlock = (props) => {
-  const {user, history} = props;
+interface Props {
+  user: {} | null,
+  history: { push: (param: string) => void },
+}
+
+const UserBlock = (props: Props) => {
+  const { user, history } = props;
 
   const handleClick = (evt) => {
     evt.preventDefault();
@@ -26,10 +30,5 @@ const UserBlock = (props) => {
   );
 };
 
-UserBlock.propTypes = {
-  user: PropTypes.object,
-  history: PropTypes.object,
-};
-
 export default withRouter(UserBlock);
-export {UserBlock};
+export { UserBlock };
