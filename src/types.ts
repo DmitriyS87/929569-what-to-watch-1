@@ -1,23 +1,63 @@
 export interface Movies {
   title: string,
-  coverSrc: string,
+  poster: {
+    src: string,
+    alt: string
+  },
+  previewImg: {
+    src: string,
+    alt: string
+  },
   id: number,
-  links: {
+  previewMovie: {
     href: string,
-    format: string,
-  }[],
+    format: string
+  },
   genre: string,
+  director: string,
+  description: string,
+  releseYear: number,
+  runTime: string,
+  rating: number,
+  isFavorite: boolean,
+  scoresCount: number,
+  starring: string[],
+  fullMovie: {
+    href: string,
+  },
+  backgroundColor: string,
+  backgroundImg: string,
 }
 
 export interface Movie {
   title: string,
-  coverSrc: string,
+  poster: {
+    src: string,
+    alt: string
+  },
+  previewImg: {
+    src: string,
+    alt: string
+  },
   id: number,
-  links: {
+  previewMovie: {
     href: string,
-    format: string,
-  }[],
+    format: string
+  },
   genre: string,
+  director: string,
+  description: string,
+  releseYear: number,
+  runTime: string,
+  rating: number,
+  isFavorite: boolean,
+  scoresCount: number,
+  starring: string[],
+  fullMovie: {
+    href: string,
+  },
+  backgroundColor: string,
+  backgroundImg: string,
 }
 
 interface RootState {

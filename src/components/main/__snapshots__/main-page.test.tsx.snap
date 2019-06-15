@@ -193,6 +193,7 @@ exports[`MainPage correctly renders with user login 1`] = `
       >
         <article
           className="small-movie-card catalog__movies-card"
+          onClick={[Function]}
           onMouseEnter={[Function]}
           onMouseLeave={[Function]}
         >
@@ -211,7 +212,7 @@ exports[`MainPage correctly renders with user login 1`] = `
           >
             <a
               className="small-movie-card__link"
-              href="movie-page.html"
+              href="/film/:0"
             >
               Aviator
             </a>
@@ -219,6 +220,7 @@ exports[`MainPage correctly renders with user login 1`] = `
         </article>
         <article
           className="small-movie-card catalog__movies-card"
+          onClick={[Function]}
           onMouseEnter={[Function]}
           onMouseLeave={[Function]}
         >
@@ -237,7 +239,7 @@ exports[`MainPage correctly renders with user login 1`] = `
           >
             <a
               className="small-movie-card__link"
-              href="movie-page.html"
+              href="/film/:1"
             >
               Pulp Fiction
             </a>
@@ -482,6 +484,7 @@ exports[`MainPage correctly renders without user 1`] = `
       >
         <article
           className="small-movie-card catalog__movies-card"
+          onClick={[Function]}
           onMouseEnter={[Function]}
           onMouseLeave={[Function]}
         >
@@ -500,7 +503,7 @@ exports[`MainPage correctly renders without user 1`] = `
           >
             <a
               className="small-movie-card__link"
-              href="movie-page.html"
+              href="/film/:0"
             >
               Aviator
             </a>
@@ -508,6 +511,7 @@ exports[`MainPage correctly renders without user 1`] = `
         </article>
         <article
           className="small-movie-card catalog__movies-card"
+          onClick={[Function]}
           onMouseEnter={[Function]}
           onMouseLeave={[Function]}
         >
@@ -526,7 +530,7 @@ exports[`MainPage correctly renders without user 1`] = `
           >
             <a
               className="small-movie-card__link"
-              href="movie-page.html"
+              href="/film/:1"
             >
               Pulp Fiction
             </a>

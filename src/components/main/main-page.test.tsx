@@ -19,7 +19,6 @@ it(`MainPage correctly renders without user`, () => {
         <MainPage
           movies={TEST_MOCKS.films}
           setGenre={mockHandle}
-          checkUser={mockHandle}
           active={TEST_MOCKS.activeGenre}
           user={null}
         />
@@ -38,7 +37,6 @@ it(`MainPage correctly renders with user login`, () => {
         <MainPage
           movies={TEST_MOCKS.films}
           setGenre={mockHandle}
-          checkUser={mockHandle}
           active={TEST_MOCKS.activeGenre}
           user={{ id: 1 }}
         />

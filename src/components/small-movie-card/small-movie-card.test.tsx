@@ -1,6 +1,6 @@
 import * as React from 'react';
 import * as renderer from 'react-test-renderer';
-import SmallMovieCard from './small-movie-card';
+import { SmallMovieCard } from './small-movie-card';
 import TEST_MOCKS from '../../mocks/test-mocks.js';
 
 it(`SmallMovieCard correctly renders after relunch`, () => {
@@ -12,6 +12,7 @@ it(`SmallMovieCard correctly renders after relunch`, () => {
       active={MOCK_ACTIVE}
       onFocus={mockHandler}
       onBlur={mockHandler}
+      history={{ push: jest.fn() }}
     />)
     .toJSON();
 
