@@ -6,21 +6,21 @@ import { getUser } from '../../reducers/user/selectors';
 import userBlock from '../user-block/user-block';
 interface Props {
   movie: {
-    backgroundImg,
-    title,
-    releseYear,
-    genre,
-    poster,
-    director,
-    starring,
-    runTime,
+    backgroundImg: { src: string, alt: string },
+    title: string,
+    releseYear: number,
+    genre: string,
+    poster: { src: string, alt: string },
+    director: string,
+    starring: string[],
+    runTime: string,
   },
   id: string,
-  user,
+  user: {} | null,
 }
 
 const MoviePageDetails = (props: Props) => {
-  const { user } = this.props;
+  const { user } = props;
   const { backgroundImg, title, genre, releseYear, poster, director, starring, runTime, } = props.movie;
   return (
     <React.Fragment>
@@ -199,3 +199,4 @@ const mapStateToProps = (state, ownProps) => {
 };
 
 export default connect(mapStateToProps)(MoviePageDetails);
+export { MoviePageDetails };
