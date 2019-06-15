@@ -1,8 +1,9 @@
 import * as React from 'react';
 import UserBlock from '../user-block/user-block';
 import { connect } from 'react-redux';
-import { getMovie } from '../../reducers/data/selectors.js';
-
+import { getMovie } from '../../reducers/data/selectors';
+import { getUser } from '../../reducers/user/selectors';
+import userBlock from '../user-block/user-block';
 interface Props {
   movie: {
     backgroundImg,
@@ -12,14 +13,15 @@ interface Props {
     poster,
     director,
     starring,
-    runTime
-  }
+    runTime,
+  },
+  id: string,
+  user,
 }
 
-//this.props.match.params.redirectParam
-
 const MoviePageDetails = (props: Props) => {
-  const { backgroundImg, title, genre, releseYear, poster, director, starring, runTime } = props.movie;
+  const { user } = this.props;
+  const { backgroundImg, title, genre, releseYear, poster, director, starring, runTime, } = props.movie;
   return (
     <React.Fragment>
       <section className="movie-card movie-card--full">
@@ -39,7 +41,7 @@ const MoviePageDetails = (props: Props) => {
               </a>
             </div>
 
-            <UserBlock />
+            <UserBlock user={user} />
           </header>
 
           <div className="movie-card__wrap">
@@ -191,7 +193,8 @@ const MoviePageDetails = (props: Props) => {
 
 const mapStateToProps = (state, ownProps) => {
   return {
-    movie: getMovie(state, ownProps.match.params.redirectParam)
+    movie: getMovie(state, parseInt(ownProps.id.slice(1, ownProps.id.length))),
+    user: getUser(state),
   };
 };
 

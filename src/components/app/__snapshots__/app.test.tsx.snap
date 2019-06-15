@@ -176,6 +176,17 @@ exports[`App correctly renders MainPage with user logon 1`] = `
             Adventure
           </a>
         </li>
+        <li
+          className="catalog__genres-item "
+          onClick={[Function]}
+        >
+          <a
+            className="catalog__genres-link"
+            href="#"
+          >
+            Western
+          </a>
+        </li>
       </ul>
       <div
         className="catalog__movies-list"
@@ -204,6 +215,33 @@ exports[`App correctly renders MainPage with user logon 1`] = `
               href="/film/:0"
             >
               Aviator
+            </a>
+          </h3>
+        </article>
+        <article
+          className="small-movie-card catalog__movies-card"
+          onClick={[Function]}
+          onMouseEnter={[Function]}
+          onMouseLeave={[Function]}
+        >
+          <div
+            className="small-movie-card__image"
+          >
+            <img
+              alt="Pulp Fiction"
+              height="175"
+              src="img/pulp-fiction.jpg"
+              width="280"
+            />
+          </div>
+          <h3
+            className="small-movie-card__title"
+          >
+            <a
+              className="small-movie-card__link"
+              href="/film/:1"
+            >
+              Pulp Fiction
             </a>
           </h3>
         </article>
@@ -429,6 +467,17 @@ exports[`App correctly renders MainPage without user logon 1`] = `
             Adventure
           </a>
         </li>
+        <li
+          className="catalog__genres-item "
+          onClick={[Function]}
+        >
+          <a
+            className="catalog__genres-link"
+            href="#"
+          >
+            Western
+          </a>
+        </li>
       </ul>
       <div
         className="catalog__movies-list"
@@ -457,6 +506,33 @@ exports[`App correctly renders MainPage without user logon 1`] = `
               href="/film/:0"
             >
               Aviator
+            </a>
+          </h3>
+        </article>
+        <article
+          className="small-movie-card catalog__movies-card"
+          onClick={[Function]}
+          onMouseEnter={[Function]}
+          onMouseLeave={[Function]}
+        >
+          <div
+            className="small-movie-card__image"
+          >
+            <img
+              alt="Pulp Fiction"
+              height="175"
+              src="img/pulp-fiction.jpg"
+              width="280"
+            />
+          </div>
+          <h3
+            className="small-movie-card__title"
+          >
+            <a
+              className="small-movie-card__link"
+              href="/film/:1"
+            >
+              Pulp Fiction
             </a>
           </h3>
         </article>

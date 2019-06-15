@@ -9,12 +9,11 @@ interface Props {
   movies: Movies[],
   active: string,
   setGenre: () => void,
-  checkUser: () => void,
   user: any,
 }
 
 const MainPage = (props: Props) => {
-  const { movies, setGenre, active, checkUser, user } = props;
+  const { movies, setGenre, active, user } = props;
 
   const GenersListWrapped = withActiveItem(GenresList, `All genres`);
   const MoviesListWrapped = withActiveItem(MoviesList);
@@ -36,7 +35,7 @@ const MainPage = (props: Props) => {
           </a>
         </div>
 
-        <UserBlock loginUser={checkUser} user={user} />
+        <UserBlock user={user} />
       </header>
 
       <div className="movie-card__wrap">

@@ -34,14 +34,14 @@ class App extends React.PureComponent<Props> {
   }
 
   render() {
-    const { movies, setGenre, active, tryLogin, errorMessage, checkUser, user } = this.props;
+    const { movies, setGenre, active, tryLogin, errorMessage, user } = this.props;
 
     return (
       <Switch>
-        <Route path="/" exact render={() => <MainPage movies={movies} setGenre={setGenre} active={active} user={user} checkUser={checkUser} />} />
+        <Route path="/" exact render={() => <MainPage movies={movies} setGenre={setGenre} active={active} user={user} />} />
         <Route path="/login" render={() => <SignIn onLogin={tryLogin} message={errorMessage} />} />
         <Route path="/favorites" exact render={() => <PrivateMyList user={user} />} />
-        <Route path="/film/:id" exact render={() => <MoviePageDetails {...movies} />} />
+        <Route path="/film/:id" exact render={(route) => <MoviePageDetails id={route.match.params.id} />} />
       </Switch>);
   }
 }
