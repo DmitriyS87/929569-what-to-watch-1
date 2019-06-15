@@ -34,8 +34,7 @@ it(`MoviePageDetails with user correctly renders after relunch: `, () => {
         user={{ id: 5 }}
       />
     </MockBrowserRouter>
-
-  )
+  ).toJSON();
 
   expect(tree).toMatchSnapshot();
 });

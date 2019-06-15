@@ -1,3 +1,8 @@
+export enum Tab {
+  OWERVIEW = 'Overview',
+  DETAILS = 'Details',
+  REVIEWS = 'Reviews'
+};
 export interface Movies {
   title: string,
   poster: {

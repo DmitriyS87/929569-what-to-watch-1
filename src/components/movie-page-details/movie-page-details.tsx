@@ -3,7 +3,12 @@ import UserBlock from '../user-block/user-block';
 import { connect } from 'react-redux';
 import { getMovie } from '../../reducers/data/selectors';
 import { getUser } from '../../reducers/user/selectors';
-import userBlock from '../user-block/user-block';
+import MoviePageTab from '../movie-page-tab/movie-page-tab';
+import withActiveItem from '../../hocs/with-active-item';
+import { Tab } from '../../types';
+import { TABS } from '../../constants/movie-page-tab.constant';
+
+const WrappedMoviePageTab = withActiveItem(MoviePageTab, Tab.OWERVIEW)
 interface Props {
   movie: {
     backgroundImg: { src: string, alt: string },
@@ -21,7 +26,7 @@ interface Props {
 
 const MoviePageDetails = (props: Props) => {
   const { user } = props;
-  const { backgroundImg, title, genre, releseYear, poster, director, starring, runTime, } = props.movie;
+  const { backgroundImg, title, genre, releseYear, poster } = props.movie;
   return (
     <React.Fragment>
       <section className="movie-card movie-card--full">
@@ -69,6 +74,7 @@ const MoviePageDetails = (props: Props) => {
               </div>
             </div>
           </div>
+
         </div>
 
         <div className="movie-card__wrap movie-card__translate-top">
@@ -77,51 +83,8 @@ const MoviePageDetails = (props: Props) => {
               <img src={poster.src} alt={poster.alt} width="218" height="327" />
             </div>
 
-            <div className="movie-card__desc">
-              <nav className="movie-nav movie-card__nav">
-                <ul className="movie-nav__list">
-                  <li className="movie-nav__item">
-                    <a href="#" className="movie-nav__link">Overview</a>
-                  </li>
-                  <li className="movie-nav__item movie-nav__item--active">
-                    <a href="#" className="movie-nav__link">Details</a>
-                  </li>
-                  <li className="movie-nav__item">
-                    <a href="#" className="movie-nav__link">Reviews</a>
-                  </li>
-                </ul>
-              </nav>
+            <WrappedMoviePageTab navItems={TABS} movie={props.movie} />
 
-              <div className="movie-card__text movie-card__row">
-                <div className="movie-card__text-col">
-                  <p className="movie-card__details-item">
-                    <strong className="movie-card__details-name">Director</strong>
-                    <span className="movie-card__details-value">{director}</span>
-                  </p>
-                  <p className="movie-card__details-item">
-                    <strong className="movie-card__details-name">Starring</strong>
-                    <span className="movie-card__details-value">
-                      {starring.map((artist, idx, array) => `artist${(idx === array.length - 1) ? `` : <br />}`)}
-                    </span>
-                  </p>
-                </div>
-
-                <div className="movie-card__text-col">
-                  <p className="movie-card__details-item">
-                    <strong className="movie-card__details-name">Run Time</strong>
-                    <span className="movie-card__details-value">{runTime}</span>
-                  </p>
-                  <p className="movie-card__details-item">
-                    <strong className="movie-card__details-name">Genre</strong>
-                    <span className="movie-card__details-value">{genre}</span>
-                  </p>
-                  <p className="movie-card__details-item">
-                    <strong className="movie-card__details-name">Released</strong>
-                    <span className="movie-card__details-value">{releseYear}</span>
-                  </p>
-                </div>
-              </div>
-            </div>
           </div>
         </div>
       </section>
