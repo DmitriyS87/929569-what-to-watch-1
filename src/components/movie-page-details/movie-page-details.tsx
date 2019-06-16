@@ -7,26 +7,33 @@ import MoviePageTab from '../movie-page-tab/movie-page-tab';
 import withActiveItem from '../../hocs/with-active-item';
 import { Tab } from '../../types';
 import { TABS } from '../../constants/movie-page-tab.constant';
+import { compose, withProps } from 'recompose';
+import MoviesList from '../movies-list/movies-list';
+import MoviesListLikeThis from '../movies-list-like-this/movies-list-like-this';
+import { getLimitedItems } from '../../utils/get-limited-items';
+import { getFiltredMovies } from '../../utils/get-filtred-movies';
+import { excludeItemById } from '../../utils/exclude-item-by-id';
+import { Movie } from '../../types';
 
-const WrappedMoviePageTab = withActiveItem(MoviePageTab, Tab.OWERVIEW)
+const MOVIES_LIKE_THIS_LIMIT = 4;
+
 interface Props {
-  movie: {
-    backgroundImg: { src: string, alt: string },
-    title: string,
-    releseYear: number,
-    genre: string,
-    poster: { src: string, alt: string },
-    director: string,
-    starring: string[],
-    runTime: string,
-  },
+  movie: Movie,
+  movies: Movie[],
   id: string,
   user: {} | null,
 }
 
 const MoviePageDetails = (props: Props) => {
-  const { user } = props;
-  const { backgroundImg, title, genre, releseYear, poster } = props.movie;
+  const { user, movies } = props;
+  const { backgroundImg, title, genre, releseYear, poster, id } = props.movie;
+
+  const moviesForListLikeThis = getLimitedItems(MOVIES_LIKE_THIS_LIMIT, excludeItemById(id, getFiltredMovies(genre, movies)));
+
+  const WrappedMoviePageTab = withActiveItem(MoviePageTab, Tab.OWERVIEW)
+  const moviesListLikeThis = compose(withActiveItem, withProps({ movies: [...moviesForListLikeThis] }));
+  const WrappedMoviesList = moviesListLikeThis(MoviesList);
+
   return (
     <React.Fragment>
       <section className="movie-card movie-card--full">
@@ -90,51 +97,9 @@ const MoviePageDetails = (props: Props) => {
       </section>
 
       <div className="page-content">
-        <section className="catalog catalog--like-this">
-          <h2 className="catalog__title">More like this</h2>
-
-          <div className="catalog__movies-list">
-            <article className="small-movie-card catalog__movies-card">
-              <button className="small-movie-card__play-btn" type="button">Play</button>
-              <div className="small-movie-card__image">
-                <img src="img/fantastic-beasts-the-crimes-of-grindelwald.jpg" alt="Fantastic Beasts: The Crimes of Grindelwald" width="280" height="175" />
-              </div>
-              <h3 className="small-movie-card__title">
-                <a className="small-movie-card__link" href="movie-page.html">Fantastic Beasts: The Crimes of Grindelwald</a>
-              </h3>
-            </article>
-
-            <article className="small-movie-card catalog__movies-card">
-              <button className="small-movie-card__play-btn" type="button">Play</button>
-              <div className="small-movie-card__image">
-                <img src="img/bohemian-rhapsody.jpg" alt="Bohemian Rhapsody" width="280" height="175" />
-              </div>
-              <h3 className="small-movie-card__title">
-                <a className="small-movie-card__link" href="movie-page.html">Bohemian Rhapsody</a>
-              </h3>
-            </article>
-
-            <article className="small-movie-card catalog__movies-card">
-              <button className="small-movie-card__play-btn" type="button">Play</button>
-              <div className="small-movie-card__image">
-                <img src="img/macbeth.jpg" alt="Macbeth" width="280" height="175" />
-              </div>
-              <h3 className="small-movie-card__title">
-                <a className="small-movie-card__link" href="movie-page.html">Macbeth</a>
-              </h3>
-            </article>
-
-            <article className="small-movie-card catalog__movies-card">
-              <button className="small-movie-card__play-btn" type="button">Play</button>
-              <div className="small-movie-card__image">
-                <img src="img/aviator.jpg" alt="Aviator" width="280" height="175" />
-              </div>
-              <h3 className="small-movie-card__title">
-                <a className="small-movie-card__link" href="movie-page.html">Aviator</a>
-              </h3>
-            </article>
-          </div>
-        </section>
+        <MoviesListLikeThis>
+          <WrappedMoviesList />
+        </MoviesListLikeThis>
 
         <footer className="page-footer">
           <div className="logo">
