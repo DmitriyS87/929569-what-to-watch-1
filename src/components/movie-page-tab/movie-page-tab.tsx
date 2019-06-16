@@ -64,7 +64,16 @@ const MoviePageTab = (props: PropsMovie & PropsNav & PropsActive) => {
               <p className="movie-card__details-item">
                 <strong className="movie-card__details-name">Starring</strong>
                 <span className="movie-card__details-value">
-                  {starring.map((artist, idx, array) => `artist${(idx === array.length - 1) ? `` : <br />}`)}
+                  {starring.map((artist, idx, array) => {
+                    if (idx === array.length - 1) {
+                      return `${artist}`;
+                    }
+                    return (
+                      <React.Fragment key={`artist${artist}${idx}`}>
+                        {`${artist}`} <br />
+                      </React.Fragment>
+                    );
+                  })}
                 </span>
               </p>
 
