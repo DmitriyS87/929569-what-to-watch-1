@@ -18,6 +18,8 @@ it(`App correctly renders MainPage without user logon`, () => {
       <MockBrowserRouter>
         <App
           movies={mockData.films}
+          moviesShowLimit={3}
+          setNewShowLimit={mockFunction}
           active={mockData.activeGenre}
           isAuthorizationRequired={false}
           setGenre={mockFunction}
@@ -26,7 +28,8 @@ it(`App correctly renders MainPage without user logon`, () => {
           checkUser={mockFunction}
           user={null}
         />
-      </MockBrowserRouter>)
+      </MockBrowserRouter>
+    )
     .toJSON();
 
   expect(tree).toMatchSnapshot();
@@ -39,6 +42,8 @@ it(`App correctly renders MainPage with user logon`, () => {
       <MockBrowserRouter>
         <App
           movies={mockData.films}
+          moviesShowLimit={3}
+          setNewShowLimit={mockFunction}
           active={mockData.activeGenre}
           isAuthorizationRequired={false}
           setGenre={mockFunction}

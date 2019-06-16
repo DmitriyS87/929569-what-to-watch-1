@@ -6,18 +6,23 @@ import { Movie } from '../../types';
 import UserBlock from '../user-block/user-block';
 import { compose, withProps } from 'recompose';
 import { getFiltredMovies } from '../../utils/get-filtred-movies';
+import { getLimitedItems } from '../../utils/get-limited-items';
+import ShowMoreButton from '../show-more-button/show-more-button';
 interface Props {
   movies: Movie[],
   active: string,
   setGenre: () => void,
+  setShowLimit: () => void
   user: any,
+  moviesLimit: number,
 }
 
 const MainPage = (props: Props) => {
-  const { movies, setGenre, active, user } = props;
+  const { movies, setGenre, active, user, moviesLimit, setShowLimit } = props;
 
   const GenersListWrapped = withActiveItem(GenresList);
-  const MoviesListWrapped = compose(withActiveItem, withProps({ movies: getFiltredMovies(active, movies) }))(MoviesList);
+  const filtredMovies = getLimitedItems(moviesLimit, getFiltredMovies(active, movies));
+  const MoviesListWrapped = compose(withActiveItem, withProps({ movies: filtredMovies }))(MoviesList);
 
   return (<div>
     <section className="movie-card">
@@ -77,10 +82,7 @@ const MainPage = (props: Props) => {
 
         <GenersListWrapped movies={movies} setGenre={setGenre} active={active} />
         <MoviesListWrapped movies={movies} activeGenre={active} />
-
-        <div className="catalog__more">
-          <button className="catalog__button" type="button">Show more</button>
-        </div>
+        <ShowMoreButton movies={movies} limit={moviesLimit} setNewShowLimit={setShowLimit} />
       </section>
 
       <footer className="page-footer">
