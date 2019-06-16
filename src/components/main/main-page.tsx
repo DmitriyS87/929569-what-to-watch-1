@@ -12,12 +12,13 @@ interface Props {
   movies: Movie[],
   active: string,
   setGenre: () => void,
+  setShowLimit: () => void
   user: any,
-  moviesLimit: number
+  moviesLimit: number,
 }
 
 const MainPage = (props: Props) => {
-  const { movies, setGenre, active, user, moviesLimit } = props;
+  const { movies, setGenre, active, user, moviesLimit, setShowLimit } = props;
 
   const GenersListWrapped = withActiveItem(GenresList);
   const filtredMovies = getLimitedItems(moviesLimit, getFiltredMovies(active, movies));
@@ -81,7 +82,7 @@ const MainPage = (props: Props) => {
 
         <GenersListWrapped movies={movies} setGenre={setGenre} active={active} />
         <MoviesListWrapped movies={movies} activeGenre={active} />
-        <ShowMoreButton movies={movies} />
+        <ShowMoreButton movies={movies} limit={moviesLimit} setNewShowLimit={setShowLimit} />
       </section>
 
       <footer className="page-footer">
