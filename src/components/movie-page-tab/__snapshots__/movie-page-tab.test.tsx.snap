@@ -76,9 +76,13 @@ exports[`MoviePageTab correctly renders Tab.DETAILS after relunch:  1`] = `
         <span
           className="movie-card__details-value"
         >
-          artist[object Object]
-          artist[object Object]
-          artist
+          Best Artist
+           
+          <br />
+          Best Acter
+           
+          <br />
+          Best Person
         </span>
       </p>
     </div>
