@@ -12,16 +12,10 @@ import { BrowserRouter } from 'react-router-dom';
 
 const entryPoint = document.getElementById(`root`);
 
-// declare global {
-//   interface Window {
-//     __REDUX_DEVTOOLS_EXTENSION__: any;
-//   }
-// }
-
 declare const __REDUX_DEVTOOLS_EXTENSION__: () => any;
 
 const init = () => {
-  const api = createAPI(); //(...args) => store.dispatch(...args)
+  const api = createAPI();
   const store = createStore(reducer, compose(applyMiddleware(thunk.withExtraArgument(api)), __REDUX_DEVTOOLS_EXTENSION__ ? __REDUX_DEVTOOLS_EXTENSION__() : (source) => source));
   store.dispatch(Operation.loadMovies());
 
