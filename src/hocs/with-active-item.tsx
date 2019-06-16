@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { Movies } from '../types';
 
 export interface withActiveItemProps {
   active: string,
@@ -8,14 +7,14 @@ export interface withActiveItemState {
   activeItem: string | null
 }
 
-const withActiveItem = (Child: React.ReactNode, initialState?: string) => {
+const withActiveItem = (Child: React.ReactNode) => {
 
   class WithActiveItem extends React.Component<any, withActiveItemState> {
     constructor(props) {
       super(props);
 
       this.state = {
-        activeItem: this.props.active || initialState || null
+        activeItem: this.props.active || null
       };
     }
 

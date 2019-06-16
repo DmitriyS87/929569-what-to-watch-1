@@ -245,6 +245,33 @@ exports[`App correctly renders MainPage with user logon 1`] = `
             </a>
           </h3>
         </article>
+        <article
+          className="small-movie-card catalog__movies-card"
+          onClick={[Function]}
+          onMouseEnter={[Function]}
+          onMouseLeave={[Function]}
+        >
+          <div
+            className="small-movie-card__image"
+          >
+            <img
+              alt="Aviator CLONE"
+              height="175"
+              src="img/aviator.jpg"
+              width="280"
+            />
+          </div>
+          <h3
+            className="small-movie-card__title"
+          >
+            <a
+              className="small-movie-card__link"
+              href="/film/:2"
+            >
+              Aviator CLONE
+            </a>
+          </h3>
+        </article>
       </div>
       <div
         className="catalog__more"
@@ -533,6 +560,33 @@ exports[`App correctly renders MainPage without user logon 1`] = `
               href="/film/:1"
             >
               Pulp Fiction
+            </a>
+          </h3>
+        </article>
+        <article
+          className="small-movie-card catalog__movies-card"
+          onClick={[Function]}
+          onMouseEnter={[Function]}
+          onMouseLeave={[Function]}
+        >
+          <div
+            className="small-movie-card__image"
+          >
+            <img
+              alt="Aviator CLONE"
+              height="175"
+              src="img/aviator.jpg"
+              width="280"
+            />
+          </div>
+          <h3
+            className="small-movie-card__title"
+          >
+            <a
+              className="small-movie-card__link"
+              href="/film/:2"
+            >
+              Aviator CLONE
             </a>
           </h3>
         </article>

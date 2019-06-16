@@ -2,11 +2,12 @@ import * as React from 'react';
 import MoviesList from '../movies-list/movies-list';
 import GenresList from '../genres-list/genres-list';
 import withActiveItem from '../../hocs/with-active-item';
-import { Movies } from '../../types';
+import { Movie } from '../../types';
 import UserBlock from '../user-block/user-block';
-
+import { compose, withProps } from 'recompose';
+import { getFiltredMovies } from '../../utils/get-filtred-movies';
 interface Props {
-  movies: Movies[],
+  movies: Movie[],
   active: string,
   setGenre: () => void,
   user: any,
@@ -15,8 +16,8 @@ interface Props {
 const MainPage = (props: Props) => {
   const { movies, setGenre, active, user } = props;
 
-  const GenersListWrapped = withActiveItem(GenresList, `All genres`);
-  const MoviesListWrapped = withActiveItem(MoviesList);
+  const GenersListWrapped = withActiveItem(GenresList);
+  const MoviesListWrapped = compose(withActiveItem, withProps({ movies: getFiltredMovies(active, movies) }))(MoviesList);
 
   return (<div>
     <section className="movie-card">

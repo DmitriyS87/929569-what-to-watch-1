@@ -19,7 +19,6 @@ it(`MoviesList correctly renders after relunch`, () => {
         <MoviesList
           movies={TEST_MOCKS.films}
           setActive={mockHandle}
-          activeGenre={TEST_MOCKS.activeGenre}
           activeItem={null}
         />
       </MockBrowserRouter>

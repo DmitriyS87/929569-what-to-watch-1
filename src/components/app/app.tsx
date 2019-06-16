@@ -14,10 +14,10 @@ import { getUser } from '../../reducers/user/selectors';
 import { Switch, Route } from 'react-router-dom';
 import { getGenre } from '../../reducers/genre/selectors';
 import SignIn from '../sign-in/sign-in';
-import { Movies, RootState } from '../../types';
+import { Movie, RootState } from '../../types';
 
 interface Props {
-  movies: Movies[],
+  movies: Movie[],
   setGenre: () => void,
   tryLogin: () => void,
   checkUser: () => void,
@@ -41,7 +41,7 @@ class App extends React.PureComponent<Props> {
         <Route path="/" exact render={() => <MainPage movies={movies} setGenre={setGenre} active={active} user={user} />} />
         <Route path="/login" render={() => <SignIn onLogin={tryLogin} message={errorMessage} />} />
         <Route path="/favorites" exact render={() => <PrivateMyList user={user} />} />
-        <Route path="/film/:id" exact render={(route) => <MoviePageDetails id={route.match.params.id} />} />
+        <Route path="/film/:id" exact render={(route) => <MoviePageDetails movies={movies} id={route.match.params.id} />} />
       </Switch>);
   }
 }

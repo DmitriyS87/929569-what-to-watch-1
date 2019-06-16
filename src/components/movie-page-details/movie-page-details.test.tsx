@@ -15,6 +15,7 @@ it(`MoviePageDetails without user correctly renders after relunch: `, () => {
   const tree = renderer.create(
     <MockBrowserRouter>
       <MoviePageDetails
+        movies={mockData.films}
         movie={mockData.film}
         id={`0`}
         user={null}
@@ -29,13 +30,13 @@ it(`MoviePageDetails with user correctly renders after relunch: `, () => {
   const tree = renderer.create(
     <MockBrowserRouter>
       <MoviePageDetails
+        movies={mockData.films}
         movie={mockData.film}
         id={`3`}
         user={{ id: 5 }}
       />
     </MockBrowserRouter>
-
-  )
+  ).toJSON();
 
   expect(tree).toMatchSnapshot();
 });
