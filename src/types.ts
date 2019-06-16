@@ -3,36 +3,6 @@ export enum Tab {
   DETAILS = 'Details',
   REVIEWS = 'Reviews'
 };
-export interface Movies {
-  title: string,
-  poster: {
-    src: string,
-    alt: string
-  },
-  previewImg: {
-    src: string,
-    alt: string
-  },
-  id: number,
-  previewMovie: {
-    href: string,
-    format: string
-  },
-  genre: string,
-  director: string,
-  description: string,
-  releseYear: number,
-  runTime: string,
-  rating: number,
-  isFavorite: boolean,
-  scoresCount: number,
-  starring: string[],
-  fullMovie: {
-    href: string,
-  },
-  backgroundColor: string,
-  backgroundImg: string,
-}
 
 export interface Movie {
   title: string,
@@ -62,11 +32,11 @@ export interface Movie {
     href: string,
   },
   backgroundColor: string,
-  backgroundImg: string,
+  backgroundImg: { src: string, alt: string },
 }
 
 interface RootState {
-  movies: Movies[],
+  movies: Movie[],
 }
 
 interface RootState {
