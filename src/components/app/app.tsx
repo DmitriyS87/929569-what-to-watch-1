@@ -5,14 +5,11 @@ import MyList from '../my-list/my-list';
 import withPrivatePath from '../../hocs/with-private-path';
 import MoviePageDetails from '../movie-page-details/movie-page-details';
 import { ActionCreator as GenreActionCreator } from '../../reducers/genre/genre';
-import { ActionCreator as UserActionCreator } from '../../reducers/user/user';
-import { Operation } from '../../reducers/user/user';
-import { getAdaptedMovies } from '../../reducers/data/selectors';
-import { getAuthorizationRequired } from '../../reducers/user/selectors';
-import { getErrorMessage } from '../../reducers/user/selectors';
-import { getUser } from '../../reducers/user/selectors';
-import { Switch, Route } from 'react-router-dom';
+import { ActionCreator as UserActionCreator, Operation } from '../../reducers/user/user';
+import { getAdaptedMovies, getMoviesShowLimit } from '../../reducers/data/selectors';
+import { getAuthorizationRequired, getErrorMessage, getUser } from '../../reducers/user/selectors';
 import { getGenre } from '../../reducers/genre/selectors';
+import { Switch, Route } from 'react-router-dom';
 import SignIn from '../sign-in/sign-in';
 import { Movie, RootState } from '../../types';
 
@@ -24,7 +21,8 @@ interface Props {
   active: string,
   isAuthorizationRequired: boolean,
   errorMessage: string,
-  user: any
+  user: any,
+  moviesShowLimit: number
 }
 
 const PrivateMyList = withPrivatePath(MyList);
@@ -34,11 +32,11 @@ class App extends React.PureComponent<Props> {
   }
 
   render() {
-    const { movies, setGenre, active, tryLogin, errorMessage, user } = this.props;
+    const { movies, setGenre, active, tryLogin, errorMessage, user, moviesShowLimit } = this.props;
 
     return (
       <Switch>
-        <Route path="/" exact render={() => <MainPage movies={movies} setGenre={setGenre} active={active} user={user} />} />
+        <Route path="/" exact render={() => <MainPage movies={movies} moviesLimit={moviesShowLimit} setGenre={setGenre} active={active} user={user} />} />
         <Route path="/login" render={() => <SignIn onLogin={tryLogin} message={errorMessage} />} />
         <Route path="/favorites" exact render={() => <PrivateMyList user={user} />} />
         <Route path="/film/:id" exact render={(route) => <MoviePageDetails movies={movies} id={route.match.params.id} />} />
@@ -50,6 +48,7 @@ const mapStateToProps = (state: RootState) => {
   return {
     active: getGenre(state),
     movies: getAdaptedMovies(state),
+    moviesShowLimit: getMoviesShowLimit(state),
     isAuthorizationRequired: getAuthorizationRequired(state),
     errorMessage: getErrorMessage(state),
     user: getUser(state),
