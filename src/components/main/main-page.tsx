@@ -16,7 +16,7 @@ interface Props {
 const MainPage = (props: Props) => {
   const { movies, setGenre, active, user } = props;
 
-  const GenersListWrapped = withActiveItem(GenresList, `All genres`);
+  const GenersListWrapped = withActiveItem(GenresList);
   const MoviesListWrapped = compose(withActiveItem, withProps({ movies: getFiltredMovies(active, movies) }))(MoviesList);
 
   return (<div>

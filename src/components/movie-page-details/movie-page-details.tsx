@@ -30,7 +30,7 @@ const MoviePageDetails = (props: Props) => {
 
   const moviesForListLikeThis = getLimitedItems(MOVIES_LIKE_THIS_LIMIT, excludeItemById(id, getFiltredMovies(genre, movies)));
 
-  const WrappedMoviePageTab = withActiveItem(MoviePageTab, Tab.OWERVIEW)
+  const WrappedMoviePageTab = withActiveItem(MoviePageTab)
   const moviesListLikeThis = compose(withActiveItem, withProps({ movies: [...moviesForListLikeThis] }));
   const WrappedMoviesList = moviesListLikeThis(MoviesList);
 
@@ -90,7 +90,7 @@ const MoviePageDetails = (props: Props) => {
               <img src={poster.src} alt={poster.alt} width="218" height="327" />
             </div>
 
-            <WrappedMoviePageTab navItems={TABS} movie={props.movie} />
+            <WrappedMoviePageTab navItems={TABS} movie={props.movie} active={Tab.OWERVIEW} />
 
           </div>
         </div>
