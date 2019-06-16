@@ -57,3 +57,7 @@ export const getMovie = (state, id) => {
   }
   return {};
 };
+
+export const getMoviesShowLimit = (state) => {
+  return state[NAME_SPACE].moviesShowLimit;
+};
