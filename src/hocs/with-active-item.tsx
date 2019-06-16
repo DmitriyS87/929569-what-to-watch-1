@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { Movies } from '../types';
 
 export interface withActiveItemProps {
   active: string,

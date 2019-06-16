@@ -1,12 +1,9 @@
 import * as React from 'react';
 import { getUniqueStrings } from '../../utils/get-unique-strings';
-import { Movies } from '../../types';
-
-import { withActiveItemProps } from '../../hocs/with-active-item';
-import { withActiveItemState } from '../../hocs/with-active-item';
+import { Movie } from '../../types';
 
 interface Props {
-  movies: Movies[],
+  movies: Movie[],
   activeItem: string,
   setGenre: (genre: string) => void,
   setActive: (genre: string) => void,
