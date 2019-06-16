@@ -1,0 +1,17 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ShowMoreButton correctly renders after relunch with movies.length <= length: 1`] = `<div />`;
+
+exports[`ShowMoreButton correctly renders after relunch with movies.length > length: 1`] = `
+<div
+  className="catalog__more"
+>
+  <button
+    className="catalog__button"
+    onClick={[Function]}
+    type="button"
+  >
+    Show more
+  </button>
+</div>
+`;

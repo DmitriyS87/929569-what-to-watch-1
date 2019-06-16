@@ -28,17 +28,4 @@ const ShowMoreButton = (props) => {
   );
 };
 
-const mapStateToProps = (state) => {
-  return {
-    limit: getMoviesShowLimit(state),
-  };
-};
-
-const mapDispathchToProps = (dispatch) => {
-  return {
-    setNewShowLimit: (limit) => dispatch(DataActionCreator.setMoviesShowLimit(limit)),
-  };
-}
-
-export default connect(mapStateToProps, mapDispathchToProps)(ShowMoreButton);
-export { ShowMoreButton };
+export default ShowMoreButton;
