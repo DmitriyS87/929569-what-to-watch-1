@@ -363,7 +363,7 @@ exports[`App correctly renders MainPage without user logon 1`] = `
       >
         <a
           className="user-block__link"
-          href=""
+          href="/login"
           onClick={[Function]}
         >
           Sign in

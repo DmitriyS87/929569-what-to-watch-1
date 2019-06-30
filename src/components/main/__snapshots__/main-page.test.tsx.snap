@@ -633,7 +633,7 @@ exports[`MainPage correctly renders without user and without ShowMoreButton 1`] 
       >
         <a
           className="user-block__link"
-          href=""
+          href="/login"
           onClick={[Function]}
         >
           Sign in

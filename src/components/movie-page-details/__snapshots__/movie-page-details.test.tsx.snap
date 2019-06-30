@@ -126,7 +126,8 @@ Array [
             </button>
             <a
               className="btn movie-card__button"
-              href="add-review.html"
+              href="/film/:0/review/add"
+              onClick={[Function]}
             >
               Add review
             </a>
@@ -377,7 +378,7 @@ Array [
         >
           <a
             className="user-block__link"
-            href=""
+            href="/login"
             onClick={[Function]}
           >
             Sign in
@@ -447,12 +448,7 @@ Array [
                 My list
               </span>
             </button>
-            <a
-              className="btn movie-card__button"
-              href="add-review.html"
-            >
-              Add review
-            </a>
+            <div />
           </div>
         </div>
       </div>
