@@ -6,9 +6,7 @@ import * as reactRouter from 'react-router-dom';
 
 const { MemoryRouter } = reactRouter;
 const MockBrowserRouter = ({ children }) => (
-  <MemoryRouter initialEntries={[`/`]}>
-    {children}
-  </MemoryRouter>
+  <MemoryRouter initialEntries={[`/`]}>{children}</MemoryRouter>
 );
 
 it(`App correctly renders MainPage without user logon`, () => {
@@ -17,6 +15,7 @@ it(`App correctly renders MainPage without user logon`, () => {
     .create(
       <MockBrowserRouter>
         <App
+          promoMovie={mockData.film}
           movies={mockData.films}
           moviesShowLimit={3}
           setNewShowLimit={mockFunction}
@@ -41,6 +40,7 @@ it(`App correctly renders MainPage with user logon`, () => {
     .create(
       <MockBrowserRouter>
         <App
+          promoMovie={mockData.film}
           movies={mockData.films}
           moviesShowLimit={3}
           setNewShowLimit={mockFunction}
@@ -52,7 +52,8 @@ it(`App correctly renders MainPage with user logon`, () => {
           errorMessage={``}
           user={{ id: `mock` }}
         />
-      </MockBrowserRouter>)
+      </MockBrowserRouter>
+    )
     .toJSON();
 
   expect(tree).toMatchSnapshot();

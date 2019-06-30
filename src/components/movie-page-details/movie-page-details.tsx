@@ -18,15 +18,16 @@ import { Movie } from '../../types';
 const MOVIES_LIKE_THIS_LIMIT = 4;
 
 interface Props {
-  movie: Movie,
+  currentMovie: Movie,
   movies: Movie[],
   id: string,
   user: {} | null,
+  onPlayStart: () => void
 }
 
 const MoviePageDetails = (props: Props) => {
-  const { user, movies } = props;
-  const { backgroundImg, title, genre, releseYear, poster, id } = props.movie;
+  const { user, movies, onPlayStart } = props;
+  const { backgroundImg, title, genre, releseYear, poster, id } = props.currentMovie;
 
   const moviesForListLikeThis = getLimitedItems(MOVIES_LIKE_THIS_LIMIT, excludeItemById(id, getFiltredMovies(genre, movies)));
 
@@ -65,7 +66,7 @@ const MoviePageDetails = (props: Props) => {
               </p>
 
               <div className="movie-card__buttons">
-                <button className="btn btn--play movie-card__button" type="button">
+                <button className="btn btn--play movie-card__button" type="button" onClick={onPlayStart}>
                   <svg viewBox="0 0 19 19" width="19" height="19">
                     <use xlinkHref="#play-s"></use>
                   </svg>
@@ -90,7 +91,7 @@ const MoviePageDetails = (props: Props) => {
               <img src={poster.src} alt={poster.alt} width="218" height="327" />
             </div>
 
-            <WrappedMoviePageTab navItems={TABS} movie={props.movie} active={Tab.OWERVIEW} />
+            <WrappedMoviePageTab navItems={TABS} movie={props.currentMovie} active={Tab.OWERVIEW} />
 
           </div>
         </div>
@@ -119,12 +120,5 @@ const MoviePageDetails = (props: Props) => {
   );
 }
 
-const mapStateToProps = (state, ownProps) => {
-  return {
-    movie: getMovie(state, parseInt(ownProps.id.slice(1, ownProps.id.length))),
-    user: getUser(state),
-  };
-};
-
-export default connect(mapStateToProps)(MoviePageDetails);
+export default MoviePageDetails;
 export { MoviePageDetails };

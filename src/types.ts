@@ -18,7 +18,7 @@ export interface Movie {
   previewMovie: {
     href: string,
     format: string
-  },
+  }[],
   genre: string,
   director: string,
   description: string,
@@ -30,6 +30,7 @@ export interface Movie {
   starring: string[],
   fullMovie: {
     href: string,
+    format: string
   },
   backgroundColor: string,
   backgroundImg: { src: string, alt: string },

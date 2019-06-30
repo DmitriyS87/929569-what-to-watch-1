@@ -82,7 +82,7 @@ exports[`MainPage correctly renders with moviesLimited to 1 with ShowMoreButton 
           <h2
             className="movie-card__title"
           >
-            The Grand Budapest Hotel
+            Aviator
           </h2>
           <p
             className="movie-card__meta"
@@ -90,12 +90,12 @@ exports[`MainPage correctly renders with moviesLimited to 1 with ShowMoreButton 
             <span
               className="movie-card__genre"
             >
-              Drama
+              Adventure
             </span>
             <span
               className="movie-card__year"
             >
-              2014
+              1917
             </span>
           </p>
           <div
@@ -103,6 +103,7 @@ exports[`MainPage correctly renders with moviesLimited to 1 with ShowMoreButton 
           >
             <button
               className="btn btn--play movie-card__button"
+              onClick={[MockFunction]}
               type="button"
             >
               <svg
@@ -351,7 +352,7 @@ exports[`MainPage correctly renders with user login and without ShowMoreButton 1
           <h2
             className="movie-card__title"
           >
-            The Grand Budapest Hotel
+            Aviator
           </h2>
           <p
             className="movie-card__meta"
@@ -359,12 +360,12 @@ exports[`MainPage correctly renders with user login and without ShowMoreButton 1
             <span
               className="movie-card__genre"
             >
-              Drama
+              Adventure
             </span>
             <span
               className="movie-card__year"
             >
-              2014
+              1917
             </span>
           </p>
           <div
@@ -372,6 +373,7 @@ exports[`MainPage correctly renders with user login and without ShowMoreButton 1
           >
             <button
               className="btn btn--play movie-card__button"
+              onClick={[MockFunction]}
               type="button"
             >
               <svg
@@ -660,7 +662,7 @@ exports[`MainPage correctly renders without user and without ShowMoreButton 1`] 
           <h2
             className="movie-card__title"
           >
-            The Grand Budapest Hotel
+            Aviator
           </h2>
           <p
             className="movie-card__meta"
@@ -668,12 +670,12 @@ exports[`MainPage correctly renders without user and without ShowMoreButton 1`] 
             <span
               className="movie-card__genre"
             >
-              Drama
+              Adventure
             </span>
             <span
               className="movie-card__year"
             >
-              2014
+              1917
             </span>
           </p>
           <div
@@ -681,6 +683,7 @@ exports[`MainPage correctly renders without user and without ShowMoreButton 1`] 
           >
             <button
               className="btn btn--play movie-card__button"
+              onClick={[MockFunction]}
               type="button"
             >
               <svg

@@ -18,6 +18,7 @@ const init = () => {
   const api = createAPI();
   const store = createStore(reducer, compose(applyMiddleware(thunk.withExtraArgument(api)), __REDUX_DEVTOOLS_EXTENSION__ ? __REDUX_DEVTOOLS_EXTENSION__() : (source) => source));
   store.dispatch(Operation.loadMovies());
+  store.dispatch(Operation.getPromoMovie());
 
   ReactDOM.render(
     <Provider store={store}>

@@ -10,15 +10,18 @@ import { getLimitedItems } from '../../utils/get-limited-items';
 import ShowMoreButton from '../show-more-button/show-more-button';
 interface Props {
   movies: Movie[],
+  currentMovie: Movie,
   active: string,
   setGenre: () => void,
-  setShowLimit: () => void
+  setShowLimit: () => void,
+  onPlayStart: () => void,
   user: any,
   moviesLimit: number,
+
 }
 
 const MainPage = (props: Props) => {
-  const { movies, setGenre, active, user, moviesLimit, setShowLimit } = props;
+  const { movies, setGenre, active, user, moviesLimit, setShowLimit, onPlayStart, currentMovie } = props;
 
   const GenersListWrapped = withActiveItem(GenresList);
   const filtredMovies = getLimitedItems(moviesLimit, getFiltredMovies(active, movies));
@@ -51,14 +54,14 @@ const MainPage = (props: Props) => {
           </div>
 
           <div className="movie-card__desc">
-            <h2 className="movie-card__title">The Grand Budapest Hotel</h2>
+            <h2 className="movie-card__title">{currentMovie.title}</h2>
             <p className="movie-card__meta">
-              <span className="movie-card__genre">Drama</span>
-              <span className="movie-card__year">2014</span>
+              <span className="movie-card__genre">{currentMovie.genre}</span>
+              <span className="movie-card__year">{currentMovie.releseYear}</span>
             </p>
 
             <div className="movie-card__buttons">
-              <button className="btn btn--play movie-card__button" type="button">
+              <button className="btn btn--play movie-card__button" type="button" onClick={onPlayStart}>
                 <svg viewBox="0 0 19 19" width="19" height="19">
                   <use xlinkHref="#play-s"></use>
                 </svg>

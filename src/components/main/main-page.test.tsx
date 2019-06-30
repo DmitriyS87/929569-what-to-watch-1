@@ -6,9 +6,7 @@ import mockData from '../../mocks/test-mocks.js';
 
 const { MemoryRouter } = reactRouter;
 const MockBrowserRouter = ({ children }) => (
-  <MemoryRouter initialEntries={[`/`]}>
-    {children}
-  </MemoryRouter>
+  <MemoryRouter initialEntries={[`/`]}>{children}</MemoryRouter>
 );
 
 it(`MainPage correctly renders without user and without ShowMoreButton`, () => {
@@ -17,6 +15,8 @@ it(`MainPage correctly renders without user and without ShowMoreButton`, () => {
     .create(
       <MockBrowserRouter>
         <MainPage
+          currentMovie={mockData.film}
+          onPlayStart={jest.fn()}
           movies={mockData.films}
           moviesLimit={3}
           setShowLimit={mockHandle}
@@ -37,6 +37,8 @@ it(`MainPage correctly renders with user login and without ShowMoreButton`, () =
     .create(
       <MockBrowserRouter>
         <MainPage
+          currentMovie={mockData.film}
+          onPlayStart={jest.fn()}
           movies={mockData.films}
           moviesLimit={3}
           setShowLimit={mockHandle}
@@ -57,6 +59,8 @@ it(`MainPage correctly renders with moviesLimited to 1 with ShowMoreButton`, () 
     .create(
       <MockBrowserRouter>
         <MainPage
+          currentMovie={mockData.film}
+          onPlayStart={jest.fn()}
           movies={mockData.films}
           moviesLimit={1}
           setShowLimit={mockHandle}

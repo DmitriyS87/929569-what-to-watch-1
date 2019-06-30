@@ -58,7 +58,7 @@ class SmallMovieCard extends React.PureComponent<Props> {
     const screen = () => {
 
       if (active) {
-        return <VideoPlayer poster={movie.previewImg.src} movies={[movie.previewMovie]} title={movie.title} onMouseLeave={this._onBlur} />;
+        return <VideoPlayer poster={movie.previewImg.src} movies={movie.previewMovie} title={movie.title} onMouseLeave={this._onBlur} />;
       }
 
       return (<React.Fragment>
