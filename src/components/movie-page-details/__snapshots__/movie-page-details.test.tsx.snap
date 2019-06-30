@@ -91,6 +91,7 @@ Array [
           >
             <button
               className="btn btn--play movie-card__button"
+              onClick={[MockFunction]}
               type="button"
             >
               <svg
@@ -413,6 +414,7 @@ Array [
           >
             <button
               className="btn btn--play movie-card__button"
+              onClick={[MockFunction]}
               type="button"
             >
               <svg

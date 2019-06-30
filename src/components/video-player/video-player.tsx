@@ -8,8 +8,8 @@ interface Props {
   onMouseLeave: () => void,
 }
 
-class VideoPlayer extends React.PureComponent<Props> {
-  private video = createRef<HTMLVideoElement>();
+class VideoPlayer extends React.Component<Props> {
+  private video = createRef<any>();
   constructor(props) {
     super(props);
     this._onError = this._onError.bind(this);
@@ -17,7 +17,6 @@ class VideoPlayer extends React.PureComponent<Props> {
 
   render() {
     const { poster, movies, title } = this.props;
-
     return (
       <video ref={this.video} poster={poster} className="player__video">
         {movies.map((movie, idx) => {

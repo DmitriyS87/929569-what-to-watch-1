@@ -82,7 +82,7 @@ exports[`App correctly renders MainPage with user logon 1`] = `
           <h2
             className="movie-card__title"
           >
-            The Grand Budapest Hotel
+            Aviator
           </h2>
           <p
             className="movie-card__meta"
@@ -90,12 +90,12 @@ exports[`App correctly renders MainPage with user logon 1`] = `
             <span
               className="movie-card__genre"
             >
-              Drama
+              Adventure
             </span>
             <span
               className="movie-card__year"
             >
-              2014
+              1917
             </span>
           </p>
           <div
@@ -103,6 +103,7 @@ exports[`App correctly renders MainPage with user logon 1`] = `
           >
             <button
               className="btn btn--play movie-card__button"
+              onClick={[Function]}
               type="button"
             >
               <svg
@@ -391,7 +392,7 @@ exports[`App correctly renders MainPage without user logon 1`] = `
           <h2
             className="movie-card__title"
           >
-            The Grand Budapest Hotel
+            Aviator
           </h2>
           <p
             className="movie-card__meta"
@@ -399,12 +400,12 @@ exports[`App correctly renders MainPage without user logon 1`] = `
             <span
               className="movie-card__genre"
             >
-              Drama
+              Adventure
             </span>
             <span
               className="movie-card__year"
             >
-              2014
+              1917
             </span>
           </p>
           <div
@@ -412,6 +413,7 @@ exports[`App correctly renders MainPage without user logon 1`] = `
           >
             <button
               className="btn btn--play movie-card__button"
+              onClick={[Function]}
               type="button"
             >
               <svg
