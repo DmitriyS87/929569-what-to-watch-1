@@ -10,7 +10,6 @@ interface Props {
   user: {} | null;
   movie: Movie;
   id: number;
-  // onSubmit: (params) => void;
 }
 
 interface State {
@@ -120,7 +119,6 @@ class ReviewAdd extends React.PureComponent<Props, State> {
   }
 
   handleChange(evt) {
-    console.log(evt.target.value);
     this.setState({ comment: evt.target.value });
   }
 

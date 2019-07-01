@@ -109,8 +109,6 @@ const MoviePageDetails = (props: Props) => {
       : setFavoriteMovie(`${getAdaptedRouteId(routerId)}/1`);
   };
 
-  console.log(isAuthorizationRequired);
-
   if (isAuthorizationRequired) {
     return <Redirect to={{ pathname: '/login', state: { from: history.location } }} />;
   }
