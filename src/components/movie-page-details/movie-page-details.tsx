@@ -26,6 +26,7 @@ import { Operation as OperationData } from '../../reducers/data/data.js';
 import { checkStatusOk } from '../../utils/check-status';
 import { getErrorMessage } from '../../utils/get-error-message';
 import { withRouter } from 'react-router-dom';
+import Footer from '../footer/footer';
 
 const MOVIES_LIKE_THIS_LIMIT = 4;
 
@@ -132,7 +133,7 @@ const MoviePageDetails = (props: Props) => {
               </a>
             </div>
 
-            <UserBlock user={user} />
+            <UserBlock />
           </header>
 
           <div className='movie-card__wrap'>
@@ -183,20 +184,7 @@ const MoviePageDetails = (props: Props) => {
         <MoviesListLikeThis>
           <WrappedMoviesList />
         </MoviesListLikeThis>
-
-        <footer className='page-footer'>
-          <div className='logo'>
-            <a href='main.html' className='logo__link logo__link--light'>
-              <span className='logo__letter logo__letter--1'>W</span>
-              <span className='logo__letter logo__letter--2'>T</span>
-              <span className='logo__letter logo__letter--3'>W</span>
-            </a>
-          </div>
-
-          <div className='copyright'>
-            <p>© 2019 What to watch Ltd.</p>
-          </div>
-        </footer>
+        <Footer />
       </div>
     </React.Fragment>
   );

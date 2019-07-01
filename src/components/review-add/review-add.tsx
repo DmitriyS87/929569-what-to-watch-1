@@ -65,7 +65,7 @@ class ReviewAdd extends React.PureComponent<Props, State> {
               </ul>
             </nav>
 
-            <UserBlock user={null} />
+            <UserBlock />
           </header>
 
           <div className='movie-card__poster movie-card__poster--small'>
