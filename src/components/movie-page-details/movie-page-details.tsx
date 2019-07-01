@@ -1,8 +1,6 @@
 import * as React from 'react';
+import { Redirect } from 'react-router-dom';
 import UserBlock from '../user-block/user-block';
-import { connect } from 'react-redux';
-import { getMovie } from '../../reducers/data/selectors';
-import { getUser } from '../../reducers/user/selectors';
 import MoviePageTab from '../movie-page-tab/movie-page-tab';
 import withActiveItem from '../../hocs/with-active-item';
 import { Tab } from '../../types';
@@ -15,20 +13,47 @@ import { getFiltredMovies } from '../../utils/get-filtred-movies';
 import { excludeItemById } from '../../utils/exclude-item-by-id';
 import { Movie } from '../../types';
 import { Link } from 'react-router-dom';
+import { createAPI } from '../../api.js';
+import { withSVG } from '../../hocs/with-svg';
+import { connect } from 'react-redux';
+import { getAdaptedRouteId } from '../../utils/get-adapted-route-id';
+import { getMovie } from '../../utils/get-movie-from-id';
+import { getAdaptedMovies } from '../../reducers/data/selectors';
+import { getUser, getAuthorizationRequired } from '../../reducers/user/selectors';
+import { ActionCreator as UserActionCreator } from '../../reducers/user/user.js';
+import { ActionCreator as DataActionCreator } from '../../reducers/data/data.js';
+import { Operation as OperationData } from '../../reducers/data/data.js';
+import { checkStatusOk } from '../../utils/check-status';
+import { getErrorMessage } from '../../utils/get-error-message';
+import { withRouter } from 'react-router-dom';
 
 const MOVIES_LIKE_THIS_LIMIT = 4;
 
 interface Props {
-  currentMovie: Movie;
   movies: Movie[];
-  id: string;
+  match: any;
   user: {} | null;
+  isAuthorizationRequired: boolean;
   onPlayStart: () => void;
+  onAccessDenied: () => void;
+  onFavoriteCLick: ({ id: number, isFavorite: boolean }) => void;
+  history: any;
 }
 
 const MoviePageDetails = (props: Props) => {
-  const { user, movies, onPlayStart } = props;
-  const { backgroundImg, title, genre, releseYear, poster, id } = props.currentMovie;
+  const {
+    user,
+    movies,
+    onPlayStart,
+    onFavoriteCLick,
+    match,
+    isAuthorizationRequired,
+    onAccessDenied,
+    history,
+  } = props;
+  const routerId = match.params.id;
+  const currentMovie = getMovie(movies, getAdaptedRouteId(routerId));
+  const { backgroundImg, title, genre, releseYear, poster, id, isFavorite } = currentMovie;
 
   const moviesForListLikeThis = getLimitedItems(
     MOVIES_LIKE_THIS_LIMIT,
@@ -49,6 +74,44 @@ const MoviePageDetails = (props: Props) => {
   ) : (
     <div />
   );
+
+  const forMyListSVG = () => {
+    return isFavorite ? (
+      <svg viewBox='0 0 18 14' width='18' height='14'>
+        <use xlinkHref='#in-list' />
+      </svg>
+    ) : (
+      <svg viewBox='0 0 19 20' width='19' height='20'>
+        <use xlinkHref='#add' />
+      </svg>
+    );
+  };
+
+  const setFavoriteMovie = subPath => {
+    const api = createAPI(onAccessDenied);
+    api
+      .post(`/favorite/${subPath}`)
+      .then(response => {
+        if (checkStatusOk(response)) {
+          return onFavoriteCLick(response.data);
+        }
+        return response;
+      })
+      .catch(err => {
+        throw Error(err);
+      });
+  };
+
+  const handleMyListClick = evt => {
+    evt.preventDefault();
+    isFavorite
+      ? setFavoriteMovie(`${getAdaptedRouteId(routerId)}/0`)
+      : setFavoriteMovie(`${getAdaptedRouteId(routerId)}/1`);
+  };
+
+  if (isAuthorizationRequired) {
+    return <Redirect to={{ pathname: '/login', state: { from: history.location } }} />;
+  }
 
   return (
     <React.Fragment>
@@ -91,10 +154,12 @@ const MoviePageDetails = (props: Props) => {
                   </svg>
                   <span>Play</span>
                 </button>
-                <button className='btn btn--list movie-card__button' type='button'>
-                  <svg viewBox='0 0 19 20' width='19' height='20'>
-                    <use xlinkHref='#add' />
-                  </svg>
+                <button
+                  onClick={handleMyListClick}
+                  className='btn btn--list movie-card__button'
+                  type='button'
+                >
+                  {forMyListSVG()}
                   <span>My list</span>
                 </button>
                 {reviewLink}
@@ -109,7 +174,7 @@ const MoviePageDetails = (props: Props) => {
               <img src={poster.src} alt={poster.alt} width='218' height='327' />
             </div>
 
-            <WrappedMoviePageTab navItems={TABS} movie={props.currentMovie} active={Tab.OWERVIEW} />
+            <WrappedMoviePageTab navItems={TABS} movie={currentMovie} active={Tab.OWERVIEW} />
           </div>
         </div>
       </section>
@@ -137,5 +202,26 @@ const MoviePageDetails = (props: Props) => {
   );
 };
 
-export default MoviePageDetails;
+const mapStateToProps = state => {
+  return {
+    movies: getAdaptedMovies(state),
+    user: getUser(state),
+    isAuthorizationRequired: getAuthorizationRequired(state),
+  };
+};
+const mapDispatchToProps = dispatch => {
+  return {
+    onFavoriteCLick: movie => dispatch(DataActionCreator.toggleMovieFavorite(movie)),
+    onAccessDenied: () => dispatch(UserActionCreator.checkUser(true)),
+  };
+};
+
+export default compose(
+  withRouter,
+  connect(
+    mapStateToProps,
+    mapDispatchToProps
+  ),
+  withSVG
+)(MoviePageDetails);
 export { MoviePageDetails };

@@ -2,11 +2,11 @@ const initialPromoMovie = {
   title: ``,
   poster: {
     src: ``,
-    alt: ``
+    alt: ``,
   },
   previewImg: {
     src: ``,
-    alt: ``
+    alt: ``,
   },
   id: 0,
   previewMovie: [],
@@ -29,48 +29,53 @@ const initialPromoMovie = {
 const initialState = {
   movies: [],
   moviesShowLimit: 20,
-  promoMovie: initialPromoMovie
+  promoMovie: initialPromoMovie,
 };
 
 const ActionType = {
   LOAD_MOVIES: `LOAD_MOVIES`,
   LOAD_PROMO_MOVIE: `LOAD_PROMO_MOVIE`,
-  SET_MOVIES_SHOW_LIMIT: `SET_MOVIES_SHOW_LIMIT`
+  SET_MOVIES_SHOW_LIMIT: `SET_MOVIES_SHOW_LIMIT`,
+  TOGGLE_IS_FAVORITE: `TOGGLE_IS_FAVORITE`,
 };
 
 const ActionCreator = {
   loadMovies: (movies) => {
     return {
       type: ActionType.LOAD_MOVIES,
-      movies
+      movies,
     };
   },
   loadPromoMovie: (promoMovie) => {
     return {
       type: ActionType.LOAD_PROMO_MOVIE,
-      promoMovie
+      promoMovie,
     };
   },
   setMoviesShowLimit: (value) => {
     return {
       type: ActionType.SET_MOVIES_SHOW_LIMIT,
-      moviesShowLimit: value
+      moviesShowLimit: value,
     };
-  }
+  },
+  toggleMovieFavorite: (value) => {
+    return {
+      type: ActionType.TOGGLE_IS_FAVORITE,
+      value,
+    };
+  },
 };
 
 const Operation = {
   loadMovies: () => (dispatch, _getState, api) => {
-    return api.get(`/films`)
-      .then((response) => {
-        dispatch(ActionCreator.loadMovies(response.data));
-      });
+    return api.get(`/films`).then((response) => {
+      dispatch(ActionCreator.loadMovies(response.data));
+    });
   },
   getPromoMovie: () => (dispatch, _getState, api) => {
-    return api.get(`/films/promo`)
-      .then((response) => {
-        dispatch(ActionCreator.loadPromoMovie(response.data));
-      });
+    return api.get(`/films/promo`).then((response) => {
+      dispatch(ActionCreator.loadPromoMovie(response.data));
+    });
   },
 };
 
@@ -80,8 +85,14 @@ const reducer = (state = initialState, action) => {
       return Object.assign({}, state, {movies: action.movies});
     case ActionType.LOAD_PROMO_MOVIE:
       return Object.assign({}, state, {promoMovie: action.promoMovie});
+    case ActionType.TOGGLE_IS_FAVORITE:
+      const movies = [...state.movies];
+      movies.find((it) => it.id === action.value.id)[`is_favorite`] = action.value[`is_favorite`];
+      return Object.assign({}, state, {movies});
     case ActionType.SET_MOVIES_SHOW_LIMIT:
-      return Object.assign({}, state, {moviesShowLimit: state.moviesShowLimit + action.moviesShowLimit});
+      return Object.assign({}, state, {
+        moviesShowLimit: state.moviesShowLimit + action.moviesShowLimit,
+      });
     default:
       return state;
   }

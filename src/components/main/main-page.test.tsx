@@ -1,7 +1,7 @@
 import * as React from 'react';
 import * as renderer from 'react-test-renderer';
 import * as reactRouter from 'react-router-dom';
-import MainPage from './main-page';
+import { MainPage } from './main-page';
 import mockData from '../../mocks/test-mocks.js';
 
 const { MemoryRouter } = reactRouter;

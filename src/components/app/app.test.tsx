@@ -15,6 +15,7 @@ it(`App correctly renders MainPage without user logon`, () => {
     .create(
       <MockBrowserRouter>
         <App
+          setFavorite={mockFunction}
           promoMovie={mockData.film}
           movies={mockData.films}
           moviesShowLimit={3}
@@ -40,6 +41,7 @@ it(`App correctly renders MainPage with user logon`, () => {
     .create(
       <MockBrowserRouter>
         <App
+          setFavorite={mockFunction}
           promoMovie={mockData.film}
           movies={mockData.films}
           moviesShowLimit={3}

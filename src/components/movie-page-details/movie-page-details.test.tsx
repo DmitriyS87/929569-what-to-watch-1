@@ -8,16 +8,34 @@ const { MemoryRouter } = reactRouter;
 const MockBrowserRouter = ({ children }) => (
   <MemoryRouter initialEntries={[`/`]}>{children}</MemoryRouter>
 );
+const mockHandler = jest.fn();
+const mockHistory = {
+  location: {
+    state: {
+      from: {
+        pathname: `/fromtest/`,
+      },
+    },
+  },
+};
 
 it(`MoviePageDetails without user correctly renders after relunch: `, () => {
+  const mockMatch = {
+    params: {
+      id: `:0`,
+    },
+  };
   const tree = renderer.create(
     <MockBrowserRouter>
       <MoviePageDetails
-        onPlayStart={jest.fn()}
+        onFavoriteCLick={mockHandler}
+        onPlayStart={mockHandler}
         movies={mockData.films}
-        currentMovie={mockData.film}
-        id={`0`}
         user={null}
+        history={mockHistory}
+        match={mockMatch}
+        isAuthorizationRequired={true}
+        onAccessDenied={mockHandler}
       />
     </MockBrowserRouter>
   );
@@ -26,15 +44,23 @@ it(`MoviePageDetails without user correctly renders after relunch: `, () => {
 });
 
 it(`MoviePageDetails with user correctly renders after relunch: `, () => {
+  const mockMatch = {
+    params: {
+      id: `:2`,
+    },
+  };
   const tree = renderer
     .create(
       <MockBrowserRouter>
         <MoviePageDetails
-          onPlayStart={jest.fn()}
+          onFavoriteCLick={mockHandler}
+          onPlayStart={mockHandler}
           movies={mockData.films}
-          currentMovie={mockData.film}
-          id={`3`}
           user={{ id: 5 }}
+          history={mockHistory}
+          match={mockMatch}
+          isAuthorizationRequired={false}
+          onAccessDenied={mockHandler}
         />
       </MockBrowserRouter>
     )
