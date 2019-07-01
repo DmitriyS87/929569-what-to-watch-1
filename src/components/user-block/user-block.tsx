@@ -1,20 +1,23 @@
 import * as React from 'react';
 import { withRouter, Link } from 'react-router-dom';
-
+import { compose } from 'recompose';
+import { connect } from 'react-redux';
+import { getAuthorizationRequired, getUser } from '../../reducers/user/selectors';
 interface Props {
   user: {} | null;
+  isAuthorizationRequired: boolean;
   history: { push: (param: string) => void };
 }
 
 const UserBlock = (props: Props) => {
-  const { user, history } = props;
+  const { user, isAuthorizationRequired, history } = props;
 
   const handleClick = evt => {
     evt.preventDefault();
     history.push(`favorites`);
   };
 
-  if (!user) {
+  if (!user || isAuthorizationRequired) {
     return (
       <div className='user-block'>
         <Link to='/login' className='user-block__link'>
@@ -33,5 +36,17 @@ const UserBlock = (props: Props) => {
   );
 };
 
-export default withRouter(UserBlock);
+const mapStateToProps = state => {
+  return {
+    isAuthorizationRequired: getAuthorizationRequired(state),
+    user: getUser(state),
+  };
+};
+
+const enhance = compose(
+  connect(mapStateToProps),
+  withRouter
+);
+
+export default enhance(UserBlock);
 export { UserBlock };
