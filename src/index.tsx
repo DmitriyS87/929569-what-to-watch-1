@@ -8,7 +8,8 @@ import { Operation } from './reducers/data/data';
 import { createAPI } from './api';
 import thunk from 'redux-thunk';
 import { compose } from 'recompose';
-import { BrowserRouter } from 'react-router-dom';
+import { Router } from 'react-router-dom';
+import history from './history.js';
 
 const entryPoint = document.getElementById(`root`);
 
@@ -16,16 +17,24 @@ declare const __REDUX_DEVTOOLS_EXTENSION__: () => any;
 
 const init = () => {
   const api = createAPI();
-  const store = createStore(reducer, compose(applyMiddleware(thunk.withExtraArgument(api)), __REDUX_DEVTOOLS_EXTENSION__ ? __REDUX_DEVTOOLS_EXTENSION__() : (source) => source));
+  const store = createStore(
+    reducer,
+    compose(
+      applyMiddleware(thunk.withExtraArgument(api)),
+      __REDUX_DEVTOOLS_EXTENSION__ ? __REDUX_DEVTOOLS_EXTENSION__() : source => source
+    )
+  );
   store.dispatch(Operation.loadMovies());
   store.dispatch(Operation.getPromoMovie());
 
   ReactDOM.render(
     <Provider store={store}>
-      <BrowserRouter>
+      <Router history={history}>
         <App />
-      </BrowserRouter>
-    </Provider>, entryPoint);
+      </Router>
+    </Provider>,
+    entryPoint
+  );
 };
 
 init();
