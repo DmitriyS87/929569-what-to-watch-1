@@ -10,7 +10,10 @@ exports[`ReviewAdd correctly renders after relunch:  1`] = `
     <div
       className="movie-card__bg"
     >
-      <img />
+      <img
+        alt="Aviator"
+        src="img/aviator.jpg"
+      />
     </div>
     <h1
       className="visually-hidden"
