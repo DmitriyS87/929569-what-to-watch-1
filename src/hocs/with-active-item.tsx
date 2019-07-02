@@ -8,7 +8,7 @@ export interface withActiveItemState {
 }
 
 const withActiveItem = (Component: React.ComponentType<any>) => {
-  class WithActiveItem extends React.Component<withActiveItemProps, withActiveItemState> {
+  class WithActiveItem extends React.Component<any, withActiveItemState> {
     constructor(props) {
       super(props);
 
