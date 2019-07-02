@@ -82,13 +82,17 @@ exports[`ReviewAdd correctly renders after relunch:  1`] = `
       <div
         className="user-block"
       >
-        <a
-          className="user-block__link"
-          href="/login"
-          onClick={[Function]}
+        <div
+          className="user-block__avatar"
         >
-          Sign in
-        </a>
+          <img
+            alt="User avatar"
+            height="63"
+            onClick={[Function]}
+            src="img/avatar.jpg"
+            width="63"
+          />
+        </div>
       </div>
     </header>
     <div

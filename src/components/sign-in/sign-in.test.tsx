@@ -1,6 +1,12 @@
 import * as React from 'react';
 import * as renderer from 'react-test-renderer';
+import * as reactRouter from 'react-router-dom';
 import { SignIn } from './sign-in';
+
+const { MemoryRouter } = reactRouter;
+const MockBrowserRouter = ({ children }) => (
+  <MemoryRouter initialEntries={[`/`]}>{children}</MemoryRouter>
+);
 
 const mockHistory = {
   location: {
@@ -16,12 +22,14 @@ const mockHandle = jest.fn();
 it(`SignIn correctly renders with required authorization:`, () => {
   const tree = renderer
     .create(
-      <SignIn
-        isAuthorizationRequired={true}
-        history={mockHistory}
-        onLogin={mockHandle}
-        message={`Sign in here`}
-      />
+      <MockBrowserRouter>
+        <SignIn
+          isAuthorizationRequired={true}
+          history={mockHistory}
+          onLogin={mockHandle}
+          message={`Sign in here`}
+        />
+      </MockBrowserRouter>
     )
     .toJSON();
 
@@ -31,12 +39,14 @@ it(`SignIn correctly renders with required authorization:`, () => {
 it(`SignIn correctly renders with message: \'Sign in here\' text props: `, () => {
   const tree = renderer
     .create(
-      <SignIn
-        isAuthorizationRequired={true}
-        history={mockHistory}
-        onLogin={mockHandle}
-        message={`Sign in here`}
-      />
+      <MockBrowserRouter>
+        <SignIn
+          isAuthorizationRequired={true}
+          history={mockHistory}
+          onLogin={mockHandle}
+          message={`Sign in here`}
+        />
+      </MockBrowserRouter>
     )
     .toJSON();
 
@@ -46,12 +56,14 @@ it(`SignIn correctly renders with message: \'Sign in here\' text props: `, () =>
 it(`SignIn correctly renders with required authorization without message: `, () => {
   const tree = renderer
     .create(
-      <SignIn
-        isAuthorizationRequired={true}
-        history={mockHistory}
-        onLogin={mockHandle}
-        message={``}
-      />
+      <MockBrowserRouter>
+        <SignIn
+          isAuthorizationRequired={true}
+          history={mockHistory}
+          onLogin={mockHandle}
+          message={``}
+        />
+      </MockBrowserRouter>
     )
     .toJSON();
 

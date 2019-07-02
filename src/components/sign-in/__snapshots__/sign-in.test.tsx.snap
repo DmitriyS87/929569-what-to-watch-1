@@ -112,7 +112,8 @@ exports[`SignIn correctly renders with message: 'Sign in here' text props:  1`] 
     >
       <a
         className="logo__link logo__link--light"
-        href="#"
+        href="/"
+        onClick={[Function]}
       >
         <span
           className="logo__letter logo__letter--1"
@@ -248,7 +249,8 @@ exports[`SignIn correctly renders with required authorization without message:  
     >
       <a
         className="logo__link logo__link--light"
-        href="#"
+        href="/"
+        onClick={[Function]}
       >
         <span
           className="logo__letter logo__letter--1"
@@ -390,7 +392,8 @@ exports[`SignIn correctly renders with required authorization: 1`] = `
     >
       <a
         className="logo__link logo__link--light"
-        href="#"
+        href="/"
+        onClick={[Function]}
       >
         <span
           className="logo__letter logo__letter--1"
