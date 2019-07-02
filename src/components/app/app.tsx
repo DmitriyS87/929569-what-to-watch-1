@@ -33,7 +33,6 @@ interface Props {
   promoMovie: Movie;
   setGenre: () => void;
   tryLogin: () => void;
-  checkUser: () => void;
   setNewShowLimit: () => void;
   setFavorite: () => void;
   active: string;
@@ -41,6 +40,7 @@ interface Props {
   errorMessage: string;
   user: any;
   moviesShowLimit: number;
+  checkSession: () => void;
 }
 
 class App extends React.PureComponent<Props> {
@@ -72,6 +72,7 @@ class App extends React.PureComponent<Props> {
             <SignIn
               onLogin={tryLogin}
               message={errorMessage}
+              user={user}
               isAuthorizationRequired={isAuthorizationRequired}
             />
           )}
@@ -114,7 +115,7 @@ const mapDispatchToProps = dispatch => {
   return {
     setGenre: genre => dispatch(GenreActionCreator.changeGenre(genre)),
     tryLogin: userData => dispatch(OperationUser.tryLogin(userData)),
-    checkUser: () => dispatch(UserActionCreator.checkUser(true)),
+    checkSession: () => dispatch(OperationUser.checkSession()),
     setNewShowLimit: limit => dispatch(DataActionCreator.setMoviesShowLimit(limit)),
     setFavorite: movie => dispatch(OperationData.toggleMovieFavorite(movie)),
   };

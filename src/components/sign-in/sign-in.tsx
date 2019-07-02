@@ -7,12 +7,12 @@ interface Props {
   onLogin: ({ email, password: string }) => void;
   message: string;
   history: any;
-  isAuthorizationRequired: boolean;
+  user: any;
 }
 
 const SignIn = (props: Props) => {
-  const { message, isAuthorizationRequired, history } = props;
-  const from = history.location.state.from.pathname || '/';
+  const { message, history, user } = props;
+  const from = history.location.state ? history.location.state.from.pathname : '/';
 
   const handleSubmit = evt => {
     evt.preventDefault();
@@ -26,9 +26,10 @@ const SignIn = (props: Props) => {
     });
   };
 
-  if (!isAuthorizationRequired) {
+  if (user) {
     return <Redirect to={from} />;
   }
+
   return (
     <div className='user-page'>
       <header className='page-header user-page__head'>
