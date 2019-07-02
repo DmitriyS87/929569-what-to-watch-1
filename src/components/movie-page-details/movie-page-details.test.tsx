@@ -31,21 +31,16 @@ it(`MoviePageDetails without user correctly renders after relunch: `, () => {
     },
   };
   const store = mockStore(getState);
-  const mockMatch = {
-    params: {
-      id: `:0`,
-    },
-  };
   const tree = renderer.create(
     <Provider store={store}>
       <MockBrowserRouter>
         <MoviePageDetails
+          currentMovie={mockData.film}
           onFavoriteCLick={mockHandler}
           onPlayStart={mockHandler}
           movies={mockData.films}
           user={null}
           history={mockHistory}
-          match={mockMatch}
           isAuthorizationRequired={true}
           onAccessDenied={mockHandler}
         />
@@ -64,22 +59,17 @@ it(`MoviePageDetails with user correctly renders after relunch: `, () => {
     },
   };
   const store = mockStore(getState);
-  const mockMatch = {
-    params: {
-      id: `:2`,
-    },
-  };
   const tree = renderer
     .create(
       <Provider store={store}>
         <MockBrowserRouter>
           <MoviePageDetails
+            currentMovie={mockData.film}
             onFavoriteCLick={mockHandler}
             onPlayStart={mockHandler}
             movies={mockData.films}
             user={{ id: 5 }}
             history={mockHistory}
-            match={mockMatch}
             isAuthorizationRequired={false}
             onAccessDenied={mockHandler}
           />

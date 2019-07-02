@@ -11,6 +11,46 @@ const MockBrowserRouter = ({ children }) => (
   <MemoryRouter initialEntries={[`/`]}>{children}</MemoryRouter>
 );
 
+const mockServerSideFilms = [
+  {
+    name: `Aviator`,
+    [`preview_image`]: `img/aviator.jpg`,
+    id: 0,
+    genre: `Adventure`,
+    director: `Test person`,
+    description: `Test text about current movie`,
+    releseYear: `1917`,
+    rating: 15,
+    starring: [`Best Artist`, `Best Acter`, `Best Person`],
+  },
+  {
+    name: `Pulp Fiction`,
+    [`preview_image`]: `img/pulp-fiction.jpg`,
+    id: 1,
+    genre: `Western`,
+    director: `Test person`,
+    description: `Test text about current movie Pulp Fiction`,
+    releseYear: `1905`,
+    rating: 100,
+    starring: [
+      `The Best of the Best Artist`,
+      `The Best of the Best Acter`,
+      `The Best of the Best Person`,
+    ],
+  },
+  {
+    name: `Aviator CLONE`,
+    [`preview_image`]: `img/aviator.jpg`,
+    id: 2,
+    genre: `Adventure`,
+    director: `Test person`,
+    description: `Test text about current movie`,
+    releseYear: `1917`,
+    rating: 15,
+    starring: [`Best Artist`, `Best Acter`, `Best Person`],
+  },
+];
+
 it(`App correctly renders MainPage without user logon`, () => {
   const mockFunction = jest.fn();
   const store = getMockStore({
@@ -18,6 +58,8 @@ it(`App correctly renders MainPage without user logon`, () => {
       isAuthorizationRequired: true,
       user: null,
     },
+    DATA: { movies: mockServerSideFilms, moviesShowLimit: 20, promoMovie: mockData.film },
+    GENRE: { genre: mockData.activeGenre },
   });
   const tree = renderer
     .create(
@@ -48,6 +90,8 @@ it(`App correctly renders MainPage without user logon`, () => {
 it(`App correctly renders MainPage with user logon`, () => {
   const store = getMockStore({
     USER: { isAuthorizationRequired: false, user: { id: `mock` } },
+    DATA: { movies: mockServerSideFilms, moviesShowLimit: 20, promoMovie: mockData.film },
+    GENRE: { genre: mockData.activeGenre },
   });
   const mockFunction = jest.fn();
   const tree = renderer

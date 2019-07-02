@@ -69,7 +69,7 @@ Array [
           <h2
             className="movie-card__title"
           >
-            Aviator CLONE
+            Aviator
           </h2>
           <p
             className="movie-card__meta"
@@ -126,7 +126,7 @@ Array [
             </button>
             <a
               className="btn movie-card__button"
-              href="/film/:2/review/add"
+              href="/film/:0/review/add"
               onClick={[Function]}
             >
               Add review
@@ -270,7 +270,7 @@ Array [
             className="small-movie-card__image"
           >
             <img
-              alt="Aviator"
+              alt="Aviator CLONE"
               height="175"
               src="img/aviator.jpg"
               width="280"
@@ -281,9 +281,9 @@ Array [
           >
             <a
               className="small-movie-card__link"
-              href="/film/:0"
+              href="/film/:2"
             >
-              Aviator
+              Aviator CLONE
             </a>
           </h3>
         </article>
