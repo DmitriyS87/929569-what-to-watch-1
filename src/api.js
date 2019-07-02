@@ -1,6 +1,7 @@
 import axios from 'axios';
+import history from './history.js';
 
-export function createAPI(onLoginFail) {
+export function createAPI() {
   const api = axios.create({
     baseURL: `https://es31-server.appspot.com/wtw`,
     timeout: 5000,
@@ -11,7 +12,7 @@ export function createAPI(onLoginFail) {
 
   const onErrorr = (err) => {
     if (err.response.status === 403) {
-      onLoginFail();
+      history.push(`/login`);
     }
     return err;
   };
