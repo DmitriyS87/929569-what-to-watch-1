@@ -1,9 +1,12 @@
 import * as React from 'react';
 import { Redirect } from 'react-router-dom';
+import { compose } from 'recompose';
+import { connect } from 'react-redux';
+import { getUser } from '../reducers/user/selectors';
 
-export const withPrivatePath = <P extends Object>(Component: React.ComponentType<P>) => {
+const withPrivatePath = <P extends Object>(Component: React.ComponentType<P>) => {
   interface Props {
-    user: {} & null
+    user: {} & null;
   }
 
   class WithPrivatePath extends React.Component<P & Props> {
@@ -13,16 +16,26 @@ export const withPrivatePath = <P extends Object>(Component: React.ComponentType
 
     render() {
       const { user } = this.props;
-      switch (user) {
-        case null:
-          return (<Redirect to="/login" />);
-        default:
-          return (<Component {...this.props} />);
+
+      if (user) {
+        return <Component {...this.props} />;
       }
+
+      return <Redirect to='/login' />;
     }
   }
 
   return WithPrivatePath;
 };
 
-export default withPrivatePath;
+const mapStateToProps = state => {
+  return {
+    user: getUser(state),
+  };
+};
+
+export default compose(
+  connect(mapStateToProps),
+  withPrivatePath
+);
+export { withPrivatePath };
