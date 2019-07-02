@@ -37,6 +37,7 @@ interface Props {
   isAuthorizationRequired: boolean;
   onPlayStart: () => void;
   onAccessDenied: () => void;
+  setFavoriteMovie: (param: string) => void;
   onFavoriteCLick: ({ id: number, isFavorite: boolean }) => void;
   history: any;
 }
@@ -47,6 +48,7 @@ const MoviePageDetails = (props: Props) => {
     movies,
     onPlayStart,
     onFavoriteCLick,
+    setFavoriteMovie,
     isAuthorizationRequired,
     onAccessDenied,
     history,
@@ -75,7 +77,7 @@ const MoviePageDetails = (props: Props) => {
     <div />
   );
 
-  const forMyListSVG = () => {
+  const ForMyListSVG = () => {
     return isFavorite ? (
       <svg viewBox='0 0 18 14' width='18' height='14'>
         <use xlinkHref='#in-list' />
@@ -87,29 +89,14 @@ const MoviePageDetails = (props: Props) => {
     );
   };
 
-  const setFavoriteMovie = subPath => {
-    const api = createAPI(onAccessDenied);
-    api
-      .post(`/favorite/${subPath}`)
-      .then(response => {
-        if (checkStatusOk(response)) {
-          return onFavoriteCLick(response.data);
-        }
-        return response;
-      })
-      .catch(err => {
-        throw Error(err);
-      });
-  };
-
   const handleMyListClick = evt => {
     evt.preventDefault();
     isFavorite ? setFavoriteMovie(`${id}/0`) : setFavoriteMovie(`${id}/1`);
   };
 
-  if (isAuthorizationRequired) {
-    return <Redirect to={{ pathname: '/login', state: { from: history.location } }} />;
-  }
+  // if (isAuthorizationRequired) {
+  //   return <Redirect to={{ pathname: '/login', state: { from: history.location } }} />;
+  // }
 
   return (
     <React.Fragment>
@@ -157,7 +144,7 @@ const MoviePageDetails = (props: Props) => {
                   className='btn btn--list movie-card__button'
                   type='button'
                 >
-                  {forMyListSVG()}
+                  {ForMyListSVG()}
                   <span>My list</span>
                 </button>
                 {reviewLink}
@@ -198,6 +185,7 @@ const mapDispatchToProps = dispatch => {
   return {
     onFavoriteCLick: movie => dispatch(DataActionCreator.toggleMovieFavorite(movie)),
     onAccessDenied: () => dispatch(UserActionCreator.checkUser(true)),
+    setFavoriteMovie: subPath => dispatch(OperationData.setFavoriteMovie(subPath)),
   };
 };
 

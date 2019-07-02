@@ -1,3 +1,5 @@
+import {checkStatusOk} from '../../utils/check-status';
+
 const initialPromoMovie = {
   title: ``,
   poster: {
@@ -75,6 +77,13 @@ const Operation = {
   getPromoMovie: () => (dispatch, _getState, api) => {
     return api.get(`/films/promo`).then((response) => {
       dispatch(ActionCreator.loadPromoMovie(response.data));
+    });
+  },
+  setFavoriteMovie: (subPath) => (dispatch, _getState, api) => {
+    return api.post(`/favorite/${subPath}`).then((response) => {
+      if (checkStatusOk(response)) {
+        dispatch(ActionCreator.toggleMovieFavorite(response.data));
+      }
     });
   },
 };
