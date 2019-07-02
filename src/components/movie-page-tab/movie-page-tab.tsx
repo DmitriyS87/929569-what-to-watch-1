@@ -1,67 +1,64 @@
 import * as React from 'react';
+import { Movie } from '../../types';
+import { TABS } from '../../constants/movie-page-tab.constant';
+// от 0 до 3 — bad.
+// от 3 до 5 — normal.
+// от 5 до 8 — good.
+// от 8 до 10 — very good.
+// 10 — awesome.
 
-interface PropsActive {
+interface Props {
   activeItem: string;
+  movie: Movie;
 }
 
 interface PropsNav {
-  navItems: string[];
   setActive: (param: string) => void;
 }
 
-interface PropsMovie {
-  movie: {
-    backgroundImg: { src: string; alt: string };
-    title: string;
-    releseYear: number;
-    genre: string;
-    poster: { src: string; alt: string };
-    director: string;
-    starring: string[];
-    runTime: string;
-  };
-}
-
-const MoviePageTab = (props: PropsMovie & PropsNav & PropsActive) => {
-  const { navItems, activeItem, setActive, movie } = props;
-
+const MoviePageTab = (props: Props & PropsNav) => {
+  const { activeItem, setActive, movie } = props;
   const handleClick = evt => {
     evt.preventDefault();
     setActive(evt.target.textContent);
   };
 
-  const ScreenTab = (props: PropsMovie & PropsActive) => {
-    const { genre, releseYear, director, starring, runTime } = props.movie;
+  const ScreenTab = (props: Props) => {
+    const {
+      genre,
+      releseYear,
+      director,
+      starring,
+      runTime,
+      rating,
+      scoresCount,
+      description,
+    } = props.movie;
+    const descriptions = description.split('. ');
     switch (props.activeItem) {
       case `Overview`:
         return (
           <React.Fragment>
             <div className='movie-rating'>
-              <div className='movie-rating__score'>8,9</div>
+              <div className='movie-rating__score'>{rating.toFixed(1)}</div>
               <p className='movie-rating__meta'>
                 <span className='movie-rating__level'>Very good</span>
-                <span className='movie-rating__count'>240 ratings</span>
+                <span className='movie-rating__count'>{scoresCount} ratings</span>
               </p>
             </div>
 
             <div className='movie-card__text'>
-              <p>
-                In the 1930s, the Grand Budapest Hotel is a popular European ski resort, presided
-                over by concierge Gustave H. (Ralph Fiennes). Zero, a junior lobby boy, becomes
-                Gustave's friend and protege.
-              </p>
-              <p>
-                Gustave prides himself on providing first-class service to the hotel's guests,
-                including satisfying the sexual needs of the many elderly women who stay there. When
-                one of Gustave's lovers dies mysteriously, Gustave finds himself the recipient of a
-                priceless painting and the chief suspect in her murder.
-              </p>
+              {descriptions.map(paragraph => {
+                return <p>{paragraph}</p>;
+              })}
               <p className='movie-card__director'>
-                <strong>Director: Wes Andreson</strong>
+                <strong>Director: {director}</strong>
               </p>
               <p className='movie-card__starring'>
                 <strong>
-                  Starring: Bill Murray, Edward Norton, Jude Law, Willem Dafoe and other
+                  Starring:{' '}
+                  {starring.map((it, idx, arr) => `${it}${idx < arr.length - 1 ? ',' : ''}`)} and
+                  other
                 </strong>
               </p>
             </div>
@@ -238,7 +235,7 @@ const MoviePageTab = (props: PropsMovie & PropsNav & PropsActive) => {
       <div className='movie-card__desc'>
         <nav className='movie-nav movie-card__nav'>
           <ul className='movie-nav__list'>
-            {navItems.map((it, idx) => {
+            {TABS.map((it, idx) => {
               return (
                 <li
                   key={`MNL-${it}-${idx}`}
