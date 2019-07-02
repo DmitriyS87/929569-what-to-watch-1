@@ -1,5 +1,3 @@
-import {checkStatusOk} from '../../utils/check-status';
-
 const initialPromoMovie = {
   title: ``,
   poster: {
@@ -32,6 +30,7 @@ const initialState = {
   movies: [],
   moviesShowLimit: 20,
   promoMovie: initialPromoMovie,
+  errorMessage: ``,
 };
 
 const ActionType = {
@@ -39,6 +38,7 @@ const ActionType = {
   LOAD_PROMO_MOVIE: `LOAD_PROMO_MOVIE`,
   SET_MOVIES_SHOW_LIMIT: `SET_MOVIES_SHOW_LIMIT`,
   TOGGLE_IS_FAVORITE: `TOGGLE_IS_FAVORITE`,
+  SET_ERROR_MESSAGE: `SET_ERROR_MESSAGE`,
 };
 
 const ActionCreator = {
@@ -66,6 +66,12 @@ const ActionCreator = {
       value,
     };
   },
+  setErrorMessage: (responseError) => {
+    return {
+      type: ActionType.SET_ERROR_MESSAGE,
+      responseError,
+    };
+  },
 };
 
 const Operation = {
@@ -80,11 +86,12 @@ const Operation = {
     });
   },
   setFavoriteMovie: (subPath) => (dispatch, _getState, api) => {
-    return api.post(`/favorite/${subPath}`).then((response) => {
-      if (checkStatusOk(response)) {
+    return api
+      .post(`/favorite/${subPath}`)
+      .then((response) => {
         dispatch(ActionCreator.toggleMovieFavorite(response.data));
-      }
-    });
+      })
+      .catch((err) => ActionCreator.setErrorMessage(err.response));
   },
 };
 
@@ -101,6 +108,12 @@ const reducer = (state = initialState, action) => {
     case ActionType.SET_MOVIES_SHOW_LIMIT:
       return Object.assign({}, state, {
         moviesShowLimit: state.moviesShowLimit + action.moviesShowLimit,
+      });
+    case ActionType.SET_ERROR_MESSAGE:
+      return Object.assign({}, state, {
+        errorMessage: `Error data loading. Status: ${action.responseError.status}. ${
+          action.responseError.statusText
+        }`,
       });
     default:
       return state;
