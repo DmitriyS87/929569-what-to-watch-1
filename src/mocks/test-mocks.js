@@ -145,7 +145,7 @@ export default {
     ],
     genre: `Adventure`,
     director: `Test person`,
-    description: `Test text about current movie`,
+    description: `Test text about current movie. Next row test text about current movie. Last row test text about current movie.`,
     releseYear: `1917`,
     runTime: `string`,
     rating: 15,

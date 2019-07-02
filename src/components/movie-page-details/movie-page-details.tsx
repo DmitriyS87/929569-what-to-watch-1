@@ -4,7 +4,6 @@ import UserBlock from '../user-block/user-block';
 import MoviePageTab from '../movie-page-tab/movie-page-tab';
 import withActiveItem from '../../hocs/with-active-item';
 import { Tab } from '../../types';
-import { TABS } from '../../constants/movie-page-tab.constant';
 import { compose, withProps } from 'recompose';
 import MoviesList from '../movies-list/movies-list';
 import MoviesListLikeThis from '../movies-list-like-this/movies-list-like-this';
@@ -159,7 +158,7 @@ const MoviePageDetails = (props: Props) => {
               <img src={poster.src} alt={poster.alt} width='218' height='327' />
             </div>
 
-            <WrappedMoviePageTab navItems={TABS} movie={currentMovie} active={Tab.OWERVIEW} />
+            <WrappedMoviePageTab movie={currentMovie} active={Tab.OWERVIEW} />
           </div>
         </div>
       </section>

@@ -187,7 +187,7 @@ exports[`MoviePageTab correctly renders Tab.OWERVIEW after relunch:  1`] = `
     <div
       className="movie-rating__score"
     >
-      8,9
+      15.0
     </div>
     <p
       className="movie-rating__meta"
@@ -200,7 +200,8 @@ exports[`MoviePageTab correctly renders Tab.OWERVIEW after relunch:  1`] = `
       <span
         className="movie-rating__count"
       >
-        240 ratings
+        542
+         ratings
       </span>
     </p>
   </div>
@@ -208,23 +209,32 @@ exports[`MoviePageTab correctly renders Tab.OWERVIEW after relunch:  1`] = `
     className="movie-card__text"
   >
     <p>
-      In the 1930s, the Grand Budapest Hotel is a popular European ski resort, presided over by concierge Gustave H. (Ralph Fiennes). Zero, a junior lobby boy, becomes Gustave's friend and protege.
+      Test text about current movie
     </p>
     <p>
-      Gustave prides himself on providing first-class service to the hotel's guests, including satisfying the sexual needs of the many elderly women who stay there. When one of Gustave's lovers dies mysteriously, Gustave finds himself the recipient of a priceless painting and the chief suspect in her murder.
+      Next row test text about current movie
+    </p>
+    <p>
+      Last row test text about current movie.
     </p>
     <p
       className="movie-card__director"
     >
       <strong>
-        Director: Wes Andreson
+        Director: 
+        Test person
       </strong>
     </p>
     <p
       className="movie-card__starring"
     >
       <strong>
-        Starring: Bill Murray, Edward Norton, Jude Law, Willem Dafoe and other
+        Starring:
+         
+        Best Artist,
+        Best Acter,
+        Best Person
+         and other
       </strong>
     </p>
   </div>
