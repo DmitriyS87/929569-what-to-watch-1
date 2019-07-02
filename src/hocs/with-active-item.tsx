@@ -1,27 +1,32 @@
 import * as React from 'react';
 
 export interface withActiveItemProps {
-  active: string,
+  active: string;
 }
 export interface withActiveItemState {
-  activeItem: string | null
+  activeItem: string | null;
 }
 
-const withActiveItem = (Child: React.ReactNode) => {
-
-  class WithActiveItem extends React.Component<any, withActiveItemState> {
+const withActiveItem = (Component: React.ComponentType<any>) => {
+  class WithActiveItem extends React.Component<withActiveItemProps, withActiveItemState> {
     constructor(props) {
       super(props);
 
       this.state = {
-        activeItem: this.props.active || null
+        activeItem: this.props.active || null,
       };
     }
 
     render() {
       const { activeItem } = this.state;
-      // @ts-ignore
-      return <Child {...this.props} activeItem={activeItem} setActive={(item) => (this.setState({ activeItem: item }))} />;
+
+      return (
+        <Component
+          {...this.props}
+          activeItem={activeItem}
+          setActive={item => this.setState({ activeItem: item })}
+        />
+      );
     }
   }
 

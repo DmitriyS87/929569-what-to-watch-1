@@ -51,13 +51,9 @@ class App extends React.PureComponent<Props> {
   render() {
     const {
       movies,
-      setGenre,
-      active,
       tryLogin,
       errorMessage,
       user,
-      moviesShowLimit,
-      setNewShowLimit,
       promoMovie,
       isAuthorizationRequired,
     } = this.props;
@@ -69,21 +65,7 @@ class App extends React.PureComponent<Props> {
 
     return (
       <Switch>
-        <Route
-          path='/'
-          exact
-          render={() => (
-            <WithPlayerMainPage
-              movies={movies}
-              moviesLimit={moviesShowLimit}
-              setShowLimit={setNewShowLimit}
-              setGenre={setGenre}
-              active={active}
-              user={user}
-              currentMovie={promoMovie}
-            />
-          )}
-        />
+        <Route path='/' exact render={() => <WithPlayerMainPage currentMovie={promoMovie} />} />
         <Route
           path='/login'
           render={() => (
@@ -103,7 +85,14 @@ class App extends React.PureComponent<Props> {
             return <ReviewAdd user={user} movie={currentMovie} id={routeId} />;
           }}
         />
-        <Route path='/film/:id/' exact component={WithPlayerMoviePage} />
+        <Route
+          path='/film/:id/'
+          exact
+          render={route => {
+            const currentMovie = getMovie(movies, getAdaptedRouteId(route.match.params.id));
+            return <WithPlayerMoviePage currentMovie={currentMovie} />;
+          }}
+        />
       </Switch>
     );
   }

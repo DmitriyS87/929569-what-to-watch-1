@@ -32,7 +32,7 @@ const MOVIES_LIKE_THIS_LIMIT = 4;
 
 interface Props {
   movies: Movie[];
-  match: any;
+  currentMovie: Movie;
   user: {} | null;
   isAuthorizationRequired: boolean;
   onPlayStart: () => void;
@@ -47,13 +47,12 @@ const MoviePageDetails = (props: Props) => {
     movies,
     onPlayStart,
     onFavoriteCLick,
-    match,
     isAuthorizationRequired,
     onAccessDenied,
     history,
+    currentMovie,
   } = props;
-  const routerId = match.params.id;
-  const currentMovie = getMovie(movies, getAdaptedRouteId(routerId));
+
   const { backgroundImg, title, genre, releseYear, poster, id, isFavorite } = currentMovie;
 
   const moviesForListLikeThis = getLimitedItems(
@@ -105,9 +104,7 @@ const MoviePageDetails = (props: Props) => {
 
   const handleMyListClick = evt => {
     evt.preventDefault();
-    isFavorite
-      ? setFavoriteMovie(`${getAdaptedRouteId(routerId)}/0`)
-      : setFavoriteMovie(`${getAdaptedRouteId(routerId)}/1`);
+    isFavorite ? setFavoriteMovie(`${id}/0`) : setFavoriteMovie(`${id}/1`);
   };
 
   if (isAuthorizationRequired) {

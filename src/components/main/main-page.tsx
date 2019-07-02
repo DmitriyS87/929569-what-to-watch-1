@@ -10,6 +10,16 @@ import { getFiltredMovies } from '../../utils/get-filtred-movies';
 import { getLimitedItems } from '../../utils/get-limited-items';
 import ShowMoreButton from '../show-more-button/show-more-button';
 import Footer from '../footer/footer';
+import { connect } from 'react-redux';
+import {
+  getAdaptedMovies,
+  getMoviesShowLimit,
+  getAdaptedPromoMovie,
+} from '../../reducers/data/selectors';
+import { getUser } from '../../reducers/user/selectors';
+import { getGenre } from '../../reducers/genre/selectors';
+import { ActionCreator as DataActionCreator } from '../../reducers/data/data.js';
+import { ActionCreator as GenreActionCreator } from '../../reducers/genre/genre';
 interface Props {
   movies: Movie[];
   currentMovie: Movie;
@@ -22,16 +32,7 @@ interface Props {
 }
 
 const MainPage = (props: Props) => {
-  const {
-    movies,
-    setGenre,
-    active,
-    user,
-    moviesLimit,
-    setShowLimit,
-    onPlayStart,
-    currentMovie,
-  } = props;
+  const { movies, setGenre, active, moviesLimit, setShowLimit, onPlayStart, currentMovie } = props;
 
   const GenersListWrapped = withActiveItem(GenresList);
   const filtredMovies = getLimitedItems(moviesLimit, getFiltredMovies(active, movies));
@@ -117,5 +118,29 @@ const MainPage = (props: Props) => {
   );
 };
 
-export default compose(withSVG)(MainPage);
+const mapStateToProps = state => {
+  return {
+    movies: getAdaptedMovies(state),
+    active: getGenre(state),
+    user: getUser(state),
+    moviesLimit: getMoviesShowLimit(state),
+  };
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    setGenre: (genre: string) => dispatch(GenreActionCreator.changeGenre(genre)),
+    setShowLimit: (limit: number) => dispatch(DataActionCreator.setMoviesShowLimit(limit)),
+  };
+};
+
+const enhance = compose(
+  withSVG,
+  connect(
+    mapStateToProps,
+    mapDispatchToProps
+  )
+);
+
+export default enhance(MainPage);
 export { MainPage };

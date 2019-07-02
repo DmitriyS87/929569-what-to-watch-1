@@ -4,11 +4,11 @@ import { Movie } from '../../types';
 import { withRouter } from 'react-router-dom';
 
 interface Props {
-  onFocus: (param: number) => void,
-  movie: Movie,
-  active: boolean,
-  onBlur: () => void,
-  history: { push: (param: string) => void },
+  onFocus: (param: number) => void;
+  movie: Movie;
+  active: boolean;
+  onBlur: () => void;
+  history: { push: (param: string) => void };
 }
 
 class SmallMovieCard extends React.PureComponent<Props> {
@@ -56,23 +56,39 @@ class SmallMovieCard extends React.PureComponent<Props> {
     const { movie, active } = this.props;
 
     const screen = () => {
-
       if (active) {
-        return <VideoPlayer poster={movie.previewImg.src} movies={movie.previewMovie} title={movie.title} onMouseLeave={this._onBlur} />;
+        return (
+          <VideoPlayer
+            poster={movie.previewImg.src}
+            movies={movie.previewMovie}
+            title={movie.title}
+            onMouseLeave={this._onBlur}
+          />
+        );
       }
 
-      return (<React.Fragment>
-        <div className="small-movie-card__image">
-          <img src={movie.previewImg.src} alt={movie.title} width="280" height="175" />
-        </div>
-        <h3 className="small-movie-card__title">
-          <a className="small-movie-card__link" href={`/film/:${movie.id}`}>{movie.title}</a>
-        </h3>
-      </React.Fragment>);
+      return (
+        <React.Fragment>
+          <div className='small-movie-card__image'>
+            <img src={movie.previewImg.src} alt={movie.title} width='280' height='175' />
+          </div>
+          <h3 className='small-movie-card__title'>
+            <a className='small-movie-card__link' href={`/film/:${movie.id}`}>
+              {movie.title}
+            </a>
+          </h3>
+        </React.Fragment>
+      );
     };
 
     return (
-      <article key={`movie` + movie.id} className="small-movie-card catalog__movies-card" onClick={this._handlerClick} onMouseEnter={this._onFocus} onMouseLeave={this._onBlur} >
+      <article
+        key={`movie` + movie.id}
+        className='small-movie-card catalog__movies-card'
+        onClick={this._handlerClick}
+        onMouseEnter={this._onFocus}
+        onMouseLeave={this._onBlur}
+      >
         {screen()}
       </article>
     );
