@@ -1,53 +1,64 @@
 export enum Tab {
   OWERVIEW = 'Overview',
   DETAILS = 'Details',
-  REVIEWS = 'Reviews'
-};
+  REVIEWS = 'Reviews',
+}
 
 export interface Movie {
-  title: string,
+  title: string;
   poster: {
-    src: string,
-    alt: string
-  },
+    src: string;
+    alt: string;
+  };
   previewImg: {
-    src: string,
-    alt: string
-  },
-  id: number,
+    src: string;
+    alt: string;
+  };
+  id: number;
   previewMovie: {
-    href: string,
-    format: string
-  }[],
-  genre: string,
-  director: string,
-  description: string,
-  releseYear: number,
-  runTime: string,
-  rating: number,
-  isFavorite: boolean,
-  scoresCount: number,
-  starring: string[],
+    href: string;
+    format: string;
+  }[];
+  genre: string;
+  director: string;
+  description: string;
+  releseYear: number;
+  runTime: number;
+  rating: number;
+  isFavorite: boolean;
+  scoresCount: number;
+  starring: string[];
   fullMovie: {
-    href: string,
-    format: string
-  },
-  backgroundColor: string,
-  backgroundImg: { src: string, alt: string },
+    href: string;
+    format: string;
+  };
+  backgroundColor: string;
+  backgroundImg: { src: string; alt: string };
+}
+
+export interface Review {
+  id: number;
+  user: {
+    id: number;
+    name: string;
+  };
+  rating: number;
+  comment: string;
+  date: string;
 }
 
 interface RootState {
-  movies: Movie[],
+  movies: Movie[];
 }
 
 interface RootState {
-  isAuthorizationRequired: boolean,
-  user: null | {},
-  errorMessage: string,
+  isAuthorizationRequired: boolean;
+  user: null | {};
+  errorMessage: string;
 }
 
 interface RootState {
-  genre: string,
+  genre: string;
 }
 
 export { RootState };

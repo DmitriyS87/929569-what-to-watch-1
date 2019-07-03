@@ -1,15 +1,18 @@
 import * as React from 'react';
-import { Movie } from '../../types';
+import { Movie, Review } from '../../types';
 import { TABS } from '../../constants/movie-page-tab.constant';
-// от 0 до 3 — bad.
-// от 3 до 5 — normal.
-// от 5 до 8 — good.
-// от 8 до 10 — very good.
-// 10 — awesome.
+import * as moment from 'moment';
+import { connect } from 'react-redux';
+import { Operation as OperationData } from '../../reducers/data/data.js';
+import { getStringRating } from '../../utils/get-string-rating';
+import { getMovieLengthFormat } from '../../utils/get-movie-length-format';
 
 interface Props {
   activeItem: string;
   movie: Movie;
+  comments: Review[] | null;
+  isLoading: boolean;
+  loadMovieComments: (id: number) => void;
 }
 
 interface PropsNav {
@@ -17,7 +20,7 @@ interface PropsNav {
 }
 
 const MoviePageTab = (props: Props & PropsNav) => {
-  const { activeItem, setActive, movie } = props;
+  const { activeItem, setActive, movie, comments, isLoading, loadMovieComments } = props;
   const handleClick = evt => {
     evt.preventDefault();
     setActive(evt.target.textContent);
@@ -33,8 +36,74 @@ const MoviePageTab = (props: Props & PropsNav) => {
       rating,
       scoresCount,
       description,
+      id,
     } = props.movie;
+    const { comments, isLoading, loadMovieComments } = props;
     const descriptions = description.split('. ');
+
+    if (!isLoading && !comments) {
+      loadMovieComments(id);
+    }
+
+    const sortComentsByDate = (reviews: Review[]): Review[] => {
+      return reviews.sort((a, b) => {
+        if (Date.parse(a.date) > Date.parse(b.date)) {
+          return -1;
+        }
+        if (Date.parse(a.date) < Date.parse(b.date)) {
+          return 1;
+        }
+        return 0;
+      });
+    };
+
+    const halveComments = (comments: Review[]): { left: Review[]; right: Review[] } => {
+      const columns: { left: Review[]; right: Review[] } = {
+        left: [],
+        right: [],
+      };
+      let left = false;
+      const toggleLeft: () => void = () => {
+        left = !left;
+      };
+      for (let comment of comments) {
+        toggleLeft();
+        if (left) {
+          columns.left.push(comment);
+        }
+        if (!left) {
+          columns.right.push(comment);
+        }
+      }
+      return columns;
+    };
+
+    const computedComments: any = isLoading
+      ? { left: [`Loading... Please wait`], right: [] }
+      : comments === null
+      ? { left: [`no coments here. Would you like to smthn to type?! Be first!`], right: [] }
+      : halveComments(sortComentsByDate(comments));
+
+    const makeReview = (reviewData, key) => {
+      const reviewDate = Date.parse(reviewData.date);
+      return (
+        <div key={key} className='review'>
+          <blockquote className='review__quote'>
+            <p className='review__text'>{reviewData.comment}</p>
+
+            <footer className='review__details'>
+              <cite className='review__author'>{reviewData.user.name}</cite>
+              <time className='review__date' dateTime={moment(reviewDate).format(`YYYY-MM-DD`)}>
+                {moment(reviewDate).format(`MMMM D, YYYY`)}
+              </time>
+            </footer>
+          </blockquote>
+
+          <div className='review__rating'>{reviewData.rating}</div>
+        </div>
+      );
+    };
+
     switch (props.activeItem) {
       case `Overview`:
         return (
@@ -42,14 +111,14 @@ const MoviePageTab = (props: Props & PropsNav) => {
             <div className='movie-rating'>
               <div className='movie-rating__score'>{rating.toFixed(1)}</div>
               <p className='movie-rating__meta'>
-                <span className='movie-rating__level'>Very good</span>
+                <span className='movie-rating__level'>{getStringRating(rating)}</span>
                 <span className='movie-rating__count'>{scoresCount} ratings</span>
               </p>
             </div>
 
             <div className='movie-card__text'>
-              {descriptions.map(paragraph => {
-                return <p>{paragraph}</p>;
+              {descriptions.map((paragraph, idx) => {
+                return <p key={`DescriptionMovie_${idx}`}>{paragraph}</p>;
               })}
               <p className='movie-card__director'>
                 <strong>Director: {director}</strong>
@@ -93,7 +162,7 @@ const MoviePageTab = (props: Props & PropsNav) => {
             <div className='movie-card__text-col'>
               <p className='movie-card__details-item'>
                 <strong className='movie-card__details-name'>Run Time</strong>
-                <span className='movie-card__details-value'>{runTime}</span>
+                <span className='movie-card__details-value'>{getMovieLengthFormat(runTime)}</span>
               </p>
               <p className='movie-card__details-item'>
                 <strong className='movie-card__details-name'>Genre</strong>
@@ -110,121 +179,17 @@ const MoviePageTab = (props: Props & PropsNav) => {
         return (
           <div className='movie-card__reviews movie-card__row'>
             <div className='movie-card__reviews-col'>
-              <div className='review'>
-                <blockquote className='review__quote'>
-                  <p className='review__text'>
-                    Discerning travellers and Wes Anderson fans will luxuriate in the glorious
-                    Mittel-European kitsch of one of the director's funniest and most exquisitely
-                    designed movies in years.
-                  </p>
-
-                  <footer className='review__details'>
-                    <cite className='review__author'>Kate Muir</cite>
-                    <time className='review__date' dateTime='2016-12-24'>
-                      December 24, 2016
-                    </time>
-                  </footer>
-                </blockquote>
-
-                <div className='review__rating'>8,9</div>
-              </div>
-
-              <div className='review'>
-                <blockquote className='review__quote'>
-                  <p className='review__text'>
-                    Anderson's films are too precious for some, but for those of us willing to lose
-                    ourselves in them, they're a delight. "The Grand Budapest Hotel" is no
-                    different, except that he has added a hint of gravitas to the mix, improving the
-                    recipe.
-                  </p>
-
-                  <footer className='review__details'>
-                    <cite className='review__author'>Bill Goodykoontz</cite>
-                    <time className='review__date' dateTime='2015-11-18'>
-                      November 18, 2015
-                    </time>
-                  </footer>
-                </blockquote>
-
-                <div className='review__rating'>8,0</div>
-              </div>
-
-              <div className='review'>
-                <blockquote className='review__quote'>
-                  <p className='review__text'>
-                    I didn't find it amusing, and while I can appreciate the creativity, it's an
-                    hour and 40 minutes I wish I could take back.
-                  </p>
-
-                  <footer className='review__details'>
-                    <cite className='review__author'>Amanda Greever</cite>
-                    <time className='review__date' dateTime='2015-11-18'>
-                      November 18, 2015
-                    </time>
-                  </footer>
-                </blockquote>
-
-                <div className='review__rating'>8,0</div>
-              </div>
+              {computedComments.left.map((comment, idx) =>
+                makeReview(comment, `computedCommentsleft${idx}`)
+              )}
             </div>
             <div className='movie-card__reviews-col'>
-              <div className='review'>
-                <blockquote className='review__quote'>
-                  <p className='review__text'>
-                    The mannered, madcap proceedings are often delightful, occasionally silly, and
-                    here and there, gruesome and/or heartbreaking.
-                  </p>
-
-                  <footer className='review__details'>
-                    <cite className='review__author'>Matthew Lickona</cite>
-                    <time className='review__date' dateTime='2016-12-20'>
-                      December 20, 2016
-                    </time>
-                  </footer>
-                </blockquote>
-
-                <div className='review__rating'>7,2</div>
-              </div>
-
-              <div className='review'>
-                <blockquote className='review__quote'>
-                  <p className='review__text'>
-                    It is certainly a magical and childlike way of storytelling, even if the content
-                    is a little more adult.
-                  </p>
-
-                  <footer className='review__details'>
-                    <cite className='review__author'>Paula Fleri-Soler</cite>
-                    <time className='review__date' dateTime='2016-12-20'>
-                      December 20, 2016
-                    </time>
-                  </footer>
-                </blockquote>
-
-                <div className='review__rating'>7,6</div>
-              </div>
-
-              <div className='review'>
-                <blockquote className='review__quote'>
-                  <p className='review__text'>
-                    It is certainly a magical and childlike way of storytelling, even if the content
-                    is a little more adult.
-                  </p>
-
-                  <footer className='review__details'>
-                    <cite className='review__author'>Paula Fleri-Soler</cite>
-                    <time className='review__date' dateTime='2016-12-20'>
-                      December 20, 2016
-                    </time>
-                  </footer>
-                </blockquote>
-
-                <div className='review__rating'>7,0</div>
-              </div>
+              {computedComments.right.map((comment, idx) =>
+                makeReview(comment, `computedCommentsRight${idx}`)
+              )}
             </div>
           </div>
         );
-
       default:
         return <div />;
     }
@@ -252,10 +217,26 @@ const MoviePageTab = (props: Props & PropsNav) => {
           </ul>
         </nav>
 
-        <ScreenTab movie={movie} activeItem={activeItem} />
+        <ScreenTab
+          movie={movie}
+          activeItem={activeItem}
+          comments={comments}
+          isLoading={isLoading}
+          loadMovieComments={loadMovieComments}
+        />
       </div>
     </React.Fragment>
   );
 };
 
-export default MoviePageTab;
+const mapDispatchToProps = dispatch => {
+  return {
+    loadMovieComments: id => dispatch(OperationData.getMovieComments(id)),
+  };
+};
+
+export default connect(
+  null,
+  mapDispatchToProps
+)(MoviePageTab);
+export { MoviePageTab };

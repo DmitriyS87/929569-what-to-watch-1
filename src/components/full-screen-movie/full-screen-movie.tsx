@@ -63,7 +63,7 @@ class FullScreenMovie extends React.PureComponent<Props, State> {
     video.autoplay = true;
     video.oncanplay = () => {
       const scalePersentage = video.duration / 100;
-      this.props.movie.runTime = this.getStringFormattedTime(video.duration);
+      // this.props.movie.runTime = this.getStringFormattedTime(video.duration);
       this.setState({
         scale: scalePersentage,
         scalePixels: video.duration / timeSlider.offsetWidth,

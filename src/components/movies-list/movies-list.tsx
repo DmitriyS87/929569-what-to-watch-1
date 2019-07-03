@@ -3,9 +3,9 @@ import SmallMovieCard from '../small-movie-card/small-movie-card';
 import { Movie } from '../../types';
 
 interface Props {
-  movies: Movie[],
-  setActive: (param: number | null) => void,
-  activeItem: number | null,
+  movies: Movie[];
+  setActive: (param: number | null) => void;
+  activeItem: number | null;
 }
 
 class MoviesList extends React.PureComponent<Props> {
@@ -29,10 +29,22 @@ class MoviesList extends React.PureComponent<Props> {
   render() {
     const { movies, activeItem } = this.props;
 
+    if (!movies) {
+      return <div />;
+    }
+
     return (
-      <div className="catalog__movies-list">
+      <div className='catalog__movies-list'>
         {movies.map((movie, idx) => {
-          return (<SmallMovieCard key={`movie` + idx} active={movie.id === activeItem ? true : false} movie={movie} onFocus={this._onFocus} onBlur={this._onBlur} />);
+          return (
+            <SmallMovieCard
+              key={`movie` + idx}
+              active={movie.id === activeItem ? true : false}
+              movie={movie}
+              onFocus={this._onFocus}
+              onBlur={this._onBlur}
+            />
+          );
         })}
       </div>
     );

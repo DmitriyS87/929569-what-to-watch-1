@@ -18,7 +18,7 @@ it(`USER reducer correctly make a correct API call to /login`, function () {
   return userLoader(dispatch, jest.fn(), api).then(() => {
     expect(dispatch).toHaveBeenCalledTimes(1);
     expect(dispatch).toHaveBeenNthCalledWith(1, {
-      type: ActionType.LOGIN_SUCCESS,
+      type: ActionType.SET_USER_DATA,
       data: {fake: true},
     });
   });

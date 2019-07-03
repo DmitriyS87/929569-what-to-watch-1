@@ -2,25 +2,41 @@ import {getErrorMessage} from '../../utils/get-error-message';
 
 const initialState = {
   user: null,
-  errorMessage: ``,
+  isAuthorizationFailed: false,
+  isLogged: false,
+  // errorMessage: ``,
 };
 
 const ActionType = {
   LOGIN_SUCCESS: `LOGIN_SUCCESS`,
-  LOGIN_ERROR: `LOGIN_ERROR`,
+  SET_USER_DATA: `SET_USER_DATA`,
+  // LOGIN_ERROR: `LOGIN_ERROR`,
+  IS_AUTHORIZATION_FAILED: `IS_AUTHORIZATION_FAILED`,
 };
 
 const ActionCreator = {
-  loginSuccess: (data) => {
+  loginSuccess: (status) => {
     return {
       type: ActionType.LOGIN_SUCCESS,
-      data,
+      status,
     };
   },
-  loginError: (errorMessage) => {
+  // loginError: (errorMessage) => {
+  //   return {
+  //     type: ActionType.LOGIN_ERROR,
+  //     errorMessage,
+  //   };
+  // },
+  setAuthorizationFailedStatus: (status) => {
     return {
-      type: ActionType.LOGIN_ERROR,
-      errorMessage,
+      type: ActionType.IS_AUTHORIZATION_FAILED,
+      status,
+    };
+  },
+  setUser: (data) => {
+    return {
+      type: ActionType.SET_USER_DATA,
+      data,
     };
   },
 };
@@ -30,18 +46,21 @@ const Operation = {
     return api
       .post(`/login`, userData)
       .then((response) => {
-        dispatch(ActionCreator.loginSuccess(response.data));
+        dispatch(ActionCreator.loginSuccess(true));
+        dispatch(ActionCreator.setUser(response.data));
       })
-      .catch((err) => dispatch(ActionCreator.loginError(getErrorMessage(err))));
+      .catch(dispatch(ActionCreator.setAuthorizationFailedStatus(true)));
   },
 };
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
+    case ActionType.IS_AUTHORIZATION_FAILED:
+      return Object.assign({}, state, {isAuthorizationFailed: action.status});
     case ActionType.LOGIN_SUCCESS:
+      return Object.assign({}, state, {isLogged: action.status});
+    case ActionType.SET_USER_DATA:
       return Object.assign({}, state, {user: action.data});
-    case ActionType.LOGIN_ERROR:
-      return Object.assign({}, state, {user: null}, {errorMessage: action.errorMessage});
     default:
       return state;
   }

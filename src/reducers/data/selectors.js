@@ -1,28 +1,26 @@
 import {getVideoFormat} from '../../utils/get-video-format';
-import NameSpace from "../name-spaces";
+import NameSpace from '../name-spaces';
 
 const NAME_SPACE = NameSpace.DATA;
-
-export const getMovies = (state) => {
-  return state[NAME_SPACE].movies;
-};
 
 const parseMovieData = (movie) => {
   return {
     title: movie.name,
     poster: {
       src: movie[`poster_image`],
-      alt: movie.name
+      alt: movie.name,
     },
     previewImg: {
       src: movie[`preview_image`],
-      alt: movie.name
+      alt: movie.name,
     },
     id: movie.id,
-    previewMovie: [{
-      href: movie[`preview_video_link`],
-      format: getVideoFormat(movie[`preview_video_link`])
-    }],
+    previewMovie: [
+      {
+        href: movie[`preview_video_link`],
+        format: getVideoFormat(movie[`preview_video_link`]),
+      },
+    ],
     genre: movie.genre,
     director: movie.director,
     description: movie.description,
@@ -34,11 +32,25 @@ const parseMovieData = (movie) => {
     starring: movie.starring,
     fullMovie: {
       href: movie[`video_link`],
-      format: getVideoFormat(movie[`video_link`])
+      format: getVideoFormat(movie[`video_link`]),
     },
     backgroundColor: movie[`background_color`],
     backgroundImg: movie[`background_image`],
   };
+};
+
+const transformMoviesToAppFormat = (data) => {
+  return data.map((movie) => {
+    return parseMovieData(movie);
+  });
+};
+
+export const getMovies = (state) => {
+  return state[NAME_SPACE].movies;
+};
+
+export const getUserMovies = (state) => {
+  return state[NAME_SPACE].userMovies;
 };
 
 export const getPromoMovie = (state) => {
@@ -52,13 +64,12 @@ export const getAdaptedPromoMovie = (state) => {
 
 export const getAdaptedMovies = (state) => {
   const serverFormatMovies = getMovies(state);
-  const transformToAppData = (data) => {
-    return data.map((movie) => {
-      return parseMovieData(movie);
-    });
-  };
+  return transformMoviesToAppFormat(serverFormatMovies);
+};
 
-  return transformToAppData(serverFormatMovies);
+export const getAdaptedUserMovies = (state) => {
+  const serverFormatUserMovies = getUserMovies(state);
+  return transformMoviesToAppFormat(serverFormatUserMovies);
 };
 
 export const getMovie = (state, id) => {
@@ -71,4 +82,16 @@ export const getMovie = (state, id) => {
 
 export const getMoviesShowLimit = (state) => {
   return state[NAME_SPACE].moviesShowLimit;
+};
+
+export const getMovieComments = (state) => {
+  return state[NAME_SPACE].comments;
+};
+
+export const getLoadingStatus = (state) => {
+  return state[NAME_SPACE].isLoading;
+};
+
+export const getIsCommentsLoaded = (state) => {
+  return state[NAME_SPACE].isCommentsLoaded;
 };

@@ -6,10 +6,7 @@ import withPrivatePath from '../../hocs/with-private-path';
 import withFullScreenPlayer from '../../hocs/with-fullscreen-player';
 import MoviePageDetails from '../movie-page-details/movie-page-details';
 import { ActionCreator as GenreActionCreator } from '../../reducers/genre/genre';
-import {
-  ActionCreator as UserActionCreator,
-  Operation as OperationUser,
-} from '../../reducers/user/user';
+import { Operation as OperationUser } from '../../reducers/user/user';
 import {
   ActionCreator as DataActionCreator,
   Operation as OperationData,
@@ -19,7 +16,7 @@ import {
   getMoviesShowLimit,
   getAdaptedPromoMovie,
 } from '../../reducers/data/selectors';
-import { getAuthorizationRequired, getErrorMessage, getUser } from '../../reducers/user/selectors';
+import { getErrorMessage, getUser } from '../../reducers/user/selectors';
 import { getGenre } from '../../reducers/genre/selectors';
 import { Switch, Route } from 'react-router-dom';
 import SignIn from '../sign-in/sign-in';
@@ -31,59 +28,53 @@ import { getAdaptedRouteId } from '../../utils/get-adapted-route-id';
 interface Props {
   movies: Movie[];
   promoMovie: Movie;
-  setGenre: () => void;
-  tryLogin: () => void;
-  setNewShowLimit: () => void;
-  setFavorite: () => void;
-  active: string;
-  isAuthorizationRequired: boolean;
-  errorMessage: string;
+  loadUserMovies: () => void;
   user: any;
-  moviesShowLimit: number;
   checkSession: () => void;
 }
-
-class App extends React.PureComponent<Props> {
+class App extends React.Component<Props> {
   constructor(props) {
     super(props);
   }
 
+  shouldComponentUpdate = (newProps: Props) => {
+    return Object.keys(newProps).some(key => {
+      if (typeof newProps[key] === 'function') {
+        return false;
+      }
+      const result = JSON.stringify(this.props[key]) !== JSON.stringify(newProps[key]);
+      return result;
+    });
+  };
+
   render() {
-    const {
-      movies,
-      tryLogin,
-      errorMessage,
-      user,
-      promoMovie,
-      isAuthorizationRequired,
-    } = this.props;
+    const { movies, user, promoMovie, loadUserMovies } = this.props;
 
     const PrivateMyList = withPrivatePath(MyList);
-    // const PrivateReviewAdd = withPrivatePath(ReviewAdd);
+    const PrivateReviewAdd = withPrivatePath(ReviewAdd);
     const WithPlayerMainPage = withFullScreenPlayer(MainPage);
     const WithPlayerMoviePage = withFullScreenPlayer(MoviePageDetails);
+
+    console.log('App');
 
     return (
       <Switch>
         <Route path='/' exact render={() => <WithPlayerMainPage currentMovie={promoMovie} />} />
+        <Route path='/login' render={() => <SignIn />} />
         <Route
-          path='/login'
-          render={() => (
-            <SignIn
-              onLogin={tryLogin}
-              message={errorMessage}
-              user={user}
-              isAuthorizationRequired={isAuthorizationRequired}
-            />
-          )}
+          path='/favorites'
+          exact
+          render={() => {
+            loadUserMovies();
+            return <PrivateMyList user={user} />;
+          }}
         />
-        <Route path='/favorites' exact render={() => <PrivateMyList user={user} />} />
         <Route
           path='/film/:id/review/add'
           render={route => {
             const routeId = route.match.params.id;
             const currentMovie = getMovie(movies, getAdaptedRouteId(routeId));
-            return <ReviewAdd user={user} movie={currentMovie} id={routeId} />;
+            return <PrivateReviewAdd user={user} movie={currentMovie} id={routeId} />;
           }}
         />
         <Route
@@ -101,11 +92,7 @@ class App extends React.PureComponent<Props> {
 
 const mapStateToProps = (state: RootState) => {
   return {
-    active: getGenre(state),
     movies: getAdaptedMovies(state),
-    moviesShowLimit: getMoviesShowLimit(state),
-    isAuthorizationRequired: getAuthorizationRequired(state),
-    errorMessage: getErrorMessage(state),
     user: getUser(state),
     promoMovie: getAdaptedPromoMovie(state),
   };
@@ -113,11 +100,8 @@ const mapStateToProps = (state: RootState) => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    setGenre: genre => dispatch(GenreActionCreator.changeGenre(genre)),
-    tryLogin: userData => dispatch(OperationUser.tryLogin(userData)),
     checkSession: () => dispatch(OperationUser.checkSession()),
-    setNewShowLimit: limit => dispatch(DataActionCreator.setMoviesShowLimit(limit)),
-    setFavorite: movie => dispatch(OperationData.toggleMovieFavorite(movie)),
+    loadUserMovies: () => dispatch(OperationData.loadUserMovies()),
   };
 };
 

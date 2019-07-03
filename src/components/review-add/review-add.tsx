@@ -3,6 +3,8 @@ import { Link } from 'react-router-dom';
 import UserBlock from '../user-block/user-block';
 import { Movie } from '../../types';
 import { createAPI } from '../../api';
+import Message from '../message/message'; // sign-in__message
+import { getMessageFromObject } from '../../utils/get-message-from-object';
 
 const RATING_RATIO = [1, 2, 3, 4, 5];
 
@@ -13,26 +15,69 @@ interface Props {
 }
 
 interface State {
-  rating: number;
+  rating: number | null;
   comment: string;
+  formError: { rating: string; comment: string };
+  formValid: boolean;
+  ratingError: boolean;
+  commentError: boolean;
 }
 
 class ReviewAdd extends React.PureComponent<Props, State> {
+  // private reviewTextArea = createRef<any>();
   constructor(props) {
     super(props);
     this.state = {
-      rating: 3,
+      rating: null,
       comment: ``,
+      formError: { rating: `Please set rating`, comment: `You must type min 50 symbols` },
+      formValid: false,
+      ratingError: true,
+      commentError: true,
     };
 
     this.handleChange = this.handleChange.bind(this);
-    this.handleClick = this.handleClick.bind(this);
+    this.handleRatingChange = this.handleRatingChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.validateField = this.validateField.bind(this);
+    this.validateForm = this.validateForm.bind(this);
+  }
+
+  private validateField(fieldName, value) {
+    let fieldValidationErrors = this.state.formError;
+    let commentError = this.state.commentError;
+    let ratingError = this.state.ratingError;
+
+    switch (fieldName) {
+      case 'rating':
+        ratingError = value ? false : true;
+        fieldValidationErrors.rating = ratingError ? `Please set rating` : ``;
+        break;
+      case 'review-text':
+        commentError = value.length >= 50 ? false : true;
+        !commentError && (commentError = value.length < 400 ? false : true);
+        fieldValidationErrors.comment = commentError
+          ? `Review length may be from 50 to 400 symbols`
+          : ``;
+        break;
+      default:
+        break;
+    }
+    this.setState(
+      { formError: fieldValidationErrors, commentError: commentError, ratingError: ratingError },
+      () => {
+        this.validateForm();
+      }
+    );
+  }
+
+  private validateForm() {
+    this.setState({ formValid: !this.state.commentError && !this.state.ratingError });
   }
 
   render() {
     const { backgroundImg, title, id, poster } = this.props.movie;
-
+    const { formValid } = this.state;
     return (
       <section className='movie-card movie-card--full'>
         <div className='movie-card__header'>
@@ -87,7 +132,7 @@ class ReviewAdd extends React.PureComponent<Props, State> {
                         name='rating'
                         value={count}
                         defaultChecked={this.state.rating === count ? true : false}
-                        onClick={this.handleClick}
+                        onChange={this.handleRatingChange}
                       />
                       <label className='rating__label' htmlFor={`star-${count}`}>
                         Rating {count}
@@ -104,14 +149,20 @@ class ReviewAdd extends React.PureComponent<Props, State> {
                 name='review-text'
                 id='review-text'
                 placeholder='Review text'
+                value={this.state.comment}
                 onChange={this.handleChange}
               />
               <div className='add-review__submit'>
-                <button className='add-review__btn' type='submit'>
+                <button className='add-review__btn' type='submit' disabled={!formValid}>
                   Post
                 </button>
               </div>
             </div>
+
+            <Message
+              text={getMessageFromObject(this.state.formError)}
+              style={'.sign-in__error-message'}
+            />
           </form>
         </div>
       </section>
@@ -119,19 +170,33 @@ class ReviewAdd extends React.PureComponent<Props, State> {
   }
 
   handleChange(evt) {
-    this.setState({ comment: evt.target.value });
+    evt.persist();
+    this.setState({ comment: evt.target.value }, () =>
+      this.validateField(evt.target.name, evt.target.value)
+    );
   }
 
   handleSubmit(evt) {
+    evt.persist();
     evt.preventDefault();
-    const api = createAPI();
-    api.post(`/comments/${this.props.movie.id}`, this.state).then(response => {
-      console.log(response);
-    });
+    if (this.state.formValid) {
+      evt.target.disabled = true;
+      const api = createAPI();
+      const data = {
+        rating: this.state.rating,
+        comment: this.state.comment,
+      };
+      return api.post(`/comments/${this.props.movie.id}`, data).then(response => {
+        console.log(response);
+      });
+    }
   }
 
-  handleClick(evt) {
-    this.setState({ rating: evt.target.value });
+  handleRatingChange(evt) {
+    evt.persist();
+    this.setState({ rating: evt.target.value }, () =>
+      this.validateField(evt.target.name, evt.target.value)
+    );
   }
 }
 

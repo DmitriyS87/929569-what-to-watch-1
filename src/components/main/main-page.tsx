@@ -124,6 +124,7 @@ const mapStateToProps = state => {
     active: getGenre(state),
     user: getUser(state),
     moviesLimit: getMoviesShowLimit(state),
+    currentMovie: getAdaptedPromoMovie(state),
   };
 };
 

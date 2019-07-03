@@ -15,7 +15,6 @@ it(`MainPage correctly renders without user and without ShowMoreButton`, () => {
   const mockStore = configureStore();
   const getState = {
     USER: {
-      isAuthorizationRequired: true,
       user: null,
     },
   };
@@ -47,7 +46,6 @@ it(`MainPage correctly renders with user login and without ShowMoreButton`, () =
   const mockStore = configureStore();
   const getState = {
     USER: {
-      isAuthorizationRequired: false,
       user: { id: 1 },
     },
   };
@@ -79,7 +77,6 @@ it(`MainPage correctly renders with moviesLimited to 1 with ShowMoreButton`, () 
   const mockStore = configureStore();
   const getState = {
     USER: {
-      isAuthorizationRequired: false,
       user: { id: 1 },
     },
   };

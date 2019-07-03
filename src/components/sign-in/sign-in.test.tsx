@@ -19,33 +19,11 @@ const mockHistory = {
 };
 const mockHandle = jest.fn();
 
-it(`SignIn correctly renders with required authorization:`, () => {
-  const tree = renderer
-    .create(
-      <MockBrowserRouter>
-        <SignIn
-          isAuthorizationRequired={true}
-          history={mockHistory}
-          onLogin={mockHandle}
-          message={`Sign in here`}
-        />
-      </MockBrowserRouter>
-    )
-    .toJSON();
-
-  expect(tree).toMatchSnapshot();
-});
-
 it(`SignIn correctly renders with message: \'Sign in here\' text props: `, () => {
   const tree = renderer
     .create(
       <MockBrowserRouter>
-        <SignIn
-          isAuthorizationRequired={true}
-          history={mockHistory}
-          onLogin={mockHandle}
-          message={`Sign in here`}
-        />
+        <SignIn user={null} history={mockHistory} onLogin={mockHandle} message={`Sign in here`} />
       </MockBrowserRouter>
     )
     .toJSON();
@@ -57,12 +35,7 @@ it(`SignIn correctly renders with required authorization without message: `, () 
   const tree = renderer
     .create(
       <MockBrowserRouter>
-        <SignIn
-          isAuthorizationRequired={true}
-          history={mockHistory}
-          onLogin={mockHandle}
-          message={``}
-        />
+        <SignIn user={null} history={mockHistory} onLogin={mockHandle} message={``} />
       </MockBrowserRouter>
     )
     .toJSON();

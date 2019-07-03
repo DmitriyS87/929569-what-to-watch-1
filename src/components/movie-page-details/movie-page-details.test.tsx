@@ -11,22 +11,23 @@ const MockBrowserRouter = ({ children }) => (
   <MemoryRouter initialEntries={[`/`]}>{children}</MemoryRouter>
 );
 
-const mockHandler = jest.fn();
-const mockHistory = {
-  location: {
-    state: {
-      from: {
-        pathname: `/fromtest/`,
-      },
-    },
+const mockReview = {
+  id: 0,
+  user: {
+    id: 10,
+    name: `Bob Marley`,
   },
+  rating: 4.7,
+  comment: `The best movie i have seen ever! All people should see it! Awsome! Bravo! Just see it now! It was a best lifetime!`,
+  date: `2019-05-08T14:13:56.569Z`,
 };
+
+const mockHandler = jest.fn();
 const mockStore = configureStore();
 
 it(`MoviePageDetails without user correctly renders after relunch: `, () => {
   const getState = {
     USER: {
-      isAuthorizationRequired: true,
       user: null,
     },
   };
@@ -35,14 +36,14 @@ it(`MoviePageDetails without user correctly renders after relunch: `, () => {
     <Provider store={store}>
       <MockBrowserRouter>
         <MoviePageDetails
+          setFavoriteMovie={mockHandler}
           currentMovie={mockData.film}
           onFavoriteCLick={mockHandler}
           onPlayStart={mockHandler}
           movies={mockData.films}
           user={null}
-          history={mockHistory}
-          isAuthorizationRequired={true}
-          onAccessDenied={mockHandler}
+          comments={[mockReview]}
+          isLoading={false}
         />
       </MockBrowserRouter>
     </Provider>
@@ -54,7 +55,6 @@ it(`MoviePageDetails without user correctly renders after relunch: `, () => {
 it(`MoviePageDetails with user correctly renders after relunch: `, () => {
   const getState = {
     USER: {
-      isAuthorizationRequired: true,
       user: { id: 5 },
     },
   };
@@ -64,14 +64,14 @@ it(`MoviePageDetails with user correctly renders after relunch: `, () => {
       <Provider store={store}>
         <MockBrowserRouter>
           <MoviePageDetails
+            setFavoriteMovie={mockHandler}
             currentMovie={mockData.film}
             onFavoriteCLick={mockHandler}
             onPlayStart={mockHandler}
             movies={mockData.films}
             user={{ id: 5 }}
-            history={mockHistory}
-            isAuthorizationRequired={false}
-            onAccessDenied={mockHandler}
+            comments={[mockReview]}
+            isLoading={false}
           />
         </MockBrowserRouter>
       </Provider>

@@ -22,6 +22,7 @@ const mockServerSideFilms = [
     releseYear: `1917`,
     rating: 15,
     starring: [`Best Artist`, `Best Acter`, `Best Person`],
+    runTime: 265,
   },
   {
     name: `Pulp Fiction`,
@@ -37,6 +38,7 @@ const mockServerSideFilms = [
       `The Best of the Best Acter`,
       `The Best of the Best Person`,
     ],
+    runTime: 132,
   },
   {
     name: `Aviator CLONE`,
@@ -48,6 +50,7 @@ const mockServerSideFilms = [
     releseYear: `1917`,
     rating: 15,
     starring: [`Best Artist`, `Best Acter`, `Best Person`],
+    runTime: 265,
   },
 ];
 
@@ -55,7 +58,6 @@ it(`App correctly renders MainPage without user logon`, () => {
   const mockFunction = jest.fn();
   const store = getMockStore({
     USER: {
-      isAuthorizationRequired: true,
       user: null,
     },
     DATA: { movies: mockServerSideFilms, moviesShowLimit: 20, promoMovie: mockData.film },
@@ -72,12 +74,12 @@ it(`App correctly renders MainPage without user logon`, () => {
             moviesShowLimit={3}
             setNewShowLimit={mockFunction}
             active={mockData.activeGenre}
-            isAuthorizationRequired={false}
             setGenre={mockFunction}
             tryLogin={mockFunction}
             errorMessage={``}
-            checkUser={mockFunction}
             user={null}
+            loadUserMovies={mockFunction}
+            checkSession={mockFunction}
           />
         </MockBrowserRouter>
       </Provider>
@@ -89,7 +91,7 @@ it(`App correctly renders MainPage without user logon`, () => {
 
 it(`App correctly renders MainPage with user logon`, () => {
   const store = getMockStore({
-    USER: { isAuthorizationRequired: false, user: { id: `mock` } },
+    USER: { user: { id: `mock` } },
     DATA: { movies: mockServerSideFilms, moviesShowLimit: 20, promoMovie: mockData.film },
     GENRE: { genre: mockData.activeGenre },
   });
@@ -105,12 +107,12 @@ it(`App correctly renders MainPage with user logon`, () => {
             moviesShowLimit={3}
             setNewShowLimit={mockFunction}
             active={mockData.activeGenre}
-            isAuthorizationRequired={false}
             setGenre={mockFunction}
             tryLogin={mockFunction}
-            checkUser={mockFunction}
             errorMessage={``}
-            user={{ id: `mock` }}
+            user={{ id: 5 }}
+            loadUserMovies={mockFunction}
+            checkSession={mockFunction}
           />
         </MockBrowserRouter>
       </Provider>
